@@ -5,7 +5,7 @@ var modelFilter = require('./filters/modelFilter.js')();
 
 var filters = [
     makeFilter, 
-    modelFilter, 
+    //modelFilter, 
     // noneFilter
 ];
 

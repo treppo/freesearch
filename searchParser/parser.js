@@ -1,6 +1,8 @@
 module.exports = function (filters) {
     'use strict';
     
+    var _filterTypes = require('./filterTypes.js')();
+    
     var parse = function(line) {
         if (! line.trim()) {
             return;
@@ -16,8 +18,8 @@ module.exports = function (filters) {
     
     var runPipe = function(filters, items) {
         var curItems = items;
-            filters.forEach(function(element, index, array) {
-            curItems = element(curItems);
+        filters.forEach(function(filter, index, array) {
+            curItems = filter(curItems);
         });
         
         return curItems;
@@ -27,7 +29,7 @@ module.exports = function (filters) {
         return tokens.map(function(token, index, array) {
             return {
                 term : token,
-                type : 'unknown',
+                type : _filterTypes.unknown,
                 baseType : 'unknown'
             }
         });
