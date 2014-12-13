@@ -6,9 +6,9 @@ module.exports = function () {
             
     var filter = function(items) {
          var res = items.map(function(item, index, array) {
-                if (item.type === _filterTypes.unknown) {
+                if (item.filter.type === _filterTypes.unknown) {
                     if (_models.indexOf(item.term) > -1) {
-                        item.type = _filterTypes.model;
+                        item.filter.type = _filterTypes.model;
                     }
                 }
                 

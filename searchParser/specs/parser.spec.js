@@ -10,11 +10,11 @@ var filters = [
 
 var parser = require('../parser.js')(filters);
 
-describe("Parser Suite", function() {
+describe('Parser Suite', function() {
 
-    describe("Make tests", function() { 
-        describe("given empty search line", function() {
-            it("it should parse to empty result", function(done) {
+    describe('Make tests', function() { 
+        describe('when parse empty search line', function() {
+            it('it should parse to empty result', function(done) {
                 var res = parser.parse('');
 
                 expect(res).toBeUndefined();
@@ -23,22 +23,44 @@ describe("Parser Suite", function() {
             });
         });
         
-        describe("given search line with one make", function() {
-            it("it should parse to expected make", function(done) {
+        describe('when parse search line with one make', function() {
+            it('it should parse to expected make', function(done) {
                 var res = parser.parse('bmw');
-                
+
                 expect(res.length).toBe(1);
                 expect(res[0].term).toBe('bmw');
-                expect(res[0].type).toBe('make');
+                expect(res[0].filter.term).toBe('BMW');
+                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.value).toBe(13);
+                
+                done();
+            });
+        });
+        
+        describe('when parse search line with one make synonym', function() {
+            it('it should parse to expected make', function(done) {
+                var res = parser.parse('vw mers');
+                
+                expect(res.length).toBe(2);
+                
+                expect(res[0].term).toBe('vw');
+                expect(res[0].filter.term).toBe('Volkswagen');
+                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.value).toBe(74);
+                
+                expect(res[1].term).toBe('mers');
+                expect(res[1].filter.term).toBe('Mercedes');
+                expect(res[1].filter.type).toBe('make');
+                expect(res[1].filter.value).toBe(47);
                 
                 done();
             });
         });
     });
 
-    describe("Make tests", function() { 
-        describe("given search line with single model", function() {
-            it("it should parse to expected model", function(done) {
+    describe('Model tests', function() { 
+        describe('when parse search line with single model', function() {
+            it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw golf');
                 
                 expect(res.length).toBeTruthy();
@@ -48,15 +70,15 @@ describe("Parser Suite", function() {
                 });
                  
                 expect(exp.length).toBe(1);
-                expect(exp[0].term).toBe('golf');
-                expect(exp[0].type).toBe('model');
+                //expect(exp[0].term).toBe('golf');
+                expect(exp[0].filter.type).toBe('model');
                 
                 done();
             });
         });
         
-        describe("given search line with double model", function() {
-            it("it should parse to expected model", function(done) {
+        describe('when parse search line with single model builded from two words', function() {
+            it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw cross golf');
                 //var res = parser.parse('vw golf cabriolet');
                 
@@ -74,5 +96,25 @@ describe("Parser Suite", function() {
             });
         });
     });
+    
+    describe('Filter identical tests', function() { 
+        describe('when parse two identical filters', function() {
+            it('it should merge them to one', function(done) {
+                 var res = parser.parse('merc blub mercedes bluba mers');
+                
+                expect(res.length).toBe(3);
+                expect(res[0].term).toBe('merc mercedes mers');
+                expect(res[0].filter.term).toBe('Mercedes');
+                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.value).toBe(47);
+                
+                expect(res[1].filter.type).toBe('unknown');
+                expect(res[2].filter.type).toBe('unknown');
+            
+                done();
+            });
+        });
+    });
+    
     
 });

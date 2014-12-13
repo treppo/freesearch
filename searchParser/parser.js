@@ -13,6 +13,8 @@ module.exports = function (filters) {
     
         items = runPipe(filters, items)
         
+        items = reduceIdenticalFilters(items);
+        
         return items;
     }
     
@@ -29,10 +31,51 @@ module.exports = function (filters) {
         return tokens.map(function(token, index, array) {
             return {
                 term : token,
-                type : _filterTypes.unknown,
-                baseType : 'unknown'
+                filter : {
+                    type : _filterTypes.unknown,
+                    value : 'unknown'
+                }
             }
         });
+    };
+    
+    var reduceIdenticalFilters = function (items) {
+        var t = items.reduce(function(accumulator, item, index, array) {
+            // dont merge unknowns
+            if (item.filter.type !== _filterTypes.unknown) {
+                // are there already accumulated items identical with the current one
+                // var acc = accumulator.filter(function(accItem) {
+                    // return accItem.filter.type === item.filter.type && 
+                              // accItem.filter.value === item.filter.value;
+                // });
+                
+                // yes, merge two identical items
+                // if (acc.length) {
+                    // item.term = acc[0].term + ' ' +  item.term;
+                    // return accumulator;
+                // }
+                
+                
+                var merged = accumulator.some(function(accItem, index, array) {
+                    var t = accItem.filter.type === item.filter.type && accItem.filter.value === item.filter.value;
+                    if (t) {
+                        //accumulator[index].term = accItem.term + ' ' +  item.term;
+                        accItem.term = accItem.term + ' ' +  item.term;
+                    }
+                    return t;
+                });
+                
+                if (merged) {
+                    return accumulator;
+                }
+                
+            }
+            
+            accumulator.push(item);
+            return accumulator;
+        }, []);
+        
+        return t;
     };
     
     return {
