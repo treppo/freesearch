@@ -44,22 +44,10 @@ module.exports = function (filters) {
             // dont merge unknowns
             if (item.filter.type !== _filterTypes.unknown) {
                 // are there already accumulated items identical with the current one
-                // var acc = accumulator.filter(function(accItem) {
-                    // return accItem.filter.type === item.filter.type && 
-                              // accItem.filter.value === item.filter.value;
-                // });
-                
-                // yes, merge two identical items
-                // if (acc.length) {
-                    // item.term = acc[0].term + ' ' +  item.term;
-                    // return accumulator;
-                // }
-                
-                
                 var merged = accumulator.some(function(accItem, index, array) {
                     var t = accItem.filter.type === item.filter.type && accItem.filter.value === item.filter.value;
+                    // yes, merge two identical items
                     if (t) {
-                        //accumulator[index].term = accItem.term + ' ' +  item.term;
                         accItem.term = accItem.term + ' ' +  item.term;
                     }
                     return t;
@@ -68,7 +56,6 @@ module.exports = function (filters) {
                 if (merged) {
                     return accumulator;
                 }
-                
             }
             
             accumulator.push(item);

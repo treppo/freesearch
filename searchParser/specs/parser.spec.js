@@ -63,15 +63,11 @@ describe('Parser Suite', function() {
             it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw golf');
                 
-                expect(res.length).toBeTruthy();
-                
-                var exp = res.filter(function(item) {
-                    return item.term === 'golf';
-                });
-                 
-                expect(exp.length).toBe(1);
-                //expect(exp[0].term).toBe('golf');
-                expect(exp[0].filter.type).toBe('model');
+                expect(res.length).toBe(2);
+                expect(res[1].term).toBe('golf');
+                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.term).toBe('Golf');
+                expect(res[1].filter.value).toBe(2084);
                 
                 done();
             });
@@ -82,12 +78,7 @@ describe('Parser Suite', function() {
                 var res = parser.parse('vw cross golf');
                 //var res = parser.parse('vw golf cabriolet');
                 
-                expect(res.length).toBeTruthy();
-                
-                // var exp = res.filter(function(item) {
-                    // return item.term === 'golf';
-                // });
-                 
+                 expect(res.length).toBe(3);
                 // expect(exp.length).toBe(1);
                 // expect(exp[0].term).toBe('golf');
                 // expect(exp[0].type).toBe('model');

@@ -13,13 +13,13 @@ module.exports = function () {
          var res = items.map(function(item, index, array) {
                 if (item.filter.type === _filterTypes.unknown) {
                 
-                    var foundMakes = findMake(item.term);
-                    if (foundMakes.length) {
+                    var found = findMake(item.term);
+                    if (found.length) {
                         item.filter.type = _filterTypes.make;
-                        item.filter.term = foundMakes[0].term;
-                        item.filter.value = foundMakes[0].value;
+                        item.filter.term = found[0].term;
+                        item.filter.value = found[0].value;
                     }
-                    
+
                 }
                 return item;
             });
