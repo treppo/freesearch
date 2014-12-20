@@ -1,12 +1,14 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../filterTypes.js')();
+    var _filterTypes = require('../statics/filterTypes.js')();
+    var _synonyms = require('../statics/synonyms.js')();
+    
     var _makes = [
         { term : 'Audi', value : 9 }, 
         { term : 'BMW', value: 13 }, 
-        { term : 'Mercedes', value: 47, syn : ['mers', 'merc'] },
-        { term : 'Volkswagen', value: 74, syn : ['vw'] },
+        { term : 'Mercedes', value: 47 },
+        { term : 'Volkswagen', value: 74 },
     ];
     
     var filter = function(items) {
@@ -34,8 +36,8 @@ module.exports = function () {
                 return make;
             }
             
-            if (make.syn) {
-                if (make.syn.some(function(syn) { return m === syn })) {
+            if (make.term in _synonyms) {
+                if (_synonyms[make.term].some(function(syn) { return m === syn })) {
                     return make;
                 }
             }

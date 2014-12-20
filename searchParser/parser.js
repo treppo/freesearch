@@ -1,7 +1,7 @@
 module.exports = function (filters) {
     'use strict';
     
-    var _filterTypes = require('./filterTypes.js')();
+    var _filterTypes = require('./statics/filterTypes.js')();
     
     var parse = function(line) {
         if (! line.trim()) {
@@ -31,6 +31,7 @@ module.exports = function (filters) {
         return tokens.map(function(token, index, array) {
             return {
                 term : token,
+                index : index,
                 filter : {
                     type : _filterTypes.unknown,
                     value : 'unknown'
