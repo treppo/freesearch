@@ -68,7 +68,7 @@ describe('Parser Suite', function() {
                 expect(res[1].term).toBe('golf');
                 expect(res[1].filter.type).toBe('model');
                 expect(res[1].filter.term).toBe('Golf');
-                expect(res[1].filter.value).toBe(2084);
+                expect(res[1].filter.value).toBe(2084); 
 
                 done();
             });
