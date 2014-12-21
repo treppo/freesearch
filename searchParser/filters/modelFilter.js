@@ -27,7 +27,7 @@ module.exports = function () {
                         modelTerm.done = true;
                         modelTerms = _parseHelper.getNotDoneTerms(modelTerms);
 
-                        foundedSearchIndexes.append(searchToken.index);
+                        foundedSearchIndexes.push(searchToken.index);
                     }
 
                     return found;
@@ -37,15 +37,40 @@ module.exports = function () {
 
             var remained = _parseHelper.getNotDoneTerms(modelTerms);
             if (remained.length == 0) {
-                searchTokens = mergeSearchTokensToModelFilter(searchTokens, model, foundedSearchIndexes);
+                searchTokens = reduceModelFilter(searchTokens, model, foundedSearchIndexes);
             }
         });
 
         return searchTokens;
     };
 
-    function mergeSearchTokensToModelFilter(searchTokens, model, foundedSearchIndexes) {
+    function reduceModelFilter(searchTokens, model, foundedSearchIndexes) {
 
+        var mergeToPosition = -1;
+        var res = searchTokens.reduce(function(accumulator, searchToken, index, searchTokens) {
+
+            if (searchToken.index in foundedSearchIndexes) {
+
+                if (mergeToPosition < 0) {
+                    mergeToPosition = index;
+
+                    searchToken.filter.type = _filterTypes.model;
+                    searchToken.filter.value = model.value;
+                    accumulator.push(searchToken);
+                }
+                else {
+                    searchTokens[mergeToPosition].term += " " + searchToken.term;
+                }
+            }
+            else {
+                accumulator.push(searchToken);
+            }
+
+            return accumulator;
+
+        },[]);
+
+        return res;
     }
 
 

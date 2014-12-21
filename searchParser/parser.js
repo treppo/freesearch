@@ -42,7 +42,7 @@ module.exports = function (filters) {
     
     var reduceIdenticalFilters = function (items) {
         var t = items.reduce(function(accumulator, item, index, array) {
-            // dont merge unknowns
+            // don't merge unknowns
             if (item.filter.type !== _filterTypes.unknown) {
                 // are there already accumulated items identical with the current one
                 var merged = accumulator.some(function(accItem, index, array) {

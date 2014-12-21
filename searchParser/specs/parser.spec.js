@@ -61,7 +61,7 @@ describe('Parser Suite', function() {
 
     describe('Model tests', function() {
         describe('when parse search line with single model', function() {
-            xit('it should parse to expected model', function(done) {
+            it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw golf');
 
                 expect(res.length).toBe(2);
