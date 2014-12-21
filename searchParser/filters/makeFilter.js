@@ -2,7 +2,7 @@ module.exports = function () {
     'use strict';
 
     var _filterTypes = require('../statics/filterTypes.js')();
-    var _synonyms = require('../statics/synonyms.js')();
+    var _synonymService = require('../statics/synonyms.js')();
     
     var _makes = [
         { term : 'Audi', value : 9 }, 
@@ -35,9 +35,10 @@ module.exports = function () {
             if (m === make.term.toLowerCase()) {
                 return make;
             }
-            
-            if (make.term in _synonyms) {
-                if (_synonyms[make.term].some(function(syn) { return m === syn })) {
+
+            var _synonyms = _synonymService.get(make.term);
+            if (make.term.toLowerCase() in _synonyms) {
+                if (_synonyms.some(function(syn) { return m === syn })) {
                     return make;
                 }
             }
