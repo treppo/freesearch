@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var _synService = require('./synonyms.js')();
+    var _synonymeService = require('./synonyms.js')();
     var _filterTypes = require('./filterTypes.js')();
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
@@ -29,7 +29,7 @@ module.exports = function () {
                 }
 
                 modelTerms.some(function (modelTerm) {
-                    var found = _synService.hasSynonymeFor(modelTerm.term, searchToken.term);
+                    var found = _synonymeService.hasSynonymeFor(modelTerm.term, searchToken.term);
 
                     if (found) {
                         modelTerm.done = true;
@@ -83,7 +83,7 @@ module.exports = function () {
         },[]);
 
         return res;
-    }
+    };
 
     var getNotDoneTerms = function (terms) {
         return terms.filter(function(term){
