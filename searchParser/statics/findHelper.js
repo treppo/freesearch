@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var _synonymeService = require('./synonyms.js')();
+    var _synonymeService = require('./../services/synonyms.js')();
     var _filterTypes = require('./filterTypes.js')();
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
@@ -42,8 +42,8 @@ module.exports = function () {
                 });
             });
 
-            var remained = getNotDoneTerms(modelTerms);
-            if (remained.length == 0) {
+            var found = getNotDoneTerms(modelTerms).length == 0;
+            if (found) {
                 searchTokens = reduceSearchTokensByFilter(searchTokens, searchTokensToReduceIndexes, {
                     value: filter.value,
                     term: filter.term,

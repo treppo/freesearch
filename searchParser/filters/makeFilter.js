@@ -3,13 +3,14 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js')();
     var _parseHelper = require('../statics/findHelper.js')();
+    var _makes = require('../services/makes.js')();
 
-    var _makes = [
-        { term : 'Audi', value : 9 },
-        { term : 'BMW', value: 13 },
-        { term : 'Mercedes', value: 47 },
-        { term : 'Volkswagen', value: 74 },
-    ];
+    //var _makes = [
+    //    { term : 'Audi', value : 9 },
+    //    { term : 'BMW', value: 13 },
+    //    { term : 'Mercedes', value: 47 },
+    //    { term : 'Volkswagen', value: 74 },
+    //];
 
     var filter = function(searchTokens) {
         return _parseHelper.findFilters(searchTokens, _makes, _filterTypes.make);
