@@ -74,17 +74,52 @@ describe('Parser Suite', function() {
             });
         });
 
-        describe('when parse search line with single model builded from two words', function() {
-            xit('it should parse to expected model', function(done) {
+        describe('when parse search line with single model build from two terms', function() {
+            it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw cross golf');
                 //var res = parser.parse('vw golf cabriolet');
 
                 expect(res.length).toBe(2);
 
-                expect(exp[1].term).toBe('golf');
-                expect(exp[0].filter.type).toBe('model');
+                expect(res[1].term).toBe('cross golf');
+                expect(res[1].filter.type).toBe('model');
                 expect(res[1].filter.term).toBe('Cross Golf');
                 expect(res[1].filter.value).toBe(20315);
+
+                done();
+            });
+        });
+
+        describe('when parse search line with greedy model', function() {
+            it('it should parse to expected model', function(done) {
+                var res = parser.parse('vw golf cross');
+
+                expect(res.length).toBe(2);
+
+                expect(res[1].term).toBe('golf cross');
+                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.term).toBe('Cross Golf');
+                expect(res[1].filter.value).toBe(20315);
+
+                done();
+            });
+        });
+
+        describe('when parse search line with greedy model and effectively two models', function() {
+            it('it should parse to expected models', function(done) {
+                var res = parser.parse('vw golf golf cross');
+
+                expect(res.length).toBe(3);
+
+                expect(res[1].term).toBe('golf cross');
+                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.term).toBe('Cross Golf');
+                expect(res[1].filter.value).toBe(20315);
+
+                expect(res[2].term).toBe('golf');
+                expect(res[2].filter.type).toBe('model');
+                expect(res[2].filter.term).toBe('Golf');
+                expect(res[2].filter.value).toBe(2084);
 
                 done();
             });

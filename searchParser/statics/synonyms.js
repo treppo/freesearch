@@ -17,7 +17,7 @@ module.exports = function () {
 
     var hasSynonymeFor = function(synKey, searchToken) {
         return get(synKey).some(function(syn){
-            searchToken === syn;
+            return searchToken === syn;
         });
     };
 
