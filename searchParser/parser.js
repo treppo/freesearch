@@ -23,9 +23,16 @@ module.exports = function (filters) {
     };
     
     var createSearchTokens = function (searchLine) {
-        searchLine = searchLine.trim();
-        searchLine = searchLine.replace( /\s\s+/g, ' ');
         var tokens = [];
+
+        var symbolsToRemove = ['-', '+', ':', ';'];
+        symbolsToRemove.forEach(function(sym) {
+            searchLine = searchLine.replace(sym, ' ');
+        });
+
+        searchLine = searchLine.replace( /\s\s+/g, ' ');
+        searchLine = searchLine.trim();
+
         if (searchLine) {
             tokens = searchLine.split(' ');
         }

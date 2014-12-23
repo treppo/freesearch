@@ -2,9 +2,9 @@ module.exports = function () {
     'use strict';
 
     var syns = {};
-    syns.Mercedes = ['mers', 'merc'];
-    syns.Volkswagen = ['vw'];
-    syns.Golf = ['golf'];
+    syns.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
+    syns.Volkswagen = ['volkswagen', 'vw'];
+    //syns.Golf = ['golf'];
     syns.Cross = ['cross'];
 
     var getSynonyms = function(synKey) {

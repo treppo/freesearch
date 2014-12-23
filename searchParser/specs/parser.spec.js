@@ -21,15 +21,21 @@ describe('Parser Suite', function() {
             });
         });
 
-        describe('when parse search line with multiple whitespaces', function() {
+        describe('when parse search line with multiple garbage symbols', function() {
             it('it should parse to empty result', function(done) {
                 var res = parser.parse('   ');
                 expect(res.length).toBe(0);
                 done();
             });
 
-            it('it should parse to tokens without whitespaces', function(done) {
-                var res = parser.parse('t1  t2   ');
+            it('it should parse to empty result', function(done) {
+                var res = parser.parse('-+ :   ');
+                expect(res.length).toBe(0);
+                done();
+            });
+
+            it('it should parse to tokens without garbage', function(done) {
+                var res = parser.parse('t1;  t2   ');
                 expect(res.length).toBe(2);
                 done();
             });
@@ -47,6 +53,18 @@ describe('Parser Suite', function() {
                 expect(res[0].filter.type).toBe('make');
                 expect(res[0].filter.value).toBe(13);
                 
+                done();
+            });
+
+            it('it should parse to expected make', function(done) {
+                var res = parser.parse('Mercedes-Benz');
+
+                expect(res.length).toBe(1);
+                expect(res[0].term).toBe('Mercedes Benz');
+                expect(res[0].filter.term).toBe('Mercedes');
+                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.value).toBe(47);
+
                 done();
             });
         });
@@ -148,7 +166,7 @@ describe('Parser Suite', function() {
     describe('Filter identical terms tests', function() {
         describe('when parse identical filters', function() {
 
-            it('it should parse to expected make', function(done) {
+            it('it should merge them to one', function(done) {
                 var res = parser.parse('bmw bmw bmw');
 
                 expect(res.length).toBe(1);
@@ -160,18 +178,18 @@ describe('Parser Suite', function() {
                 done();
             });
 
-            xit('it should merge them to one', function(done) {
-                 var res = parser.parse('merc blub mercedes bluba mers');
-                
+            it('it should merge them to one', function (done) {
+                var res = parser.parse('merc blub mercedes bluba benz');
+
                 expect(res.length).toBe(3);
-                expect(res[0].term).toBe('merc mercedes mers');
+                expect(res[0].term).toBe('merc mercedes benz');
                 expect(res[0].filter.term).toBe('Mercedes');
                 expect(res[0].filter.type).toBe('make');
                 expect(res[0].filter.value).toBe(47);
-                
+
                 expect(res[1].filter.type).toBe('unknown');
                 expect(res[2].filter.type).toBe('unknown');
-            
+
                 done();
             });
         });
