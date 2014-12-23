@@ -21,40 +21,53 @@ module.exports = function () {
     var searchTokens = function (searchTokens, filters, filterType) {
 
         filters.forEach(function (filter) {
-
-            var searchTokensToReduceIndexes = [];
-            var modelTerms = termToStruct(filter.term);
-
-            searchTokens.forEach(function (searchToken, index) {
-                if (searchToken.filter.type !== _filterTypes.unknown) {
-                    return;
-                }
-
-                modelTerms.some(function (modelTerm) {
-                    var foundSynonym = _synonymService.hasSynonymFor(modelTerm.term, searchToken.term);
-
-                    if (foundSynonym) {
-                        modelTerm.done = true;
-                        modelTerms = getNotDoneTerms(modelTerms);
-
-                        searchTokensToReduceIndexes.push(searchToken.index);
-                    }
-
-                    return foundSynonym;
-                });
-            });
-
-            var found = getNotDoneTerms(modelTerms).length == 0;
-            if (found) {
-                searchTokens = reduceSearchTokensByFilter(searchTokens, searchTokensToReduceIndexes, {
-                    value: filter.value,
-                    term: filter.term,
-                    type: filterType
-                });
-            }
+            searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
         });
 
        return searchTokens;
+    };
+
+    var searchTokenForFilter = function (searchTokens, filter, filterType, startIndex) {
+        var searchTokensToReduceIndexes = [];
+        var modelTerms = termToStruct(filter.term);
+
+        searchTokens.forEach(function (searchToken, index) {
+            if (searchToken.filter.type !== _filterTypes.unknown) {
+                return;
+            }
+            if (index < startIndex) {
+                return;
+            }
+
+            modelTerms.some(function (modelTerm) {
+                var foundSynonym = _synonymService.hasSynonymFor(modelTerm.term, searchToken.term);
+
+                if (foundSynonym) {
+                    modelTerm.done = true;
+                    modelTerms = getNotDoneTerms(modelTerms);
+
+                    searchTokensToReduceIndexes.push(searchToken.index);
+                }
+
+                return foundSynonym;
+            });
+        });
+
+        var found = getNotDoneTerms(modelTerms).length == 0;
+        if (found) {
+            var reduced = reduceSearchTokensByFilter(searchTokens, searchTokensToReduceIndexes, {
+                value: filter.value,
+                term: filter.term,
+                type: filterType
+            });
+
+            searchTokens = reduced.searchTokens;
+            if (reduced.mergeToPosition > -1) {
+                searchTokens = searchTokenForFilter(searchTokens, filter, filterType, reduced.mergeToPosition);
+            }
+        }
+
+        return searchTokens;
     };
 
     var reduceSearchTokensByFilter = function (searchTokens, foundedSearchIndexes, filter) {
@@ -83,7 +96,10 @@ module.exports = function () {
 
         },[]);
 
-        return res;
+        return {
+            searchTokens : res,
+            mergeToPosition : mergeToPosition
+        };
     };
 
     var getNotDoneTerms = function (terms) {

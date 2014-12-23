@@ -14,9 +14,9 @@ describe('Parser Suite', function() {
 
     describe('when parse empty search line', function() {
         it('it should parse to empty result', function(done) {
-            var res = parser.parse('');
+            var res = parser.parse('   ');
 
-            expect(res).toBeUndefined();
+            expect(res.length).toBe(0);
 
             done();
         });
@@ -25,10 +25,10 @@ describe('Parser Suite', function() {
     describe('Make tests', function() { 
         describe('when parse search line with one make', function() {
             it('it should parse to expected make', function(done) {
-                var res = parser.parse('bmw');
+                var res = parser.parse('BMW');
 
                 expect(res.length).toBe(1);
-                expect(res[0].term).toBe('bmw');
+                expect(res[0].term).toBe('BMW');
                 expect(res[0].filter.term).toBe('BMW');
                 expect(res[0].filter.type).toBe('make');
                 expect(res[0].filter.value).toBe(13);
@@ -37,26 +37,12 @@ describe('Parser Suite', function() {
             });
         });
 
-        describe('when parse search line with same make multiple times', function() {
-            xit('it should parse to expected make', function(done) {
-                var res = parser.parse('bmw bmw bmw');
-
-                expect(res.length).toBe(1);
-                expect(res[0].term).toBe('bmw');
-                expect(res[0].filter.term).toBe('BMW');
-                expect(res[0].filter.type).toBe('make');
-                expect(res[0].filter.value).toBe(13);
-
-                done();
-            });
-        });
-        
         describe('when parse search line with one make synonym', function() {
             it('it should parse to expected make', function(done) {
-                var res = parser.parse('vw mers');
+                var res = parser.parse('vw  mers bmw');
 
                 debugger;
-                expect(res.length).toBe(2);
+                expect(res.length).toBe(3);
                 
                 expect(res[0].term).toBe('vw');
                 expect(res[0].filter.term).toBe('Volkswagen');
@@ -67,6 +53,11 @@ describe('Parser Suite', function() {
                 expect(res[1].filter.term).toBe('Mercedes');
                 expect(res[1].filter.type).toBe('make');
                 expect(res[1].filter.value).toBe(47);
+
+                expect(res[2].term).toBe('bmw');
+                expect(res[2].filter.term).toBe('BMW');
+                expect(res[2].filter.type).toBe('make');
+                expect(res[2].filter.value).toBe(13);
                 
                 done();
             });
@@ -141,7 +132,20 @@ describe('Parser Suite', function() {
     });
     
     describe('Filter identical terms tests', function() {
-        describe('when parse two identical filters', function() {
+        describe('when parse identical filters', function() {
+
+            it('it should parse to expected make', function(done) {
+                var res = parser.parse('bmw bmw bmw');
+
+                expect(res.length).toBe(1);
+                expect(res[0].term).toBe('bmw bmw bmw');
+                expect(res[0].filter.term).toBe('BMW');
+                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.value).toBe(13);
+
+                done();
+            });
+
             xit('it should merge them to one', function(done) {
                  var res = parser.parse('merc blub mercedes bluba mers');
                 

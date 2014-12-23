@@ -3,15 +3,10 @@ module.exports = function (filters) {
     
     var _filterTypes = require('./statics/filterTypes.js')();
     
-    var parse = function(line) {
-        if (! line.trim()) {
-            return;
-        }
-        
-        var tokens = line.split(' ');
-        var items = createSearchTokens(tokens);
+    var parse = function(searchLine) {
+        var items = createSearchTokens(searchLine);
     
-        items = runPipe(filters, items)
+        items = runPipe(filters, items);
         
         items = reduceIdenticalFilters(items);
         
@@ -20,14 +15,21 @@ module.exports = function (filters) {
     
     var runPipe = function(filters, items) {
         var curItems = items;
-        filters.forEach(function(filter, index, array) {
+        filters.forEach(function(filter) {
             curItems = filter(curItems);
         });
         
         return curItems;
     };
     
-    var createSearchTokens = function (tokens) {
+    var createSearchTokens = function (searchLine) {
+        searchLine = searchLine.trim();
+        searchLine = searchLine.replace( /\s\s+/g, ' ');
+        var tokens = [];
+        if (searchLine) {
+            tokens = searchLine.split(' ');
+        }
+
         return tokens.map(function(token, index, array) {
             return {
                 term : token,
