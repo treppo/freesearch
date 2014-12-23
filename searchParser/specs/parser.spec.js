@@ -12,17 +12,31 @@ var parser = require('../parser.js')(filters);
 
 describe('Parser Suite', function() {
 
-    describe('when parse empty search line', function() {
-        it('it should parse to empty result', function(done) {
-            var res = parser.parse('   ');
+    describe('when parse garbage in the search line', function() {
+        describe('when parse empty search line', function() {
+            it('it should parse to empty result', function(done) {
+                var res = parser.parse('');
+                expect(res.length).toBe(0);
+                done();
+            });
+        });
 
-            expect(res.length).toBe(0);
+        describe('when parse search line with multiple whitespaces', function() {
+            it('it should parse to empty result', function(done) {
+                var res = parser.parse('   ');
+                expect(res.length).toBe(0);
+                done();
+            });
 
-            done();
+            it('it should parse to tokens without whitespaces', function(done) {
+                var res = parser.parse('t1  t2   ');
+                expect(res.length).toBe(2);
+                done();
+            });
         });
     });
 
-    describe('Make tests', function() { 
+    describe('Make tests', function() {
         describe('when parse search line with one make', function() {
             it('it should parse to expected make', function(done) {
                 var res = parser.parse('BMW');
@@ -39,7 +53,7 @@ describe('Parser Suite', function() {
 
         describe('when parse search line with one make synonym', function() {
             it('it should parse to expected make', function(done) {
-                var res = parser.parse('vw  mers bmw');
+                var res = parser.parse('vw mers bmw');
 
                 debugger;
                 expect(res.length).toBe(3);
