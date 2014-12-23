@@ -15,7 +15,7 @@ module.exports = function () {
         return [synKey.toLowerCase()];
     };
 
-    var hasSynonymeFor = function(synKey, searchToken) {
+    var hasSynonymFor = function(synKey, searchToken) {
         return get(synKey).some(function(syn){
             return searchToken === syn;
         });
@@ -23,6 +23,6 @@ module.exports = function () {
 
     return {
         get : get,
-        hasSynonymeFor : hasSynonymeFor
+        hasSynonymFor : hasSynonymFor
     };
 };

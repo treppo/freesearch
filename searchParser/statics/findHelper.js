@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var _synonymeService = require('./../services/synonyms.js')();
+    var _synonymService = require('./../services/synonyms.js')();
     var _filterTypes = require('./filterTypes.js')();
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
@@ -18,27 +18,29 @@ module.exports = function () {
     //         return original searchTerms back
     //     no, filter match
     //         merge all noticed searchTerms, return the new searchTerms back.
-    var findFilters = function (searchTokens, filters, filterType) {
+    var searchTokens = function (searchTokens, filters, filterType) {
+
         filters.forEach(function (filter) {
+
             var searchTokensToReduceIndexes = [];
             var modelTerms = termToStruct(filter.term);
 
-            searchTokens.forEach(function (searchToken) {
+            searchTokens.forEach(function (searchToken, index) {
                 if (searchToken.filter.type !== _filterTypes.unknown) {
                     return;
                 }
 
                 modelTerms.some(function (modelTerm) {
-                    var found = _synonymeService.hasSynonymeFor(modelTerm.term, searchToken.term);
+                    var foundSynonym = _synonymService.hasSynonymFor(modelTerm.term, searchToken.term);
 
-                    if (found) {
+                    if (foundSynonym) {
                         modelTerm.done = true;
                         modelTerms = getNotDoneTerms(modelTerms);
 
                         searchTokensToReduceIndexes.push(searchToken.index);
                     }
 
-                    return found;
+                    return foundSynonym;
                 });
             });
 
@@ -56,7 +58,6 @@ module.exports = function () {
     };
 
     var reduceSearchTokensByFilter = function (searchTokens, foundedSearchIndexes, filter) {
-
         var mergeToPosition = -1;
         var res = searchTokens.reduce(function(accumulator, searchToken, index, searchTokens) {
 
@@ -102,6 +103,6 @@ module.exports = function () {
     };
 
     return {
-        findFilters : findFilters
+        searchTokens : searchTokens
     }
 };
