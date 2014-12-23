@@ -1,8 +1,14 @@
 module.exports = function () {
     'use strict';
-    
+
+    var _filterTypes = require('../statics/filterTypes.js')();
+
     var filter = function(searchTokens) {
-        //console.log('none filter does something');
+
+        searchTokens.forEach(function(searchTocken) {
+            
+        });
+
         return searchTokens;
     };
 

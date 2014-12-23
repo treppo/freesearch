@@ -1,6 +1,7 @@
 var makeFilter = require('../filters/makeFilter.js')();
 var modelFilter = require('../filters/modelFilter.js')();
 var noneFilter = require('../filters/noneFilter.js')();
+var priceFilter = require('../filters/priceFilter.js')();
 
 var filters = [
     makeFilter, 
@@ -9,10 +10,11 @@ var filters = [
 ];
 
 var parser = require('../parser.js')(filters);
+var filterTypes = require('../statics/filterTypes.js')();
 
 describe('Parser Suite', function() {
 
-    describe('when parse garbage in the search line', function() {
+    describe('when parse garbage symbols in the search line', function() {
         describe('when parse empty search line', function() {
             it('it should parse to empty result', function(done) {
                 var res = parser.parse('');
@@ -50,7 +52,7 @@ describe('Parser Suite', function() {
                 expect(res.length).toBe(1);
                 expect(res[0].term).toBe('BMW');
                 expect(res[0].filter.term).toBe('BMW');
-                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.type).toBe(filterTypes.make);
                 expect(res[0].filter.value).toBe(13);
                 
                 done();
@@ -62,7 +64,7 @@ describe('Parser Suite', function() {
                 expect(res.length).toBe(1);
                 expect(res[0].term).toBe('Mercedes Benz');
                 expect(res[0].filter.term).toBe('Mercedes');
-                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.type).toBe(filterTypes.make);
                 expect(res[0].filter.value).toBe(47);
 
                 done();
@@ -73,22 +75,21 @@ describe('Parser Suite', function() {
             it('it should parse to expected make', function(done) {
                 var res = parser.parse('vw mers bmw');
 
-                debugger;
                 expect(res.length).toBe(3);
                 
                 expect(res[0].term).toBe('vw');
                 expect(res[0].filter.term).toBe('Volkswagen');
-                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.type).toBe(filterTypes.make);
                 expect(res[0].filter.value).toBe(74);
                 
                 expect(res[1].term).toBe('mers');
                 expect(res[1].filter.term).toBe('Mercedes');
-                expect(res[1].filter.type).toBe('make');
+                expect(res[1].filter.type).toBe(filterTypes.make);
                 expect(res[1].filter.value).toBe(47);
 
                 expect(res[2].term).toBe('bmw');
                 expect(res[2].filter.term).toBe('BMW');
-                expect(res[2].filter.type).toBe('make');
+                expect(res[2].filter.type).toBe(filterTypes.make);
                 expect(res[2].filter.value).toBe(13);
                 
                 done();
@@ -103,7 +104,7 @@ describe('Parser Suite', function() {
 
                 expect(res.length).toBe(2);
                 expect(res[1].term).toBe('golf');
-                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.type).toBe(filterTypes.model);
                 expect(res[1].filter.term).toBe('Golf');
                 expect(res[1].filter.value).toBe(2084);
 
@@ -114,12 +115,11 @@ describe('Parser Suite', function() {
         describe('when parse search line with single model build from two terms', function() {
             it('it should parse to expected model', function(done) {
                 var res = parser.parse('vw cross golf');
-                //var res = parser.parse('vw golf cabriolet');
 
                 expect(res.length).toBe(2);
 
                 expect(res[1].term).toBe('cross golf');
-                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.type).toBe(filterTypes.model);
                 expect(res[1].filter.term).toBe('Cross Golf');
                 expect(res[1].filter.value).toBe(20315);
 
@@ -134,7 +134,7 @@ describe('Parser Suite', function() {
                 expect(res.length).toBe(2);
 
                 expect(res[1].term).toBe('golf cross');
-                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.type).toBe(filterTypes.model);
                 expect(res[1].filter.term).toBe('Cross Golf');
                 expect(res[1].filter.value).toBe(20315);
 
@@ -149,12 +149,12 @@ describe('Parser Suite', function() {
                 expect(res.length).toBe(3);
 
                 expect(res[1].term).toBe('golf cross');
-                expect(res[1].filter.type).toBe('model');
+                expect(res[1].filter.type).toBe(filterTypes.model);
                 expect(res[1].filter.term).toBe('Cross Golf');
                 expect(res[1].filter.value).toBe(20315);
 
                 expect(res[2].term).toBe('golf');
-                expect(res[2].filter.type).toBe('model');
+                expect(res[2].filter.type).toBe(filterTypes.model);
                 expect(res[2].filter.term).toBe('Golf');
                 expect(res[2].filter.value).toBe(2084);
 
@@ -170,9 +170,10 @@ describe('Parser Suite', function() {
                 var res = parser.parse('bmw bmw bmw');
 
                 expect(res.length).toBe(1);
+
                 expect(res[0].term).toBe('bmw bmw bmw');
                 expect(res[0].filter.term).toBe('BMW');
-                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.type).toBe(filterTypes.make);
                 expect(res[0].filter.value).toBe(13);
 
                 done();
@@ -182,9 +183,10 @@ describe('Parser Suite', function() {
                 var res = parser.parse('merc blub mercedes bluba benz');
 
                 expect(res.length).toBe(3);
+
                 expect(res[0].term).toBe('merc mercedes benz');
                 expect(res[0].filter.term).toBe('Mercedes');
-                expect(res[0].filter.type).toBe('make');
+                expect(res[0].filter.type).toBe(filterTypes.make);
                 expect(res[0].filter.value).toBe(47);
 
                 expect(res[1].filter.type).toBe('unknown');
@@ -192,7 +194,42 @@ describe('Parser Suite', function() {
 
                 done();
             });
+
+            it('it should merge them to one', function (done) {
+                var res = parser.parse('vw golf golf golf cross cross');
+
+                expect(res.length).toBe(3);
+
+                expect(res[0].term).toBe('vw');
+                expect(res[0].filter.term).toBe('Volkswagen');
+                expect(res[0].filter.type).toBe(filterTypes.make);
+                expect(res[0].filter.value).toBe(74);
+
+                expect(res[1].term).toBe('golf cross golf cross');
+                expect(res[1].filter.term).toBe('Cross Golf');
+                expect(res[1].filter.type).toBe(filterTypes.model);
+                expect(res[1].filter.value).toBe(20315);
+
+                expect(res[2].term).toBe('golf');
+                expect(res[2].filter.term).toBe('Golf');
+                expect(res[2].filter.type).toBe(filterTypes.model);
+                expect(res[2].filter.value).toBe(2084);
+
+                done();
+            });
         });
     });
 
+    describe('Price tests', function () {
+        describe('When parce price with € sign', function () {
+            xit('it should find the price', function () {
+                var res = parser.parse("audi 2000 €");
+
+                expect(res.length).toBe(2);
+                expect(res[1].term).toBe('2000');
+                expect(res[0].filter.type).toBe(filterTypes.price);
+                expect(res[0].filter.value).toBe(2000);
+            });
+        });
+    });
 });
