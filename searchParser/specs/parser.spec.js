@@ -6,6 +6,7 @@ var priceFilter = require('../filters/priceFilter.js')();
 var filters = [
     makeFilter, 
     modelFilter,
+    priceFilter,
     noneFilter
 ];
 
@@ -221,14 +222,39 @@ describe('Parser Suite', function() {
     });
 
     describe('Price tests', function () {
-        describe('When parce price with € sign', function () {
-            xit('it should find the price', function () {
+        describe('When parce integer price', function () {
+            it('it should find the price', function () {
                 var res = parser.parse("audi 2000 €");
 
                 expect(res.length).toBe(2);
                 expect(res[1].term).toBe('2000');
-                expect(res[0].filter.type).toBe(filterTypes.price);
-                expect(res[0].filter.value).toBe(2000);
+                expect(res[1].filter.type).toBe(filterTypes.price);
+                expect(res[1].filter.value).toBe(2000);
+                expect(res[1].filter.term).toBe('2000');
+            });
+        });
+
+        describe('When parce double price', function () {
+            it('it should convert it to integer', function () {
+                var res = parser.parse("audi 200.30 €");
+
+                expect(res.length).toBe(2);
+                expect(res[1].term).toBe('200.30');
+                expect(res[1].filter.type).toBe(filterTypes.price);
+                expect(res[1].filter.value).toBe(200);
+                expect(res[1].filter.term).toBe('200.30');
+            });
+        });
+
+        describe('When parce price with currency', function () {
+            it('it should find the price', function () {
+                var res = parser.parse("audi 2000€");
+
+                expect(res.length).toBe(2);
+                expect(res[1].term).toBe('2000€');
+                expect(res[1].filter.type).toBe(filterTypes.price);
+                expect(res[1].filter.value).toBe(2000);
+                expect(res[1].filter.term).toBe('2000');
             });
         });
     });
