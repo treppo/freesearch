@@ -118,7 +118,22 @@ module.exports = function () {
         });
     };
 
+    var _ranges = {
+        minPrice : 200,
+        maxPrice : 1000000
+    };
+
+    var isInSuitableRange = function (intTerm, filterType) {
+        if (filterType === _filterTypes.price) {
+            return intTerm >= _ranges.minPrice && intTerm <= _ranges.maxPrice;
+        }
+
+        return true;
+    };
+
     return {
-        searchTokens : searchTokens
+        searchTokens : searchTokens,
+        isInSuitableRange : isInSuitableRange,
+        ranges : _ranges // expose due testing
     }
 };

@@ -3,6 +3,7 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
+    var _findHelper = require('../statics/findHelper.js')();
 
     var _priceAttr = '€';
 
@@ -23,30 +24,32 @@ module.exports = function () {
                 return;
             }
 
-            // term is price, parse it
-            if (isPrice) {
-                if (_utilHelper.isNumber(term))
-                {
-                    searchToken.filter.type = _filterTypes.price;
-                    searchToken.filter.term = term;
-                    searchToken.filter.value = _utilHelper.convertToInt(term);
-
-                    return;
-                }
-            }
-
-            // todo acceptable range
-            if (_utilHelper.isNumber(term))
-            {
-                searchToken.filter.type = _filterTypes.price;
-                searchToken.filter.term = term;
-                searchToken.filter.value = _utilHelper.convertToInt(term);
-
+            if (! _utilHelper.isNumber(term)) {
                 return;
             }
+
+            var intTerm = _utilHelper.convertToInt(term);
+
+            // term must be is price due the price attribute
+            if (isPrice) {
+                assignFilter(searchToken, term, intTerm);
+                return;
+            }
+
+            if (! _findHelper.isInSuitableRange(intTerm,  _filterTypes.price)) {
+                return;
+            }
+
+            assignFilter(searchToken, term, intTerm);
         });
 
         return searchTokens;
+    };
+
+    var assignFilter = function (searchToken, term, intTerm) {
+        searchToken.filter.type = _filterTypes.price;
+        searchToken.filter.term = term;
+        searchToken.filter.value = intTerm;
     };
 
     var removePriceAttribute = function (term) {
