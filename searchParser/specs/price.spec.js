@@ -5,7 +5,7 @@ var _findHelper = require('../statics/findHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Price tests', function () {
-    describe('When parse an integer price', function () {
+    describe('When parse a suitable number', function () {
         it('it should find the price', function () {
             var res = parser.parse('audi 2000');
 
@@ -24,7 +24,7 @@ describe('Price tests', function () {
         });
     });
 
-    describe('When parse a double price', function () {
+    describe('When parse a double number', function () {
         it('it should convert it to integer', function () {
             var res = parser.parse('audi 2000.30 €');
 
@@ -36,7 +36,7 @@ describe('Price tests', function () {
         });
     });
 
-    describe('When parse price with a currency marker', function () {
+    describe('When parse a number with a price marker', function () {
         it('it should find the price', function () {
             var res = parser.parse('audi 2000€');
 

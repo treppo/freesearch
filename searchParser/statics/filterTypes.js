@@ -7,6 +7,7 @@ module.exports = function () {
     filterTypes.make = 'make';
     filterTypes.model = 'model';
     filterTypes.price = 'price';
+    filterTypes.power = 'power';
 
     return filterTypes;
 };
