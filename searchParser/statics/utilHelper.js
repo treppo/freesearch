@@ -1,8 +1,6 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('./filterTypes.js')();
-
     var isNumber = function (n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     };
@@ -11,15 +9,7 @@ module.exports = function () {
         return parseInt(term);
     };
 
-    function isUnknownFilter(token) {
-        return token.filter.type === _filterTypes.unknown;
-    }
-
     var compareTermFilter = function(tokenLeft, tokenRight) {
-        if (isUnknownFilter(tokenRight)) {
-            return false;
-        }
-
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&
             tokenLeft.filter.value === tokenRight.filter.value;
@@ -30,10 +20,6 @@ module.exports = function () {
     };
 
     var compareRangeFilter = function(tokenLeft, tokenRight) {
-        if (isUnknownFilter(tokenRight)) {
-            return false;
-        }
-
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.valueFrom) &&
             (tokenRight.filter.valueFrom) &&
@@ -59,9 +45,9 @@ module.exports = function () {
     };
 
     var reduceIdenticalFilters = function (searchTokens, fncCompare, fncMerge) {
-        var t = searchTokens.reduce(function (accumulator, searchToken, index, array) {
+        return searchTokens.reduce(function (accumulator, searchToken) {
             // are there already accumulated items identical with the current one
-            var merged = accumulator.some(function (accToken, index, array) {
+            var merged = accumulator.some(function (accToken) {
                 var isIdentical = fncCompare(accToken, searchToken);
                 if (isIdentical) {
                     fncMerge(accToken, searchToken);
@@ -76,8 +62,6 @@ module.exports = function () {
             accumulator.push(searchToken);
             return accumulator;
         }, []);
-
-        return t;
     };
 
     return {

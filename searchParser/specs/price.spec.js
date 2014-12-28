@@ -108,9 +108,9 @@ describe('Price tests', function () {
 
     describe('When parse more than two prices', function() {
         it('it should parse them as a price range', function() {
-            var res = parser.parse('2000 3000 4000');
+            var res = parser.parse('2000 3000 4000 bla blub');
 
-            expect(res.length).toBe(2);
+            expect(res.length).toBe(4);
 
             expect(res[0].term).toBe('2000 - 3000');
             expect(res[0].filter.type).toBe(_filterTypes.price);
@@ -127,7 +127,7 @@ describe('Price tests', function () {
             expect(res[1].filter.termTo).toBeUndefined();
         });
 
-        xit('it should parse them as a price range', function() {
+        it('it should parse them as a price range', function() {
             var res = parser.parse('2000 3000 5000 4000 ');
 
             expect(res.length).toBe(2);
