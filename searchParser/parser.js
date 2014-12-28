@@ -2,15 +2,20 @@ module.exports = function (filters) {
     'use strict';
     
     var _filterTypes = require('./statics/filterTypes.js')();
+    var _utilHelper = require('./statics/utilHelper.js')();
+
+    var _symbolsToRemove = ['-', '+', ':', ';'];
     
     var parse = function(searchLine) {
-        var items = createSearchTokens(searchLine);
+
+        var normalizedSearchLine = normalizeSearchLine(searchLine);
+
+        var searchTokens = createDefaultSearchTokens(normalizedSearchLine);
     
-        items = runPipe(filters, items);
+        searchTokens = runPipe(filters, searchTokens);
+        searchTokens = reduceIdenticalFilters(searchTokens);
         
-        items = reduceIdenticalFilters(items);
-        
-        return items;
+        return searchTokens;
     };
     
     var runPipe = function(filters, items) {
@@ -21,17 +26,26 @@ module.exports = function (filters) {
         
         return curItems;
     };
-    
-    var createSearchTokens = function (searchLine) {
-        var tokens = [];
 
-        var symbolsToRemove = ['-', '+', ':', ';'];
-        symbolsToRemove.forEach(function(sym) {
-            searchLine = searchLine.replace(sym, ' ');
+    var reduceIdenticalFilters = function (searchTokens){
+        searchTokens = _utilHelper.reduceIdenticalFilters(searchTokens, _utilHelper.compareTermFilter, _utilHelper.mergeTermFilter);
+        searchTokens = _utilHelper.reduceIdenticalFilters(searchTokens, _utilHelper.compareRangeFilter, _utilHelper.mergeRangeFilter);
+        return searchTokens;
+    };
+
+    var normalizeSearchLine = function(searchLine) {
+        _symbolsToRemove.forEach(function(symbolToRemove) {
+            searchLine = searchLine.replace(symbolToRemove, ' ');
         });
 
         searchLine = searchLine.replace( /\s\s+/g, ' ');
         searchLine = searchLine.trim();
+
+        return searchLine;
+    };
+
+    var createDefaultSearchTokens = function (searchLine) {
+        var tokens = [];
 
         if (searchLine) {
             tokens = searchLine.split(' ');
@@ -42,39 +56,12 @@ module.exports = function (filters) {
                 term : token,
                 index : index,
                 filter : {
-                    type : _filterTypes.unknown,
-                    value : 'unknown'
+                    type : _filterTypes.unknown
                 }
             }
         });
     };
-    
-    var reduceIdenticalFilters = function (earchTokens) {
-        var t = earchTokens.reduce(function(accumulator, earchToken, index, array) {
-            // don't merge unknowns
-            if (earchToken.filter.type !== _filterTypes.unknown) {
-                // are there already accumulated items identical with the current one
-                var merged = accumulator.some(function(accItem, index, array) {
-                    var t = accItem.filter.type === earchToken.filter.type && accItem.filter.value === earchToken.filter.value;
-                    // yes, merge two identical items
-                    if (t) {
-                        accItem.term = accItem.term + ' ' +  earchToken.term;
-                    }
-                    return t;
-                });
-                
-                if (merged) {
-                    return accumulator;
-                }
-            }
-            
-            accumulator.push(earchToken);
-            return accumulator;
-        }, []);
-        
-        return t;
-    };
-    
+
     return {
         parse : parse
     };

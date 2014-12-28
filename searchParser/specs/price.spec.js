@@ -12,8 +12,8 @@ describe('Price tests', function () {
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.price);
-            expect(res[1].filter.value).toBe(2000);
-            expect(res[1].filter.term).toBe('2000');
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
         });
     });
 
@@ -31,20 +31,20 @@ describe('Price tests', function () {
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('2000.30');
             expect(res[1].filter.type).toBe(_filterTypes.price);
-            expect(res[1].filter.value).toBe(2000);
-            expect(res[1].filter.term).toBe('2000.30');
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000.30');
         });
     });
 
-    describe('When parse price with a currency attribute', function () {
+    describe('When parse price with a currency marker', function () {
         it('it should find the price', function () {
             var res = parser.parse('audi 2000€');
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('2000€');
             expect(res[1].filter.type).toBe(_filterTypes.price);
-            expect(res[1].filter.value).toBe(2000);
-            expect(res[1].filter.term).toBe('2000');
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
         });
     });
 
@@ -64,7 +64,7 @@ describe('Price tests', function () {
         });
     });
 
-    describe('When parse a number outside of suitable range but the number contains a price attribute', function () {
+    describe('When parse a number outside of suitable range but the number contains a price marker', function () {
         it('it should be parsed as price', function () {
             var expectedPrice = _findHelper.ranges.minPrice; // 200
             var expectedTerm = _findHelper.ranges.minPrice + '€'; // 200€
@@ -73,9 +73,78 @@ describe('Price tests', function () {
             expect(res.length).toBe(2);
             expect(res[1].term).toBe(expectedTerm);
             expect(res[1].filter.type).toBe(_filterTypes.price);
-            expect(res[1].filter.value).toBe(expectedPrice);
-            expect(res[1].filter.term).toBe('' + expectedPrice);
+            expect(res[1].filter.valueFrom).toBe(expectedPrice);
+            expect(res[1].filter.termFrom).toBe('' + expectedPrice);
+        });
+    });
+    
+    describe('When parse two prices', function() {
+        it('it should parse them as a price range', function() {
+            var res = parser.parse('audi 2000 - 3000');
 
+            expect(res.length).toBe(2);
+
+            expect(res[1].term).toBe('2000 - 3000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
+            expect(res[1].filter.valueTo).toBe(3000);
+            expect(res[1].filter.termTo).toBe('3000');
+        });
+
+        it('and prices are on the contrary order, it should parse them as a price range', function() {
+            var res = parser.parse('audi 3000 2000');
+
+            expect(res.length).toBe(2);
+
+            expect(res[1].term).toBe('2000 - 3000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
+            expect(res[1].filter.valueTo).toBe(3000);
+            expect(res[1].filter.termTo).toBe('3000');
+        });
+    });
+
+    describe('When parse more than two prices', function() {
+        it('it should parse them as a price range', function() {
+            var res = parser.parse('2000 3000 4000');
+
+            expect(res.length).toBe(2);
+
+            expect(res[0].term).toBe('2000 - 3000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBe(2000);
+            expect(res[0].filter.termFrom).toBe('2000');
+            expect(res[0].filter.valueTo).toBe(3000);
+            expect(res[0].filter.termTo).toBe('3000');
+
+            expect(res[1].term).toBe('4000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(4000);
+            expect(res[1].filter.termFrom).toBe('4000');
+            expect(res[1].filter.valueTo).toBeUndefined();
+            expect(res[1].filter.termTo).toBeUndefined();
+        });
+
+        xit('it should parse them as a price range', function() {
+            var res = parser.parse('2000 3000 5000 4000 ');
+
+            expect(res.length).toBe(2);
+
+            expect(res[0].term).toBe('2000 - 3000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBe(2000);
+            expect(res[0].filter.termFrom).toBe('2000');
+            expect(res[0].filter.valueTo).toBe(3000);
+            expect(res[0].filter.termTo).toBe('3000');
+
+            expect(res[1].term).toBe('4000 - 5000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(4000);
+            expect(res[1].filter.termFrom).toBe('4000');
+            expect(res[1].filter.valueTo).toBe(5000);
+            expect(res[1].filter.termTo).toBe('5000');
         });
     });
 });

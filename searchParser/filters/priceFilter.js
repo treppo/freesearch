@@ -5,7 +5,7 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper.js')();
     var _findHelper = require('../statics/findHelper.js')();
 
-    var _priceAttr = '€';
+    var _priceMarker = '€';
 
     var filter = function(searchTokens) {
 
@@ -14,9 +14,9 @@ module.exports = function () {
                 return;
             }
 
-            var t = removePriceAttribute(searchToken.term);
-            var isPrice = t.isPrice;
-            var term = t.term;
+            var tuple = removePriceMarker(searchToken.term);
+            var isPrice = tuple.isPrice;
+            var term = tuple.term;
 
             // term as currency. Remove it
             if (isPrice && term.length === 0) {
@@ -30,7 +30,7 @@ module.exports = function () {
 
             var intTerm = _utilHelper.convertToInt(term);
 
-            // term must be is price due the price attribute
+            // term must be is price due the price marker
             if (isPrice) {
                 assignFilter(searchToken, term, intTerm);
                 return;
@@ -48,14 +48,14 @@ module.exports = function () {
 
     var assignFilter = function (searchToken, term, intTerm) {
         searchToken.filter.type = _filterTypes.price;
-        searchToken.filter.term = term;
-        searchToken.filter.value = intTerm;
+        searchToken.filter.termFrom = term;
+        searchToken.filter.valueFrom = intTerm;
     };
 
-    var removePriceAttribute = function (term) {
-        var index = term.indexOf(_priceAttr);
+    var removePriceMarker = function (term) {
+        var index = term.indexOf(_priceMarker);
         if (index > -1) {
-            term = term.replace(_priceAttr, '');
+            term = term.replace(_priceMarker, '');
         }
 
         return {
