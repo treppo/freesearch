@@ -120,7 +120,9 @@ module.exports = function () {
 
     var _ranges = {
         minPrice : 200,
-        maxPrice : 1000000
+        maxPrice : 1000000,
+        minKw : 0,
+        maxKw : 500
     };
 
     var isInSuitableRange = function (intTerm, filterType) {

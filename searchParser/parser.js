@@ -51,7 +51,7 @@ module.exports = function (filters) {
             tokens = searchLine.split(' ');
         }
 
-        return tokens.map(function(token, index, array) {
+        return tokens.map(function(token, index) {
             return {
                 term : token,
                 index : index,

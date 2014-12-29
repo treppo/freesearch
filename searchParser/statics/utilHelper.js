@@ -64,6 +64,29 @@ module.exports = function () {
         }, []);
     };
 
+    var removeMarker = function (term, markers) {
+        var foundMarker;
+
+        var termLoverCase = term.toLowerCase();
+
+        var hasMarker = markers.some(function(marker){
+            var index = termLoverCase.indexOf(marker);
+
+            if (index > -1) {
+                termLoverCase = termLoverCase.replace(marker, '');
+                foundMarker = marker;
+                return true;
+            }
+            return false;
+        });
+
+        return {
+            hasMarker : hasMarker,
+            term: termLoverCase,
+            marker : foundMarker
+        };
+    };
+
     return {
         isNumber : isNumber,
         convertToInt : convertToInt,
@@ -71,6 +94,7 @@ module.exports = function () {
         mergeTermFilter : mergeTermFilter,
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter : mergeRangeFilter,
-        reduceIdenticalFilters : reduceIdenticalFilters
+        reduceIdenticalFilters : reduceIdenticalFilters,
+        removeMarker : removeMarker
     };
 };
