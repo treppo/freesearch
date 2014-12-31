@@ -118,15 +118,19 @@ module.exports = function () {
     };
 
     var _ranges = {
-        minPrice : 200,
+        minPrice : 0,
         maxPrice : 1000000,
-        minKw : 0,
-        maxKw : 500
+        minPower : 0,
+        maxPower : 500
     };
 
     var isInSuitableRange = function (intTerm, filterType) {
         if (filterType === _filterTypes.price) {
             return intTerm >= _ranges.minPrice && intTerm <= _ranges.maxPrice;
+        }
+
+        if (filterType === _filterTypes.power) {
+            return intTerm >= _ranges.minPower && intTerm <= _ranges.maxPower;
         }
 
         return true;

@@ -49,13 +49,6 @@ describe('Price tests', function () {
     });
 
     describe('When parse a number outside of suitable range', function () {
-        it('it should not be parsed as price (due min range)', function () {
-            var res = parser.parse('audi ' + (_findHelper.ranges.minPrice - 1));
-
-            expect(res.length).toBe(2);
-            expect(res[1].filter.type).not.toBe(_filterTypes.price);
-        });
-
         it('it should not be parsed as price (due max range)', function () {
             var res = parser.parse('audi ' + (_findHelper.ranges.maxPrice + 1));
 
@@ -66,9 +59,9 @@ describe('Price tests', function () {
 
     describe('When parse a number outside of suitable range but the number contains a price marker', function () {
         it('it should be parsed as price', function () {
-            var expectedPrice = _findHelper.ranges.minPrice; // 200
-            var expectedTerm = _findHelper.ranges.minPrice + '€'; // 200€
-            var res = parser.parse('audi ' + expectedTerm); // audi 200€
+            var expectedPrice = _findHelper.ranges.maxPrice  + 10;
+            var expectedTerm = expectedPrice + '€';
+            var res = parser.parse('audi ' + expectedTerm);
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe(expectedTerm);

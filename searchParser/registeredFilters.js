@@ -10,12 +10,13 @@ module.exports = function () {
     var identicalFilterReducer = require('./filters/identicalFilterReducer.js')();
     var noneFilter = require('./filters/noneFilter.js')();
 
+    // order is greedy
     var filters = [
         markerFilter,
         makeFilter,
         modelFilter,
-        priceFilter,
         powerFilter,
+        priceFilter,
         removeMarkerFilter,
         identicalFilterReducer,
         noneFilter,

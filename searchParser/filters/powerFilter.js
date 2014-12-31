@@ -43,7 +43,7 @@ module.exports = function () {
         searchToken.filter.type = _filterTypes.power;
 
         if (powerType === 'ps') { // recalculate to kw
-            searchToken.filter.valueFrom = convertFromPsToKw(intTerm);
+            searchToken.filter.valueFrom = _utilHelper.convertFromPsToKw(intTerm);
             searchToken.filter.termFrom = '' + searchToken.filter.valueFrom;
         }
         else {
@@ -51,10 +51,6 @@ module.exports = function () {
             searchToken.filter.termFrom = term;
         }
 
-    };
-
-    var convertFromPsToKw = function (ps) {
-      return  parseInt(0.745699872  * ps);
     };
 
     return filter;

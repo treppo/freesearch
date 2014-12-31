@@ -9,6 +9,10 @@ module.exports = function () {
         return parseInt(term);
     };
 
+    var convertFromPsToKw = function (ps) {
+        return  parseInt(0.745699872  * ps);
+    };
+
     var compareTermFilter = function(tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&
@@ -90,6 +94,7 @@ module.exports = function () {
     return {
         isNumber : isNumber,
         convertToInt : convertToInt,
+        convertFromPsToKw : convertFromPsToKw,
         compareTermFilter : compareTermFilter,
         mergeTermFilter : mergeTermFilter,
         compareRangeFilter: compareRangeFilter,
