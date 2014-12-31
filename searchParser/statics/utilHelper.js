@@ -64,7 +64,7 @@ module.exports = function () {
         }, []);
     };
 
-    var removeMarker = function (term, markers) {
+    var containsMarker = function (term, markers) {
         var foundMarker;
 
         var termLoverCase = term.toLowerCase();
@@ -95,6 +95,6 @@ module.exports = function () {
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter : mergeRangeFilter,
         reduceIdenticalFilters : reduceIdenticalFilters,
-        removeMarker : removeMarker
+        containsMarker : containsMarker
     };
 };

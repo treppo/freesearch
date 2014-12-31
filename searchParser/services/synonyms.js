@@ -6,6 +6,8 @@ module.exports = function () {
     syns.Volkswagen = ['volkswagen', 'vw'];
     //syns.Golf = ['golf'];
     syns.Cross = ['cross'];
+    syns.from = ['von', 'vom'];
+    syns.to = ['bis'];
 
     var getSynonyms = function(synKey) {
         if (syns[synKey]){

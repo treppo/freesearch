@@ -19,7 +19,6 @@ module.exports = function () {
     //     no, filter match
     //         merge all noticed searchTerms, return the new searchTerms back.
     var searchTokens = function (searchTokens, filters, filterType) {
-
         filters.forEach(function (filter) {
             searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
         });
@@ -29,7 +28,7 @@ module.exports = function () {
 
     var searchTokenForFilter = function (searchTokens, filter, filterType, startIndex) {
         var searchTokensToReduceIndexes = [];
-        var modelTerms = termToStruct(filter.term);
+        var filterTerms = termToStruct(filter.term);
 
         searchTokens.forEach(function (searchToken, index) {
             if (searchToken.filter.type !== _filterTypes.unknown) {
@@ -39,12 +38,12 @@ module.exports = function () {
                 return;
             }
 
-            modelTerms.some(function (modelTerm) {
-                var foundSynonym = _synonymService.hasSynonymFor(modelTerm.term, searchToken.term);
+            filterTerms.some(function (filterTerm) {
+                var foundSynonym = _synonymService.hasSynonymFor(filterTerm.term, searchToken.term);
 
                 if (foundSynonym) {
-                    modelTerm.done = true;
-                    modelTerms = getNotDoneTerms(modelTerms);
+                    filterTerm.done = true;
+                    filterTerms = getNotDoneTerms(filterTerms);
 
                     searchTokensToReduceIndexes.push(searchToken.index);
                 }
@@ -53,7 +52,7 @@ module.exports = function () {
             });
         });
 
-        var found = getNotDoneTerms(modelTerms).length == 0;
+        var found = getNotDoneTerms(filterTerms).length == 0;
         if (found) {
             var reduced = reduceSearchTokensByFilter(searchTokens, searchTokensToReduceIndexes, {
                 value: filter.value,

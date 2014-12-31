@@ -9,5 +9,9 @@ module.exports = function () {
     filterTypes.price = 'price';
     filterTypes.power = 'power';
 
+    filterTypes.priceMarker = 'priceMarker';
+    filterTypes.powerMarker = 'powerMarker';
+    filterTypes.rangeMarker = 'rangerMarker';
+
     return filterTypes;
 };

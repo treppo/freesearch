@@ -8,21 +8,14 @@ module.exports = function () {
     var _priceMarkers = ['€'];
 
     var filter = function(searchTokens) {
-
-        searchTokens.forEach(function(searchToken, index, array) {
+        searchTokens.forEach(function(searchToken) {
             if (searchToken.filter.type !== _filterTypes.unknown) {
                 return;
             }
 
-            var tuple = _utilHelper.removeMarker(searchToken.term, _priceMarkers);
-            var isPrice = tuple.hasMarker;
+            var tuple = _utilHelper.containsMarker(searchToken.term, _priceMarkers);
+            var hasMarker = tuple.hasMarker;
             var term = tuple.term;
-
-            // term as currency. Remove it
-            if (isPrice && term.length === 0) {
-                array.splice(index, 1);
-                return;
-            }
 
             if (! _utilHelper.isNumber(term)) {
                 return;
@@ -30,8 +23,8 @@ module.exports = function () {
 
             var intTerm = _utilHelper.convertToInt(term);
 
-            // term must be is price due the price marker
-            if (isPrice) {
+            // term must be is price due the contained price marker
+            if (hasMarker) {
                 assignFilter(searchToken, term, intTerm);
                 return;
             }
