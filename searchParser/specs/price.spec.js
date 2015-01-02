@@ -41,7 +41,7 @@ describe('Price tests', function () {
             var res = parser.parse('audi 2000€');
 
             expect(res.length).toBe(2);
-            expect(res[1].term).toBe('2000€');
+            expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.price);
             expect(res[1].filter.valueFrom).toBe(2000);
             expect(res[1].filter.termFrom).toBe('2000');
@@ -60,11 +60,10 @@ describe('Price tests', function () {
     describe('When parse a number outside of suitable range but the number contains a price marker', function () {
         it('it should be parsed as price', function () {
             var expectedPrice = _findHelper.ranges.maxPrice + 10;
-            var expectedTerm = expectedPrice + '€';
-            var res = parser.parse('audi ' + expectedTerm);
+            var res = parser.parse('audi ' + expectedPrice + '€');
 
             expect(res.length).toBe(2);
-            expect(res[1].term).toBe(expectedTerm);
+            expect(res[1].term).toBe('' + expectedPrice);
             expect(res[1].filter.type).toBe(_filterTypes.price);
             expect(res[1].filter.valueFrom).toBe(expectedPrice);
             expect(res[1].filter.termFrom).toBe('' + expectedPrice);

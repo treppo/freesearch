@@ -15,31 +15,31 @@ module.exports = function () {
             var term = searchToken.term;
             var powerType = 'ps';
 
-            var tuple = _findHelper.containsSynonymByFilter(_markers.power)(searchToken);
-            var hasMarker = tuple.found;
-            if (tuple.found) {
-                hasMarker = true;
-                term = tuple.term;
-                powerType = tuple.filterTerm.value;
-            }
+            //var tuple = _findHelper.containsSynonymByFilter(_markers.power)(searchToken);
+            //var hasMarker = tuple.found;
+            //if (tuple.found) {
+            //    hasMarker = true;
+            //    term = tuple.term;
+            //    powerType = tuple.filterTerm.value;
+            //}
 
             if (!_utilHelper.isNumber(term)) {
                 return;
             }
             var intTerm = _utilHelper.convertToInt(term);
 
-            if (!hasMarker) {
-                tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
-                if (tuple.found) {
-                    hasMarker = true;
-                    powerType = tuple.filterTerm.value;
-                }
-            }
+            //if (!hasMarker) {
+            //    tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
+            //    if (tuple.found) {
+            //        hasMarker = true;
+            //        powerType = tuple.filterTerm.value;
+            //    }
+            //}
 
-            if (hasMarker) {
-                assignFilter(searchToken, term, intTerm, powerType);
-                return;
-            }
+            //if (hasMarker) {
+            //    assignFilter(searchToken, term, intTerm, powerType);
+            //    return;
+            //}
 
             if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.power)) {
                 return;

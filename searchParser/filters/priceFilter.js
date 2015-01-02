@@ -14,29 +14,28 @@ module.exports = function () {
 
             var term = searchToken.term;
 
-            var tuple = _findHelper.containsSynonymByFilter(_markers.price)(searchToken);
-            var hasMarker = tuple.found;
-            if (tuple.found) {
-                hasMarker = true;
-                term = tuple.term;
-            }
+            //var hasMarker = tuple.found;
+            //if (tuple.found) {
+            //    hasMarker = true;
+            //    term = tuple.term;
+            //}
 
             if (!_utilHelper.isNumber(term)) {
                 return;
             }
             var intTerm = _utilHelper.convertToInt(term);
 
-            if (!hasMarker) {
-                tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
-                if (tuple.found) {
-                    hasMarker = true;
-                }
-            }
+            //if (!hasMarker) {
+            //    tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
+            //    if (tuple.found) {
+            //        hasMarker = true;
+            //    }
+            //}
 
-            if (hasMarker) {
-                assignFilter(searchToken, term, intTerm);
-                return;
-            }
+            //if (hasMarker) {
+            //    assignFilter(searchToken, term, intTerm);
+            //    return;
+            //}
 
             if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
                 return;

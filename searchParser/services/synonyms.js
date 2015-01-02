@@ -29,25 +29,6 @@ module.exports = function () {
         });
     };
 
-    var removeSynonymIfContains = function (synKey, term) {
-        var res = {
-            found: false
-        };
-        term = term.toLowerCase();
-
-        getSynonyms(synKey).some(function (synonym) {
-            var found = term.indexOf(synonym) > -1;
-            if (found) {
-                res.found = true;
-                res.term = term.replace(synonym, '');
-                return true;
-            }
-            return false;
-        });
-
-        return res;
-    };
-
     var splitAtPos = function (str, pos) {
         var left = str.substring(0, pos);
         var right = str.substring(pos);
@@ -80,7 +61,6 @@ module.exports = function () {
 
     return {
         isSynonymFor: isSynonymFor,
-        removeSynonymIfContains: removeSynonymIfContains,
         splitEndsWithSynonym: splitEndsWithSynonym
     };
 };

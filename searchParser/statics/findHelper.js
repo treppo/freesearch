@@ -159,33 +159,10 @@ module.exports = function () {
         };
     };
 
-    var containsSynonymByFilter = function (filterTerms) {
-        return function (searchToken) {
-            var res = {
-                found: false
-            };
-
-            filterTerms.some(function (filterTerm) {
-                var tuple = _synonymService.removeSynonymIfContains(filterTerm.term, searchToken.term);
-                if (tuple.found) {
-                    res.found = true;
-                    res.filterTerm = filterTerm;
-                    res.term = tuple.term;
-
-                    return true;
-                }
-                return false;
-            });
-
-            return res;
-        };
-    };
-
     return {
         searchTokens: searchTokens,
         isInSuitableRange: isInSuitableRange,
         ranges: _ranges, // expose due testing
-        isSynonymByFilter: isSynonymByFilter,
-        containsSynonymByFilter: containsSynonymByFilter
+        isSynonymByFilter: isSynonymByFilter
     }
 };
