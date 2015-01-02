@@ -39,7 +39,7 @@ module.exports = function () {
             }
 
             filterTerms.some(function (filterTerm) {
-                var foundSynonym = _synonymService.hasSynonymFor(filterTerm.term, searchToken.term);
+                var foundSynonym = _synonymService.isSynonymFor(filterTerm.term, searchToken.term);
 
                 if (foundSynonym) {
                     filterTerm.done = true;
@@ -136,9 +136,56 @@ module.exports = function () {
         return true;
     };
 
+    var isSynonymByFilter = function (filterTerms) {
+
+        var res = {
+            found : false
+        };
+
+        return function (searchToken) {
+
+             filterTerms.some(function (filterTerm) {
+                var foundSynonym = _synonymService.isSynonymFor(filterTerm.term, searchToken.term);
+                if (foundSynonym) {
+                    res.found = true;
+                    res.filterTerm = filterTerm;
+
+                    return true;
+                }
+                return false;
+            });
+
+            return res;
+        };
+    };
+
+    var containsSynonymByFilter = function (filterTerms) {
+        return function (searchToken) {
+            var res = {
+                found : false
+            };
+
+            filterTerms.some(function (filterTerm) {
+                var tuple = _synonymService.removeSynonymIfContains(filterTerm.term, searchToken.term);
+                if (tuple.found) {
+                    res.found = true;
+                    res.filterTerm = filterTerm;
+                    res.term = tuple.term;
+
+                    return true;
+                }
+                return false;
+            });
+
+            return res;
+        };
+    };
+
     return {
         searchTokens : searchTokens,
         isInSuitableRange : isInSuitableRange,
-        ranges : _ranges // expose due testing
+        ranges : _ranges, // expose due testing
+        isSynonymByFilter : isSynonymByFilter,
+        containsSynonymByFilter : containsSynonymByFilter
     }
 };

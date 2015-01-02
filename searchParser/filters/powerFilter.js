@@ -4,26 +4,38 @@ module.exports = function () {
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
     var _findHelper = require('../statics/findHelper.js')();
-
-    var _powerMarker = ['ps', 'kw'];
+    var _markers = require('../services/markers.js')();
 
     var filter = function(searchTokens) {
         searchTokens.forEach(function(searchToken) {
             if (searchToken.filter.type !== _filterTypes.unknown) {
                 return;
             }
-            var tuple = _utilHelper.containsMarker(searchToken.term, _powerMarker);
-            var hasMarker = tuple.hasMarker;
-            var term = tuple.term;
-            var powerType = tuple.marker || 'ps';
+
+            var term = searchToken.term;
+            var powerType =  'ps';
+
+            var tuple = _findHelper.containsSynonymByFilter(_markers.power)(searchToken);
+            var hasMarker = tuple.found;
+            if (tuple.found) {
+                hasMarker = true;
+                term = tuple.term;
+                powerType = tuple.filterTerm.value;
+            }
 
             if (! _utilHelper.isNumber(term)) {
                 return;
             }
-
             var intTerm = _utilHelper.convertToInt(term);
 
-            // term must be is power due the contained power marker
+            if (! hasMarker) {
+                tuple =_utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
+                if (tuple.found) {
+                    hasMarker = true;
+                    powerType = tuple.filterTerm.value;
+                }
+            }
+
             if (hasMarker) {
                 assignFilter(searchToken, term, intTerm, powerType);
                 return;
@@ -50,7 +62,6 @@ module.exports = function () {
             searchToken.filter.valueFrom = intTerm;
             searchToken.filter.termFrom = term;
         }
-
     };
 
     return filter;

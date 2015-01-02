@@ -6,8 +6,11 @@ module.exports = function () {
     syns.Volkswagen = ['volkswagen', 'vw'];
     //syns.Golf = ['golf'];
     syns.Cross = ['cross'];
-    syns.from = ['von', 'vom'];
-    syns.to = ['bis'];
+    syns.From = ['von', 'vom'];
+    syns.To = ['bis'];
+    syns.Kw = ['kw'];
+    syns.Ps = ['ps'];
+    syns.Euro = ['€', 'euro', 'eur'];
 
     var getSynonyms = function(synKey) {
         if (syns[synKey]){
@@ -16,17 +19,37 @@ module.exports = function () {
         return [synKey.toLowerCase()];
     };
 
-    var commpareSynonym = function (searchToken, synonym) {
-        return searchToken.toLowerCase() === synonym;
+    var isSynonym = function (term, synonym) {
+        return term.toLowerCase() === synonym;
     };
 
-    var hasSynonymFor = function(synKey, searchToken) {
+    var isSynonymFor = function(synKey, term) {
         return getSynonyms(synKey).some(function(synonym){
-            return commpareSynonym(searchToken, synonym);
+            return isSynonym(term, synonym);
         });
     };
 
+    var removeSynonymIfContains = function(synKey, term) {
+        var res = {
+            found : false
+        };
+        term = term.toLowerCase();
+
+        getSynonyms(synKey).some(function(synonym) {
+            var found = term.indexOf(synonym) > -1;
+            if (found) {
+                res.found = true;
+                res.term = term.replace(synonym, '');
+                return true;
+            }
+            return false;
+        });
+
+        return res;
+    };
+
     return {
-        hasSynonymFor : hasSynonymFor
+        isSynonymFor : isSynonymFor,
+        removeSynonymIfContains : removeSynonymIfContains
     };
 };

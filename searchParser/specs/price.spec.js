@@ -69,6 +69,18 @@ describe('Price tests', function () {
             expect(res[1].filter.valueFrom).toBe(expectedPrice);
             expect(res[1].filter.termFrom).toBe('' + expectedPrice);
         });
+
+        it('it should be parsed as price', function() {
+            var res = parser.parse('audi 20 30 euro');
+
+            expect(res.length).toBe(2);
+            expect(res[1].term).toBe('20 - 30');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(20);
+            expect(res[1].filter.termFrom).toBe('20');
+            expect(res[1].filter.valueTo).toBe(30);
+            expect(res[1].filter.termTo).toBe('30')
+        });
     });
     
     describe('When parse two prices', function() {

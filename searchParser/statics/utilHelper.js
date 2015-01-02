@@ -68,27 +68,31 @@ module.exports = function () {
         }, []);
     };
 
-    var containsMarker = function (term, markers) {
-        var foundMarker;
 
-        var termLoverCase = term.toLowerCase();
 
-        var hasMarker = markers.some(function(marker){
-            var index = termLoverCase.indexOf(marker);
+    var lookaHead = function (searchTokens, fromIndex, fncToApply, deep) {
+        var res = {};
+        var currDeep = 1;
 
-            if (index > -1) {
-                termLoverCase = termLoverCase.replace(marker, '');
-                foundMarker = marker;
+        searchTokens.some(function(searchToken) {
+            if (searchToken.index <= fromIndex){
+                return false;
+            }
+
+            if (currDeep > deep) {
+                return true;
+            }
+            currDeep++;
+
+            var t = fncToApply(searchToken);
+            if (t.found){
+                res = t;
                 return true;
             }
             return false;
         });
 
-        return {
-            hasMarker : hasMarker,
-            term: termLoverCase,
-            marker : foundMarker
-        };
+        return res;
     };
 
     return {
@@ -100,6 +104,6 @@ module.exports = function () {
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter : mergeRangeFilter,
         reduceIdenticalFilters : reduceIdenticalFilters,
-        containsMarker : containsMarker
+        lookaHead : lookaHead
     };
 };

@@ -8,8 +8,8 @@ module.exports = function () {
     //
 
     var models = [
-        { term : 'Cross Golf', value: 20315 },
-        { term : 'Golf', value : 2084 },
+        {term: 'Cross Golf', value: 20315},
+        {term: 'Golf', value: 2084},
     ];
 
     return models;

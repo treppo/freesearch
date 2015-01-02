@@ -4,8 +4,7 @@ module.exports = function () {
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
     var _findHelper = require('../statics/findHelper.js')();
-
-    var _priceMarkers = ['€'];
+    var _markers = require('../services/markers.js')();
 
     var filter = function(searchTokens) {
         searchTokens.forEach(function(searchToken) {
@@ -13,17 +12,27 @@ module.exports = function () {
                 return;
             }
 
-            var tuple = _utilHelper.containsMarker(searchToken.term, _priceMarkers);
-            var hasMarker = tuple.hasMarker;
-            var term = tuple.term;
+            var term = searchToken.term;
+
+            var tuple = _findHelper.containsSynonymByFilter(_markers.price)(searchToken);
+            var hasMarker = tuple.found;
+            if (tuple.found) {
+                hasMarker = true;
+                term = tuple.term;
+            }
 
             if (! _utilHelper.isNumber(term)) {
                 return;
             }
-
             var intTerm = _utilHelper.convertToInt(term);
 
-            // term must be is price due the contained price marker
+            if (! hasMarker) {
+                tuple =_utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
+                if (tuple.found) {
+                    hasMarker = true;
+                }
+            }
+
             if (hasMarker) {
                 assignFilter(searchToken, term, intTerm);
                 return;
