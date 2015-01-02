@@ -3,9 +3,9 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js')();
 
-    var filter = function(searchTokens) {
+    var filter = function (searchTokens) {
 
-        searchTokens.forEach(function(searchToken, index, array) {
+        searchTokens.forEach(function (searchToken, index, array) {
             if (searchToken.filter.type === _filterTypes.priceMarker ||
                 searchToken.filter.type === _filterTypes.powerMarker ||
                 searchToken.filter.type === _filterTypes.rangeMarker

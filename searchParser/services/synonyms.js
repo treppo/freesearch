@@ -12,8 +12,8 @@ module.exports = function () {
     syns.Ps = ['ps'];
     syns.Euro = ['€', 'euro', 'eur'];
 
-    var getSynonyms = function(synKey) {
-        if (syns[synKey]){
+    var getSynonyms = function (synKey) {
+        if (syns[synKey]) {
             return syns[synKey];
         }
         return [synKey.toLowerCase()];
@@ -23,19 +23,19 @@ module.exports = function () {
         return term.toLowerCase() === synonym;
     };
 
-    var isSynonymFor = function(synKey, term) {
-        return getSynonyms(synKey).some(function(synonym){
+    var isSynonymFor = function (synKey, term) {
+        return getSynonyms(synKey).some(function (synonym) {
             return isSynonym(term, synonym);
         });
     };
 
-    var removeSynonymIfContains = function(synKey, term) {
+    var removeSynonymIfContains = function (synKey, term) {
         var res = {
-            found : false
+            found: false
         };
         term = term.toLowerCase();
 
-        getSynonyms(synKey).some(function(synonym) {
+        getSynonyms(synKey).some(function (synonym) {
             var found = term.indexOf(synonym) > -1;
             if (found) {
                 res.found = true;
@@ -49,7 +49,7 @@ module.exports = function () {
     };
 
     return {
-        isSynonymFor : isSynonymFor,
-        removeSynonymIfContains : removeSynonymIfContains
+        isSynonymFor: isSynonymFor,
+        removeSynonymIfContains: removeSynonymIfContains
     };
 };

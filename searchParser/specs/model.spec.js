@@ -3,9 +3,9 @@ var parser = require('../parser.js')(filters);
 
 var _filterTypes = require('../statics/filterTypes.js')();
 
-describe('Model tests', function() {
-    describe('when parse search line with single model', function() {
-        it('it should parse to expected model', function() {
+describe('Model tests', function () {
+    describe('when parse search line with single model', function () {
+        it('it should parse to expected model', function () {
             var res = parser.parse('vw golf');
 
             expect(res.length).toBe(2);
@@ -16,8 +16,8 @@ describe('Model tests', function() {
         });
     });
 
-    describe('when parse search line with single model build from two terms', function() {
-        it('it should parse to expected model', function() {
+    describe('when parse search line with single model build from two terms', function () {
+        it('it should parse to expected model', function () {
             var res = parser.parse('vw cross golf');
 
             expect(res.length).toBe(2);
@@ -29,8 +29,8 @@ describe('Model tests', function() {
         });
     });
 
-    describe('when parse search line with greedy model', function() {
-        it('it should parse to expected model', function() {
+    describe('when parse search line with greedy model', function () {
+        it('it should parse to expected model', function () {
             var res = parser.parse('vw golf cross');
 
             expect(res.length).toBe(2);
@@ -42,8 +42,8 @@ describe('Model tests', function() {
         });
     });
 
-    describe('when parse search line with greedy model and effectively two models', function() {
-        it('it should parse to expected models', function() {
+    describe('when parse search line with greedy model and effectively two models', function () {
+        it('it should parse to expected models', function () {
             var res = parser.parse('vw golf golf cross');
 
             expect(res.length).toBe(3);

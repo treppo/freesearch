@@ -3,10 +3,10 @@ var parser = require('../parser.js')(filters);
 
 var _filterTypes = require('../statics/filterTypes.js')();
 
-describe('Filter identical terms tests', function() {
-    describe('when parse identical filters', function() {
+describe('Filter identical terms tests', function () {
+    describe('when parse identical filters', function () {
 
-        it('it should merge them to one', function() {
+        it('it should merge them to one', function () {
             var res = parser.parse('bmw bmw bmw');
 
             expect(res.length).toBe(1);

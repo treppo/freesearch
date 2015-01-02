@@ -23,7 +23,7 @@ module.exports = function () {
             searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
         });
 
-       return searchTokens;
+        return searchTokens;
     };
 
     var searchTokenForFilter = function (searchTokens, filter, filterType, startIndex) {
@@ -71,7 +71,7 @@ module.exports = function () {
 
     var reduceSearchTokensByFilter = function (searchTokens, foundedSearchIndexes, filter) {
         var mergeToPosition = -1;
-        var res = searchTokens.reduce(function(accumulator, searchToken, index, searchTokens) {
+        var res = searchTokens.reduce(function (accumulator, searchToken, index, searchTokens) {
 
             if (foundedSearchIndexes.indexOf(searchToken.index) > -1) {
 
@@ -93,35 +93,35 @@ module.exports = function () {
 
             return accumulator;
 
-        },[]);
+        }, []);
 
         return {
-            searchTokens : res,
-            mergeToPosition : mergeToPosition
+            searchTokens: res,
+            mergeToPosition: mergeToPosition
         };
     };
 
     var getNotDoneTerms = function (terms) {
-        return terms.filter(function(term){
+        return terms.filter(function (term) {
             return term.done === false;
         });
     };
 
     var termToStruct = function (term) {
         var t = term.split(' ');
-        return t.map(function(item){
+        return t.map(function (item) {
             return {
-                term : item,
-                done : false
+                term: item,
+                done: false
             };
         });
     };
 
     var _ranges = {
-        minPrice : 0,
-        maxPrice : 1000000,
-        minPower : 0,
-        maxPower : 500
+        minPrice: 0,
+        maxPrice: 1000000,
+        minPower: 0,
+        maxPower: 500
     };
 
     var isInSuitableRange = function (intTerm, filterType) {
@@ -139,12 +139,12 @@ module.exports = function () {
     var isSynonymByFilter = function (filterTerms) {
 
         var res = {
-            found : false
+            found: false
         };
 
         return function (searchToken) {
 
-             filterTerms.some(function (filterTerm) {
+            filterTerms.some(function (filterTerm) {
                 var foundSynonym = _synonymService.isSynonymFor(filterTerm.term, searchToken.term);
                 if (foundSynonym) {
                     res.found = true;
@@ -162,7 +162,7 @@ module.exports = function () {
     var containsSynonymByFilter = function (filterTerms) {
         return function (searchToken) {
             var res = {
-                found : false
+                found: false
             };
 
             filterTerms.some(function (filterTerm) {
@@ -182,10 +182,10 @@ module.exports = function () {
     };
 
     return {
-        searchTokens : searchTokens,
-        isInSuitableRange : isInSuitableRange,
-        ranges : _ranges, // expose due testing
-        isSynonymByFilter : isSynonymByFilter,
-        containsSynonymByFilter : containsSynonymByFilter
+        searchTokens: searchTokens,
+        isInSuitableRange: isInSuitableRange,
+        ranges: _ranges, // expose due testing
+        isSynonymByFilter: isSynonymByFilter,
+        containsSynonymByFilter: containsSynonymByFilter
     }
 };

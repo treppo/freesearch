@@ -10,36 +10,34 @@ module.exports = function () {
     };
 
     var convertFromPsToKw = function (ps) {
-        return  parseInt(0.745699872  * ps);
+        return parseInt(0.745699872 * ps);
     };
 
-    var compareTermFilter = function(tokenLeft, tokenRight) {
+    var compareTermFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&
             tokenLeft.filter.value === tokenRight.filter.value;
     };
 
-    var mergeTermFilter = function(tokenLeft, tokenRight) {
-        tokenLeft.term = tokenLeft.term + ' ' +  tokenRight.term;
+    var mergeTermFilter = function (tokenLeft, tokenRight) {
+        tokenLeft.term = tokenLeft.term + ' ' + tokenRight.term;
     };
 
-    var compareRangeFilter = function(tokenLeft, tokenRight) {
+    var compareRangeFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.valueFrom) &&
-            (tokenRight.filter.valueFrom) &&
-            !(tokenLeft.filter.valueTo) &&
-            !(tokenRight.filter.valueTo);
+            (tokenRight.filter.valueFrom) && !(tokenLeft.filter.valueTo) && !(tokenRight.filter.valueTo);
     };
 
-    var mergeRangeFilter = function(tokenLeft, tokenRight) {
+    var mergeRangeFilter = function (tokenLeft, tokenRight) {
         if (tokenLeft.filter.valueFrom <= tokenRight.filter.valueFrom) {
-            tokenLeft.term = tokenLeft.term + ' - ' +  tokenRight.term;
+            tokenLeft.term = tokenLeft.term + ' - ' + tokenRight.term;
 
             tokenLeft.filter.valueTo = tokenRight.filter.valueFrom;
             tokenLeft.filter.termTo = tokenRight.filter.termFrom;
         }
         else {
-            tokenLeft.term = tokenRight.term + ' - ' +  tokenLeft.term;
+            tokenLeft.term = tokenRight.term + ' - ' + tokenLeft.term;
 
             tokenLeft.filter.valueTo = tokenLeft.filter.valueFrom;
             tokenLeft.filter.termTo = tokenLeft.filter.termFrom;
@@ -69,13 +67,12 @@ module.exports = function () {
     };
 
 
-
     var lookaHead = function (searchTokens, fromIndex, fncToApply, deep) {
         var res = {};
         var currDeep = 1;
 
-        searchTokens.some(function(searchToken) {
-            if (searchToken.index <= fromIndex){
+        searchTokens.some(function (searchToken) {
+            if (searchToken.index <= fromIndex) {
                 return false;
             }
 
@@ -85,7 +82,7 @@ module.exports = function () {
             currDeep++;
 
             var t = fncToApply(searchToken);
-            if (t.found){
+            if (t.found) {
                 res = t;
                 return true;
             }
@@ -96,14 +93,14 @@ module.exports = function () {
     };
 
     return {
-        isNumber : isNumber,
-        convertToInt : convertToInt,
-        convertFromPsToKw : convertFromPsToKw,
-        compareTermFilter : compareTermFilter,
-        mergeTermFilter : mergeTermFilter,
+        isNumber: isNumber,
+        convertToInt: convertToInt,
+        convertFromPsToKw: convertFromPsToKw,
+        compareTermFilter: compareTermFilter,
+        mergeTermFilter: mergeTermFilter,
         compareRangeFilter: compareRangeFilter,
-        mergeRangeFilter : mergeRangeFilter,
-        reduceIdenticalFilters : reduceIdenticalFilters,
-        lookaHead : lookaHead
+        mergeRangeFilter: mergeRangeFilter,
+        reduceIdenticalFilters: reduceIdenticalFilters,
+        lookaHead: lookaHead
     };
 };

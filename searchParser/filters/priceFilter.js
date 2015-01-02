@@ -6,8 +6,8 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper.js')();
     var _markers = require('../services/markers.js')();
 
-    var filter = function(searchTokens) {
-        searchTokens.forEach(function(searchToken) {
+    var filter = function (searchTokens) {
+        searchTokens.forEach(function (searchToken) {
             if (searchToken.filter.type !== _filterTypes.unknown) {
                 return;
             }
@@ -21,13 +21,13 @@ module.exports = function () {
                 term = tuple.term;
             }
 
-            if (! _utilHelper.isNumber(term)) {
+            if (!_utilHelper.isNumber(term)) {
                 return;
             }
             var intTerm = _utilHelper.convertToInt(term);
 
-            if (! hasMarker) {
-                tuple =_utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
+            if (!hasMarker) {
+                tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
                 if (tuple.found) {
                     hasMarker = true;
                 }
@@ -38,7 +38,7 @@ module.exports = function () {
                 return;
             }
 
-            if (! _findHelper.isInSuitableRange(intTerm,  _filterTypes.price)) {
+            if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
                 return;
             }
 
