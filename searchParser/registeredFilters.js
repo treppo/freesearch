@@ -6,7 +6,8 @@ module.exports = function () {
     var splitMarkerFromTokensFilter = require('./filters/splitMarkerFromTokensFilter.js')();
     var createSearchTermsFilter = require('./filters/createSearchTermsFilter.js')();
 
-    var markerFilter = require('./filters/markerFilter.js')();
+    var mFilter = require('./filters/mFilter.js')();
+    var createMarkerFilter = require('./filters/createMarkerFilter.js')();
     var makeFilter = require('./filters/makeFilter.js')();
     var modelFilter = require('./filters/modelFilter.js')();
     var priceFilter = require('./filters/priceFilter.js')();
@@ -21,7 +22,10 @@ module.exports = function () {
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
-        markerFilter,
+        createMarkerFilter,
+
+        mFilter,
+
         makeFilter,
         modelFilter,
         powerFilter,

@@ -4,44 +4,25 @@ module.exports = function () {
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
     var _findHelper = require('../statics/findHelper.js')();
-    var _markers = require('../services/markers.js')();
+    var _filterHelper = require('../statics/filterHelper.js')();
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
-            if (searchToken.filter.type !== _filterTypes.unknown) {
+            if (_filterHelper.isFilterDone(searchToken.filter)) {
                 return;
             }
 
-            var term = searchToken.term;
-
-            //var hasMarker = tuple.found;
-            //if (tuple.found) {
-            //    hasMarker = true;
-            //    term = tuple.term;
-            //}
-
-            if (!_utilHelper.isNumber(term)) {
+            if (!_utilHelper.isNumber(searchToken.term)) {
                 return;
             }
-            var intTerm = _utilHelper.convertToInt(term);
 
-            //if (!hasMarker) {
-            //    tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
-            //    if (tuple.found) {
-            //        hasMarker = true;
-            //    }
-            //}
-
-            //if (hasMarker) {
-            //    assignFilter(searchToken, term, intTerm);
-            //    return;
-            //}
+            var intTerm = _utilHelper.convertToInt(searchToken.term);
 
             if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
                 return;
             }
 
-            assignFilter(searchToken, term, intTerm);
+            assignFilter(searchToken, searchToken.term, intTerm);
         });
 
         return searchTokens;

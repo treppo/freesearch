@@ -9,8 +9,10 @@ module.exports = function () {
     filterTypes.price = 'price';
     filterTypes.power = 'power';
 
+    // entity marker
     filterTypes.priceMarker = 'priceMarker';
     filterTypes.powerMarker = 'powerMarker';
+    // range marker
     filterTypes.rangeMarker = 'rangerMarker';
 
     return filterTypes;

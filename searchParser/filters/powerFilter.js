@@ -4,42 +4,23 @@ module.exports = function () {
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
     var _findHelper = require('../statics/findHelper.js')();
+    var _filterHelper = require('../statics/filterHelper.js')();
+
     var _markers = require('../services/markers.js')();
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
-            if (searchToken.filter.type !== _filterTypes.unknown) {
+            if (_filterHelper.isFilterDone(searchToken.filter)) {
                 return;
             }
 
             var term = searchToken.term;
             var powerType = 'ps';
 
-            //var tuple = _findHelper.containsSynonymByFilter(_markers.power)(searchToken);
-            //var hasMarker = tuple.found;
-            //if (tuple.found) {
-            //    hasMarker = true;
-            //    term = tuple.term;
-            //    powerType = tuple.filterTerm.value;
-            //}
-
             if (!_utilHelper.isNumber(term)) {
                 return;
             }
             var intTerm = _utilHelper.convertToInt(term);
-
-            //if (!hasMarker) {
-            //    tuple = _utilHelper.lookaHead(searchTokens, searchToken.index, _findHelper.isSynonymByFilter(_markers.power), 2);
-            //    if (tuple.found) {
-            //        hasMarker = true;
-            //        powerType = tuple.filterTerm.value;
-            //    }
-            //}
-
-            //if (hasMarker) {
-            //    assignFilter(searchToken, term, intTerm, powerType);
-            //    return;
-            //}
 
             if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.power)) {
                 return;

@@ -1,11 +1,11 @@
 module.exports = function () {
     'use strict';
 
-    var _utilHelper = require('../statics/utilHelper.js')();
+    var _filterHelper = require('../statics/filterHelper.js')();
 
     var filter = function (searchTokens) {
-        searchTokens = _utilHelper.reduceIdenticalFilters(searchTokens, _utilHelper.compareTermFilter, _utilHelper.mergeTermFilter);
-        searchTokens = _utilHelper.reduceIdenticalFilters(searchTokens, _utilHelper.compareRangeFilter, _utilHelper.mergeRangeFilter);
+        searchTokens = _filterHelper.reduceIdenticalFilters(searchTokens, _filterHelper.compareTermFilter, _filterHelper.mergeTermFilter);
+        searchTokens = _filterHelper.reduceIdenticalFilters(searchTokens, _filterHelper.compareRangeFilter, _filterHelper.mergeRangeFilter);
 
         return searchTokens;
     };

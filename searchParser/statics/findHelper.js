@@ -3,6 +3,7 @@ module.exports = function () {
 
     var _synonymService = require('./../services/synonyms.js')();
     var _filterTypes = require('./filterTypes.js')();
+    var _filterHelper = require('../statics/filterHelper.js')();
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
     //
@@ -31,7 +32,7 @@ module.exports = function () {
         var filterTerms = termToStruct(filter.term);
 
         searchTokens.forEach(function (searchToken, index) {
-            if (searchToken.filter.type !== _filterTypes.unknown) {
+            if (_filterHelper.isFilterDone(searchToken.filter)) {
                 return;
             }
             if (index < startIndex) {
