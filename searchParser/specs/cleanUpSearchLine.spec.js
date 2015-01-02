@@ -16,7 +16,7 @@ describe('when parse garbage symbols in the search line', function () {
         });
 
         it('it should parse to empty result', function () {
-            var res = parser.parse('-+ :   ');
+            var res = parser.parse('-+ ;   ');
             expect(res.length).toBe(0);
         });
 

@@ -1,8 +1,11 @@
 module.exports = function () {
     'use strict';
 
-    var normalizeSearchLineFilter = require('./filters/normalizeSearchLineFilter.js')();
+    var normalizeSearchLineFilter = require('./filters/cleanUpSearchLineFilter.js')();
     var createTokensFilter = require('./filters/createTokensFilter.js')();
+    var splitMarkerFromTokensFilter = require('./filters/splitMarkerFromTokensFilter.js')();
+    var createSearchTermsFilter = require('./filters/createSearchTermsFilter.js')();
+
     var markerFilter = require('./filters/markerFilter.js')();
     var makeFilter = require('./filters/makeFilter.js')();
     var modelFilter = require('./filters/modelFilter.js')();
@@ -16,6 +19,8 @@ module.exports = function () {
     var filters = [
         normalizeSearchLineFilter,
         createTokensFilter,
+        splitMarkerFromTokensFilter,
+        createSearchTermsFilter,
         markerFilter,
         makeFilter,
         modelFilter,

@@ -48,8 +48,39 @@ module.exports = function () {
         return res;
     };
 
+    var splitAtPos = function (str, pos) {
+        var left = str.substring(0, pos);
+        var right = str.substring(pos);
+
+        return [left, right];
+    };
+
+    var splitEndsWithSynonym = function (synKey, term) {
+        var res = {
+            found : false
+        };
+        var termLower = term.toLowerCase();
+
+        getSynonyms(synKey).some(function (synonym) {
+            if (synonym.length >= termLower.length) {
+                return false;
+            }
+
+            var pos = termLower.indexOf(synonym, termLower.length - synonym.length);
+            if (pos > -1) {
+                res.found = true;
+                res.terms = splitAtPos(term, pos);
+                return true;
+            }
+            return false;
+        });
+
+        return res;
+    };
+
     return {
         isSynonymFor: isSynonymFor,
-        removeSynonymIfContains: removeSynonymIfContains
+        removeSynonymIfContains: removeSynonymIfContains,
+        splitEndsWithSynonym: splitEndsWithSynonym
     };
 };
