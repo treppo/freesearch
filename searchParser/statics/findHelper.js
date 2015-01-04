@@ -32,7 +32,7 @@ module.exports = function () {
         var filterTerms = termToStruct(filter.term);
 
         searchTokens.forEach(function (searchToken, index) {
-            if (_filterHelper.isFilterDone(searchToken.filter)) {
+            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
                 return;
             }
             if (index < startIndex) {
@@ -122,7 +122,7 @@ module.exports = function () {
         minPrice: 0,
         maxPrice: 1000000,
         minPower: 0,
-        maxPower: 500
+        maxPower: 500 // PS
     };
 
     var isInSuitableRange = function (intTerm, filterType) {

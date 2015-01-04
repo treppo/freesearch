@@ -3,8 +3,8 @@ module.exports = function () {
 
     var _filterTypes = require('./filterTypes.js')();
 
-    var isFilterDone = function (filter) {
-        return filter.type !== _filterTypes.unknown;
+    var isUnknownFilter = function (filter) {
+        return filter.type === _filterTypes.unknown;
     };
 
     var isMarkerFilter = function (filter) {
@@ -65,6 +65,29 @@ module.exports = function () {
         }, []);
     };
 
+    var createAssignFilterFnc = function (fncToApply, context) {
+        var curDeep = 0;
+        var maxDeep = 2;
+        var assignFilterFnc = function (searchToken) {
+            if (isMarkerFilter(searchToken.filter)) {
+                return true;
+            }
+            if (! isUnknownFilter(searchToken.filter)) {
+                return true;
+            }
+
+            curDeep++;
+            if (curDeep > maxDeep) {
+                return true;
+            }
+
+            fncToApply(searchToken, context);
+
+            return false;
+        };
+
+        return assignFilterFnc;
+    };
 
     var lookBehind = function (searchTokens, fromIndex, fncToApply) {
         var s = searchTokens.reverse();
@@ -91,13 +114,14 @@ module.exports = function () {
     };
 
     return {
-        isFilterDone: isFilterDone,
+        isUnknownFilter: isUnknownFilter,
         isMarkerFilter: isMarkerFilter,
         compareTermFilter: compareTermFilter,
         mergeTermFilter: mergeTermFilter,
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter: mergeRangeFilter,
         reduceIdenticalFilters: reduceIdenticalFilters,
+        createAssignFilterFnc: createAssignFilterFnc,
         lookBehind: lookBehind
     };
 };

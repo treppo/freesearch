@@ -57,7 +57,7 @@ describe('Price tests', function () {
         });
     });
 
-    describe('When parse a number outside of suitable range but the number contains a price marker', function () {
+    describe('When parse a number outside of suitable range but the number is followed by a price marker', function () {
         it('it should be parsed as price', function () {
             var expectedPrice = _findHelper.ranges.maxPrice + 10;
             var res = parser.parse('audi ' + expectedPrice + '€');
@@ -69,7 +69,7 @@ describe('Price tests', function () {
             expect(res[1].filter.termFrom).toBe('' + expectedPrice);
         });
 
-        xit('it should be parsed as price', function () {
+        it('it should be parsed as price range', function () {
             var res = parser.parse('audi 20 30 euro');
 
             expect(res.length).toBe(2);
@@ -149,6 +149,26 @@ describe('Price tests', function () {
             expect(res[1].filter.termFrom).toBe('4000');
             expect(res[1].filter.valueTo).toBe(5000);
             expect(res[1].filter.termTo).toBe('5000');
+        });
+
+        it('it should parse them as a price range', function () {
+            var res = parser.parse('2000 3000 € blub 5000 4000 €');
+
+            expect(res.length).toBe(3);
+
+            expect(res[0].term).toBe('2000 - 3000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBe(2000);
+            expect(res[0].filter.termFrom).toBe('2000');
+            expect(res[0].filter.valueTo).toBe(3000);
+            expect(res[0].filter.termTo).toBe('3000');
+
+            expect(res[2].term).toBe('4000 - 5000');
+            expect(res[2].filter.type).toBe(_filterTypes.price);
+            expect(res[2].filter.valueFrom).toBe(4000);
+            expect(res[2].filter.termFrom).toBe('4000');
+            expect(res[2].filter.valueTo).toBe(5000);
+            expect(res[2].filter.termTo).toBe('5000');
         });
     });
 });

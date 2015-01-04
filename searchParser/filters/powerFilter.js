@@ -6,44 +6,48 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper.js')();
     var _filterHelper = require('../statics/filterHelper.js')();
 
-    var _markers = require('../services/markers.js')();
-
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
-            if (_filterHelper.isFilterDone(searchToken.filter)) {
+            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
                 return;
             }
 
-            var term = searchToken.term;
-            var powerType = 'ps';
-
-            if (!_utilHelper.isNumber(term)) {
-                return;
-            }
-            var intTerm = _utilHelper.convertToInt(term);
-
-            if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.power)) {
-                return;
-            }
-
-            assignFilter(searchToken, term, intTerm, powerType);
+            assignFilter(searchToken, {});
         });
 
         return searchTokens;
     };
 
-    var assignFilter = function (searchToken, term, intTerm, powerType) {
-        searchToken.filter.type = _filterTypes.power;
+    var assignFilter = function (searchToken, context) {
+        if (!_utilHelper.isNumber(searchToken.term)) {
+            return;
+        }
 
-        if (powerType === 'ps') { // recalculate to kw
-            searchToken.filter.valueFrom = _utilHelper.convertFromPsToKw(intTerm);
-            searchToken.filter.termFrom = '' + searchToken.filter.valueFrom;
+        var powerType = context.powerType || 'ps'; // default
+        var intTerm = _utilHelper.convertToInt(searchToken.term);
+
+        var kwTerm = 0;
+        var psTerm = 0;
+        if (powerType === 'ps') {
+            kwTerm = _utilHelper.convertFromPsToKw(intTerm);
+            psTerm = intTerm;
+        } else {
+            kwTerm = intTerm;
+            psTerm = _utilHelper.convertFromKwToPs(intTerm);
         }
-        else {
-            searchToken.filter.valueFrom = intTerm;
-            searchToken.filter.termFrom = term;
+
+        if (!context.hasMarker) {
+            if (!_findHelper.isInSuitableRange(psTerm, _filterTypes.power)) {
+                return;
+            }
         }
+        searchToken.filter.type = _filterTypes.power;
+        searchToken.filter.valueFrom = kwTerm;
+        searchToken.filter.termFrom = '' + kwTerm;
     };
 
-    return filter;
+    return {
+        filter: filter,
+        assignFilter: assignFilter
+    };
 };

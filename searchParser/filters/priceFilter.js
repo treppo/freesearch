@@ -8,31 +8,36 @@ module.exports = function () {
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
-            if (_filterHelper.isFilterDone(searchToken.filter)) {
+            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
                 return;
             }
 
-            if (!_utilHelper.isNumber(searchToken.term)) {
-                return;
-            }
-
-            var intTerm = _utilHelper.convertToInt(searchToken.term);
-
-            if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
-                return;
-            }
-
-            assignFilter(searchToken, searchToken.term, intTerm);
+            assignFilter(searchToken, {});
         });
 
         return searchTokens;
     };
 
-    var assignFilter = function (searchToken, term, intTerm) {
+    var assignFilter = function (searchToken, context) {
+        if (!_utilHelper.isNumber(searchToken.term)) {
+            return;
+        }
+
+        var intTerm = _utilHelper.convertToInt(searchToken.term);
+
+        if (!context.hasMarker) {
+            if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
+                return;
+            }
+        }
+
         searchToken.filter.type = _filterTypes.price;
-        searchToken.filter.termFrom = term;
+        searchToken.filter.termFrom = searchToken.term;
         searchToken.filter.valueFrom = intTerm;
     };
 
-    return filter;
+    return {
+        filter: filter,
+        assignFilter: assignFilter
+    };
 };

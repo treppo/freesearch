@@ -6,6 +6,7 @@ module.exports = function () {
     syns.Volkswagen = ['volkswagen', 'vw'];
     //syns.Golf = ['golf'];
     syns.Cross = ['cross'];
+
     syns.From = ['von', 'vom'];
     syns.To = ['bis'];
     syns.Kw = ['kw'];

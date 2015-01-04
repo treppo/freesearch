@@ -13,9 +13,14 @@ module.exports = function () {
         return parseInt(0.745699872 * ps);
     };
 
+    var convertFromKwToPs = function (kw) {
+        return parseInt(kw / 0.745699872);
+    };
+
     return {
         isNumber: isNumber,
         convertToInt: convertToInt,
-        convertFromPsToKw: convertFromPsToKw
+        convertFromPsToKw: convertFromPsToKw,
+        convertFromKwToPs: convertFromKwToPs
     };
 };

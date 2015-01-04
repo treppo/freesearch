@@ -5,7 +5,7 @@ var _findHelper = require('../statics/findHelper.js')();
 var _utilHelper = require('../statics/utilHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
 
-xdescribe('Power tests', function () {
+describe('Power tests', function () {
     var kw200 = _utilHelper.convertFromPsToKw(200);
     var kw300 = _utilHelper.convertFromPsToKw(300);
     var kw400 = _utilHelper.convertFromPsToKw(400);
