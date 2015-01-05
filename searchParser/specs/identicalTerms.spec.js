@@ -1,13 +1,12 @@
 var filters = require('../registeredFilters.js')();
-var parser = require('../parser.js')(filters);
-
+var _parser = require('../parser.js')(filters);
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Filter identical terms tests', function () {
     describe('when parse identical filters', function () {
 
         it('it should merge them to one', function () {
-            var res = parser.parse('bmw bmw bmw');
+            var res = _parser.parse('bmw bmw bmw');
 
             expect(res.length).toBe(1);
 
@@ -18,7 +17,7 @@ describe('Filter identical terms tests', function () {
         });
 
         it('it should merge them to one', function () {
-            var res = parser.parse('merc blub mercedes bluba benz');
+            var res = _parser.parse('merc blub mercedes bluba benz');
 
             expect(res.length).toBe(3);
 
@@ -32,7 +31,7 @@ describe('Filter identical terms tests', function () {
         });
 
         it('it should merge them to one', function () {
-            var res = parser.parse('vw golf golf golf cross cross');
+            var res = _parser.parse('vw golf golf golf cross cross');
 
             expect(res.length).toBe(3);
 

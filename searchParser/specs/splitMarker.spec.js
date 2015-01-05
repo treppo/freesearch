@@ -1,6 +1,6 @@
 var createTokensFilter = require('../filters/createTokensFilter.js')();
 var splitMarkerFromTokensFilter = require('../filters/splitMarkerFromTokensFilter.js')();
-var parser = require('../parser.js')([
+var _parser = require('../parser.js')([
     createTokensFilter,
     splitMarkerFromTokensFilter
 ]);
@@ -8,7 +8,7 @@ var parser = require('../parser.js')([
 describe('Split marker tests', function () {
     describe('when parse tokens without markers', function () {
         it('it should change nothing', function () {
-            var res = parser.parse('bmw audi blub');
+            var res = _parser.parse('bmw audi blub');
 
             expect(res.length).toBe(3);
         });
@@ -16,7 +16,7 @@ describe('Split marker tests', function () {
 
     describe('when parse tokens with markers', function () {
         it('it should split merged tokens', function () {
-            var res = parser.parse('bmw audi Blub€ 124PS 124euro');
+            var res = _parser.parse('bmw audi Blub€ 124PS 124euro');
 
             expect(res.length).toBe(8);
             expect(res[2]).toBe('Blub');
@@ -30,7 +30,7 @@ describe('Split marker tests', function () {
         });
 
         it('it should not change alone markers', function () {
-            var res = parser.parse('bmw audi blub €');
+            var res = _parser.parse('bmw audi blub €');
 
             expect(res.length).toBe(4);
             expect(res[2]).toBe('blub');

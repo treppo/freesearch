@@ -10,7 +10,9 @@ module.exports = function () {
     var filter = function (searchTokens) {
         var res = searchTokens.reduce(function (accumulator, searchToken) {
             if (searchToken.filter.type === _filterTypes.priceMarker) {
-                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(_priceFilter.assignFilter, {hasMarker: true}));
+                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(_priceFilter.assignFilter, {
+                    hasMarker: true
+                }));
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {

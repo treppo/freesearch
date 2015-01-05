@@ -1,6 +1,5 @@
 var filters = require('../registeredFilters.js')();
-var parser = require('../parser.js')(filters);
-
+var _parser = require('../parser.js')(filters);
 var _findHelper = require('../statics/findHelper.js')();
 var _utilHelper = require('../statics/utilHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
@@ -14,7 +13,7 @@ describe('Power tests', function () {
 
     describe('When parse a suitable number', function () {
         it('it should find the power in kw (default)', function () {
-            var res = parser.parse('audi 150');
+            var res = _parser.parse('audi 150');
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('150');
@@ -26,14 +25,14 @@ describe('Power tests', function () {
 
     describe('When parse an integer and power marker', function () {
         it('it should remove the power marker', function () {
-            var res = parser.parse('audi 50 PS');
+            var res = _parser.parse('audi 50 PS');
             expect(res.length).toBe(2);
         });
     });
 
     describe('When parse power with a power marker as part of token', function () {
         it('it should find the power', function () {
-            var res = parser.parse('audi 150KW');
+            var res = _parser.parse('audi 150KW');
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('150');
@@ -43,7 +42,7 @@ describe('Power tests', function () {
         });
 
         it('it should find the power in ps (default)', function () {
-            var res = parser.parse('audi 150PS');
+            var res = _parser.parse('audi 150PS');
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('150');
@@ -55,7 +54,7 @@ describe('Power tests', function () {
 
     describe('When parse a number outside of suitable range', function () {
         it('it should not be parsed as power (due max range)', function () {
-            var res = parser.parse('audi ' + (_findHelper.ranges.maxPower + 1));
+            var res = _parser.parse('audi ' + (_findHelper.ranges.maxPower + 1));
 
             expect(res.length).toBe(2);
             expect(res[1].filter.type).not.toBe(_filterTypes.power);
@@ -65,7 +64,7 @@ describe('Power tests', function () {
     describe('When parse a number outside of suitable range but the number contains a power marker', function () {
         it('it should be parsed as power', function () {
             var expectedPower = _findHelper.ranges.maxPower + 10;
-            var res = parser.parse('audi ' + expectedPower + 'KW');
+            var res = _parser.parse('audi ' + expectedPower + 'KW');
 
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('' + expectedPower);
@@ -77,7 +76,7 @@ describe('Power tests', function () {
 
     describe('When parse two power values', function () {
         it('it should parse them as a power range', function () {
-            var res = parser.parse('audi 200 - 300');
+            var res = _parser.parse('audi 200 - 300');
 
             expect(res.length).toBe(2);
 
@@ -90,7 +89,7 @@ describe('Power tests', function () {
         });
 
         it('and power are on the contrary order, it should parse them as a power range', function () {
-            var res = parser.parse('audi 300 200');
+            var res = _parser.parse('audi 300 200');
 
             expect(res.length).toBe(2);
 
@@ -105,7 +104,7 @@ describe('Power tests', function () {
 
     describe('When parse more than two power values', function () {
         it('it should parse them as a power range', function () {
-            var res = parser.parse('200 300 400 bla blub');
+            var res = _parser.parse('200 300 400 bla blub');
 
             expect(res.length).toBe(4);
 
@@ -125,7 +124,7 @@ describe('Power tests', function () {
         });
 
         it('it should parse them as a power range', function () {
-            var res = parser.parse('200 300 500 400 ');
+            var res = _parser.parse('200 300 500 400 ');
 
             expect(res.length).toBe(2);
 
@@ -147,7 +146,7 @@ describe('Power tests', function () {
 
     describe('when parse a numeric value with a power marker', function () {
         it('it should parse the value as power', function () {
-            var res = parser.parse('audi 2000 KW');
+            var res = _parser.parse('audi 2000 KW');
 
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -158,7 +157,7 @@ describe('Power tests', function () {
         });
 
         it('it should parse the value as power', function () {
-            var res = parser.parse('audi 2000 PS');
+            var res = _parser.parse('audi 2000 PS');
 
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -169,7 +168,7 @@ describe('Power tests', function () {
         });
 
         it('it should parse the value as power', function () {
-            var res = parser.parse('audi 2000 - 3000 kw');
+            var res = _parser.parse('audi 2000 - 3000 kw');
 
             expect(res[1].term).toBe('2000 - 3000');
             expect(res[1].filter.type).toBe(_filterTypes.power);

@@ -1,12 +1,11 @@
 var filters = require('../registeredFilters.js')();
-var parser = require('../parser.js')(filters);
-
+var _parser = require('../parser.js')(filters);
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Make tests', function () {
     describe('when parse search line with one make', function () {
         it('it should parse to expected make', function () {
-            var res = parser.parse('BMW');
+            var res = _parser.parse('BMW');
 
             expect(res.length).toBe(1);
             expect(res[0].term).toBe('BMW');
@@ -16,7 +15,7 @@ describe('Make tests', function () {
         });
 
         it('it should parse to expected make', function () {
-            var res = parser.parse('Mercedes-Benz');
+            var res = _parser.parse('Mercedes-Benz');
 
             expect(res.length).toBe(1);
             expect(res[0].term).toBe('Mercedes Benz');
@@ -28,7 +27,7 @@ describe('Make tests', function () {
 
     describe('when parse search line with one make synonym', function () {
         it('it should parse to expected make', function () {
-            var res = parser.parse('vw mers bmw');
+            var res = _parser.parse('vw mers bmw');
 
             expect(res.length).toBe(3);
 
