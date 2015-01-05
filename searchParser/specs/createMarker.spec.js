@@ -11,10 +11,10 @@ var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Recognize marker tests', function () {
     describe('when parse tokens with markers', function () {
-        it('it should split merged tokens', function () {
-            var res = _parser.parse('von 1000 bis 2000 euro kw PS');
+        it('it should recognize markers', function () {
+            var res = _parser.parse('von 1000 bis 2000 euro kw PS blub');
 
-            expect(res.length).toBe(7);
+            expect(res.length).toBe(8);
             expect(res[0].term).toBe('von');
             expect(res[0].filter.type).toBe(_filterTypes.rangeMarker);
             expect(res[0].filter.value).toBe('from');

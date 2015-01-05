@@ -13,6 +13,7 @@ module.exports = function () {
     var priceFilter = require('./filters/priceFilter.js')();
     var powerFilter = require('./filters/powerFilter.js')();
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
+    var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter.js')();
     var noneFilter = require('./filters/noneFilter.js')();
 
@@ -23,11 +24,14 @@ module.exports = function () {
         createSearchTermsFilter,
         createMarkerFilter,
 
-        heuristicFilter,
+        heuristicFilter, // power, price etc. with entity markers
+
         makeFilter,
         modelFilter,
         powerFilter.filter,
         priceFilter.filter,
+
+        rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,
         reduceIdenticalFilter,
         noneFilter,

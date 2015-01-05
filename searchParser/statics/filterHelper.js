@@ -12,6 +12,11 @@ module.exports = function () {
             filter.type === _filterTypes.powerMarker;
     };
 
+    var isRangeMarker = function (filter) {
+        return filter.type === _filterTypes.rangeMarker;
+    };
+
+
     var compareTermFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&
@@ -23,25 +28,47 @@ module.exports = function () {
     };
 
     var compareRangeFilter = function (tokenLeft, tokenRight) {
-        return tokenLeft.filter.type === tokenRight.filter.type &&
-            (tokenLeft.filter.valueFrom) &&
-            (tokenRight.filter.valueFrom) && !(tokenLeft.filter.valueTo) && !(tokenRight.filter.valueTo);
+        if (tokenLeft.filter.type !== tokenRight.filter.type) {
+            return false;
+        }
+        // if one of the range tokens has already from and to values, don't merge the tokens
+        if ((tokenLeft.filter.valueFrom && tokenLeft.filter.valueTo) ||
+            (tokenRight.filter.valueFrom && tokenRight.filter.valueTo)
+        ) {
+            return false;
+        }
+
+        // merge tokens where only one part is filled
+        return (
+            (tokenLeft.filter.valueFrom || tokenLeft.filter.valueTo) &&
+            (tokenRight.filter.valueFrom || tokenRight.filter.valueTo)
+        );
     };
 
     var mergeRangeFilter = function (tokenLeft, tokenRight) {
-        if (tokenLeft.filter.valueFrom <= tokenRight.filter.valueFrom) {
+        var val1 = tokenLeft.filter.valueFrom || tokenLeft.filter.valueTo;
+        var val2 = tokenRight.filter.valueFrom || tokenRight.filter.valueTo;
+
+        var term1 = tokenLeft.filter.termFrom || tokenLeft.filter.termTo;
+        var term2 = tokenRight.filter.termFrom || tokenRight.filter.termTo;
+
+        if (val2 > val1) {
             tokenLeft.term = tokenLeft.term + ' - ' + tokenRight.term;
 
-            tokenLeft.filter.valueTo = tokenRight.filter.valueFrom;
-            tokenLeft.filter.termTo = tokenRight.filter.termFrom;
+            tokenLeft.filter.valueFrom = val1;
+            tokenLeft.filter.termFrom = term1;
+
+            tokenLeft.filter.valueTo = val2;
+            tokenLeft.filter.termTo = term2;
         }
         else {
             tokenLeft.term = tokenRight.term + ' - ' + tokenLeft.term;
 
-            tokenLeft.filter.valueTo = tokenLeft.filter.valueFrom;
-            tokenLeft.filter.termTo = tokenLeft.filter.termFrom;
-            tokenLeft.filter.valueFrom = tokenRight.filter.valueFrom;
-            tokenLeft.filter.termFrom = tokenRight.filter.termFrom;
+            tokenLeft.filter.valueFrom = val2;
+            tokenLeft.filter.termFrom = term2;
+
+            tokenLeft.filter.valueTo = val1;
+            tokenLeft.filter.termTo = term1;
         }
     };
 
@@ -61,26 +88,16 @@ module.exports = function () {
             }
 
             accumulator.push(searchToken);
+
             return accumulator;
         }, []);
     };
 
-    var createAssignFilterFnc = function (fncToApply, context) {
-        var curDeep = 0;
-        var maxDeep = 2;
+    var createAssignFilterFnc = function (fncToBreakIteration, fncToApply, context) {
         var assignFilterFnc = function (searchToken) {
-            if (isMarkerFilter(searchToken.filter)) {
+            if (fncToBreakIteration(searchToken)) {
                 return true;
             }
-            if (! isUnknownFilter(searchToken.filter)) {
-                return true;
-            }
-
-            curDeep++;
-            if (curDeep > maxDeep) {
-                return true;
-            }
-
             fncToApply(searchToken, context);
 
             return false;
@@ -90,11 +107,12 @@ module.exports = function () {
     };
 
     var lookBehind = function (searchTokens, fromIndex, fncToApply) {
-        var s = searchTokens.reverse();
+        return lookAhead(searchTokens.reverse(), fromIndex, fncToApply).reverse();
+    };
 
+    var lookAhead  = function (searchTokens, fromIndex, fncToApply) {
         var isNext = false;
-
-        s.some(function (searchToken) {
+        searchTokens.some(function (searchToken) {
             if (isNext) {
                 return fncToApply(searchToken);
             }
@@ -106,22 +124,20 @@ module.exports = function () {
             return false;
         });
 
-        if (isNext) {
-            return s.reverse();
-        }
-
         return searchTokens;
     };
 
     return {
         isUnknownFilter: isUnknownFilter,
         isMarkerFilter: isMarkerFilter,
+        isRangeMarker: isRangeMarker,
         compareTermFilter: compareTermFilter,
         mergeTermFilter: mergeTermFilter,
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter: mergeRangeFilter,
         reduceIdenticalFilters: reduceIdenticalFilters,
         createAssignFilterFnc: createAssignFilterFnc,
-        lookBehind: lookBehind
+        lookBehind: lookBehind,
+        lookAhead: lookAhead
     };
 };
