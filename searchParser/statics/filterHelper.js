@@ -16,7 +16,6 @@ module.exports = function () {
         return filter.type === _filterTypes.rangeMarker;
     };
 
-
     var compareTermFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&
