@@ -5,7 +5,7 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper.js')();
     var _filterHelper = require('../statics/filterHelper.js')();
 
-    var _maxPowerInPs = 500; // in PS
+    var _maxMileage = 1000000;
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
@@ -24,28 +24,17 @@ module.exports = function () {
             return;
         }
 
-        var powerType = context.powerType || 'ps'; // default
         var intTerm = _utilHelper.convertToInt(searchToken.term);
 
-        var kwTerm = 0;
-        var psTerm = 0;
-        if (powerType === 'ps') {
-            kwTerm = _utilHelper.convertFromPsToKw(intTerm);
-            psTerm = intTerm;
-        } else {
-            kwTerm = intTerm;
-            psTerm = _utilHelper.convertFromKwToPs(intTerm);
-        }
-
         if (!context.hasMarker) {
-            if (psTerm < 0 || psTerm > _maxPowerInPs) { // check range
+            if (intTerm < 0 || intTerm > _maxMileage) { // check range
                 return;
             }
         }
 
-        searchToken.filter.type = _filterTypes.power;
-        searchToken.filter.valueFrom = kwTerm;
-        searchToken.filter.termFrom = '' + kwTerm;
+        searchToken.filter.type = _filterTypes.mileage;
+        searchToken.filter.termFrom = searchToken.term;
+        searchToken.filter.valueFrom = intTerm;
     };
 
     return {

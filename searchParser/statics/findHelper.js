@@ -118,25 +118,6 @@ module.exports = function () {
         });
     };
 
-    var _ranges = {
-        minPrice: 0,
-        maxPrice: 1000000,
-        minPower: 0,
-        maxPower: 500 // PS
-    };
-
-    var isInSuitableRange = function (intTerm, filterType) {
-        if (filterType === _filterTypes.price) {
-            return intTerm >= _ranges.minPrice && intTerm <= _ranges.maxPrice;
-        }
-
-        if (filterType === _filterTypes.power) {
-            return intTerm >= _ranges.minPower && intTerm <= _ranges.maxPower;
-        }
-
-        return true;
-    };
-
     var isSynonymByFilter = function (filterTerms) {
 
         var res = {
@@ -162,8 +143,6 @@ module.exports = function () {
 
     return {
         searchTokens: searchTokens,
-        isInSuitableRange: isInSuitableRange,
-        ranges: _ranges, // expose due testing
         isSynonymByFilter: isSynonymByFilter
     }
 };

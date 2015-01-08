@@ -9,6 +9,7 @@ describe('Power tests', function () {
     var kw300 = _utilHelper.convertFromPsToKw(300);
     var kw400 = _utilHelper.convertFromPsToKw(400);
     var kw500 = _utilHelper.convertFromPsToKw(500);
+    var maxPowerInPs = 500;
 
 
     describe('When parse a suitable number', function () {
@@ -54,7 +55,7 @@ describe('Power tests', function () {
 
     describe('When parse a number outside of suitable range', function () {
         it('it should not be parsed as power (due max range)', function () {
-            var res = _parser.parse('audi ' + (_findHelper.ranges.maxPower + 1));
+            var res = _parser.parse('audi ' + (maxPowerInPs + 1));
 
             expect(res.length).toBe(2);
             expect(res[1].filter.type).not.toBe(_filterTypes.power);
@@ -63,7 +64,7 @@ describe('Power tests', function () {
 
     describe('When parse a number outside of suitable range but the number contains a power marker', function () {
         it('it should be parsed as power', function () {
-            var expectedPower = _findHelper.ranges.maxPower + 10;
+            var expectedPower = maxPowerInPs + 10;
             var res = _parser.parse('audi ' + expectedPower + 'KW');
 
             expect(res.length).toBe(2);

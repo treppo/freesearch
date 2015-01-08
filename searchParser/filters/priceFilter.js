@@ -3,8 +3,9 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js')();
     var _utilHelper = require('../statics/utilHelper.js')();
-    var _findHelper = require('../statics/findHelper.js')();
     var _filterHelper = require('../statics/filterHelper.js')();
+
+    var _maxPriceInEuro = 1000000;
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
@@ -26,8 +27,10 @@ module.exports = function () {
         var intTerm = _utilHelper.convertToInt(searchToken.term);
 
         if (!context.hasMarker) {
-            if (!_findHelper.isInSuitableRange(intTerm, _filterTypes.price)) {
-                return;
+            if (!context.hasMarker) {
+                if (intTerm < 0 || intTerm > _maxPriceInEuro) { // check range
+                    return;
+                }
             }
         }
 

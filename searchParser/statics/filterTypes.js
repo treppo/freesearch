@@ -8,6 +8,7 @@ module.exports = function () {
     filterTypes.model = 'model';
     filterTypes.price = 'price';
     filterTypes.power = 'power';
+    filterTypes.mileage = 'mileage';
 
     // entity marker
     filterTypes.priceMarker = 'priceMarker';

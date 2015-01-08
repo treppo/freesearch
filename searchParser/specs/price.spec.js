@@ -4,6 +4,9 @@ var _findHelper = require('../statics/findHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Price tests', function () {
+
+    var maxPriceInEuro = 1000000;
+
     describe('When parse a suitable number', function () {
         it('it should find the price', function () {
             var res = _parser.parse('audi 2000');
@@ -49,7 +52,7 @@ describe('Price tests', function () {
 
     describe('When parse a number outside of suitable range', function () {
         it('it should not be parsed as price (due max range)', function () {
-            var res = _parser.parse('audi ' + (_findHelper.ranges.maxPrice + 1));
+            var res = _parser.parse('audi ' + (maxPriceInEuro + 1));
 
             expect(res.length).toBe(2);
             expect(res[1].filter.type).not.toBe(_filterTypes.price);
@@ -58,7 +61,7 @@ describe('Price tests', function () {
 
     describe('When parse a number outside of suitable range but the number is followed by a price marker', function () {
         it('it should be parsed as price', function () {
-            var expectedPrice = _findHelper.ranges.maxPrice + 10;
+            var expectedPrice = maxPriceInEuro + 10;
             var res = _parser.parse('audi ' + expectedPrice + '€');
 
             expect(res.length).toBe(2);
