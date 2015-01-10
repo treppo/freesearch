@@ -50,6 +50,11 @@ module.exports = function () {
             if (_filterHelper.isMarkerFilter(searchToken.filter)) {
                 return true;
             }
+
+            if (_filterHelper.isRangeMarker(searchToken.filter)) {
+                return false;
+            }
+
             if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
                 return true;
             }

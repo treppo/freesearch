@@ -7,7 +7,7 @@ module.exports = function () {
     //syns.Golf = ['golf'];
     syns.Cross = ['cross'];
 
-    syns.From = ['von', 'vom'];
+    syns.From = ['von', 'vom', 'ab'];
     syns.To = ['bis'];
     syns.Kw = ['kw'];
     syns.Ps = ['ps'];

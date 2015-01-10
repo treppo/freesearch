@@ -33,7 +33,6 @@ describe('Mileage tests single filter', function () {
             var res = parser.parse('von 20000 bis 70000');
 
             expect(res.length).toBe(1);
-
             expect(res[0].term).toBe('20000 - 70000');
             expect(res[0].filter.type).toBe(_filterTypes.mileage);
             expect(res[0].filter.valueFrom).toBe(20000);
@@ -46,7 +45,6 @@ describe('Mileage tests single filter', function () {
             var res = parser.parse('von 20000');
 
             expect(res.length).toBe(1);
-
             expect(res[0].term).toBe('20000');
             expect(res[0].filter.type).toBe(_filterTypes.mileage);
             expect(res[0].filter.valueFrom).toBe(20000);
@@ -59,7 +57,6 @@ describe('Mileage tests single filter', function () {
             var res = parser.parse('bis 20000');
 
             expect(res.length).toBe(1);
-
             expect(res[0].term).toBe('20000');
             expect(res[0].filter.type).toBe(_filterTypes.mileage);
             expect(res[0].filter.valueFrom).toBeUndefined();

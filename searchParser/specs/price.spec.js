@@ -172,4 +172,42 @@ describe('Price tests', function () {
             expect(res[2].filter.termTo).toBe('5000');
         });
     });
+
+    describe('When parse with range markers', function () {
+        it('and contains from and to, it should parse them as a ranges', function () {
+            var res = _parser.parse('von 2000 bis 3000 €');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('2000 - 3000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBe(2000);
+            expect(res[0].filter.termFrom).toBe('2000');
+            expect(res[0].filter.valueTo).toBe(3000);
+            expect(res[0].filter.termTo).toBe('3000');
+        });
+
+        it('and contains from, it should parse them as from term', function () {
+            var res = _parser.parse('ab 2000 €');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('2000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBe(2000);
+            expect(res[0].filter.termFrom).toBe('2000');
+            expect(res[0].filter.valueTo).toBeUndefined();
+            expect(res[0].filter.termTo).toBeUndefined();
+        });
+
+        it('and contains from, it should parse them as to term', function () {
+            var res = _parser.parse('bis 2000');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('2000');
+            expect(res[0].filter.type).toBe(_filterTypes.price);
+            expect(res[0].filter.valueFrom).toBeUndefined();
+            expect(res[0].filter.termFrom).toBeUndefined();
+            expect(res[0].filter.valueTo).toBe(2000);
+            expect(res[0].filter.termTo).toBe('2000');
+        });
+    });
 });

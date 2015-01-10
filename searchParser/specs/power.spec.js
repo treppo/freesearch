@@ -179,4 +179,42 @@ describe('Power tests', function () {
             expect(res[1].filter.termTo).toBe('3000')
         });
     });
+
+    describe('When parse with range markers', function () {
+        it('and contains from and to, it should parse them as a ranges', function () {
+            var res = _parser.parse('von 200 bis 300 kw');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('200 - 300');
+            expect(res[0].filter.type).toBe(_filterTypes.power);
+            expect(res[0].filter.valueFrom).toBe(200);
+            expect(res[0].filter.termFrom).toBe('200');
+            expect(res[0].filter.valueTo).toBe(300);
+            expect(res[0].filter.termTo).toBe('300');
+        });
+
+        it('and contains from, it should parse them as from term', function () {
+            var res = _parser.parse('von 200');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('200');
+            expect(res[0].filter.type).toBe(_filterTypes.power);
+            expect(res[0].filter.valueFrom).toBe(kw200);
+            expect(res[0].filter.termFrom).toBe('' + kw200);
+            expect(res[0].filter.valueTo).toBeUndefined();
+            expect(res[0].filter.termTo).toBeUndefined();
+        });
+
+        it('and contains from, it should parse them as to term', function () {
+            var res = _parser.parse('bis 200');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('200');
+            expect(res[0].filter.type).toBe(_filterTypes.power);
+            expect(res[0].filter.valueFrom).toBeUndefined();
+            expect(res[0].filter.termFrom).toBeUndefined();
+            expect(res[0].filter.valueTo).toBe(kw200);
+            expect(res[0].filter.termTo).toBe('' + kw200);
+        });
+    });
 });

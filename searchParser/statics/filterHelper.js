@@ -9,7 +9,8 @@ module.exports = function () {
 
     var isMarkerFilter = function (filter) {
         return filter.type === _filterTypes.priceMarker ||
-            filter.type === _filterTypes.powerMarker;
+            filter.type === _filterTypes.powerMarker ||
+            filter.type === _filterTypes.kmMarker;
     };
 
     var isRangeMarker = function (filter) {
@@ -126,6 +127,29 @@ module.exports = function () {
         return searchTokens;
     };
 
+    var mergeSearchTokens = function (mergeTo, mergeFrom) {
+        return mergeTo.map(function (mergeToItem) {
+            var m = mergeFrom.filter(function(mergeFromItem){
+                return (mergeFromItem.index === mergeToItem.index);
+            });
+
+            if (m) {
+                return m[0];
+            }
+
+            return mergeToItem;
+        });
+    };
+
+    var iterate = function (mergeSearchTokens, fncFilter, fncApply) {
+        var t = mergeSearchTokens.filter(fncFilter);
+        var f = t.map(fncApply);
+        var s = mergeSearchTokens(mergeSearchTokens, f);
+
+        return s;
+    };
+
+
     return {
         isUnknownFilter: isUnknownFilter,
         isMarkerFilter: isMarkerFilter,
@@ -137,6 +161,7 @@ module.exports = function () {
         reduceIdenticalFilters: reduceIdenticalFilters,
         createAssignFilterFnc: createAssignFilterFnc,
         lookBehind: lookBehind,
-        lookAhead: lookAhead
+        lookAhead: lookAhead,
+        iterate : iterate
     };
 };
