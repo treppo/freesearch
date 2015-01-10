@@ -1,6 +1,5 @@
 var filters = require('../registeredFilters.js')();
 var _parser = require('../parser.js')(filters);
-var _findHelper = require('../statics/findHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Price tests', function () {
@@ -171,12 +170,6 @@ describe('Price tests', function () {
             expect(res[2].filter.termFrom).toBe('4000');
             expect(res[2].filter.valueTo).toBe(5000);
             expect(res[2].filter.termTo).toBe('5000');
-        });
-    });
-
-    describe('When parse with from to marker', function() {
-        it('it should recognize from marker', function() {
-
         });
     });
 });

@@ -12,9 +12,9 @@ var _filterTypes = require('../statics/filterTypes.js')();
 describe('Recognize marker tests', function () {
     describe('when parse tokens with markers', function () {
         it('it should recognize markers', function () {
-            var res = _parser.parse('von 1000 bis 2000 euro kw PS blub');
+            var res = _parser.parse('von 1000 bis 2000 euro kw PS blub km');
 
-            expect(res.length).toBe(8);
+            expect(res.length).toBe(9);
             expect(res[0].term).toBe('von');
             expect(res[0].filter.type).toBe(_filterTypes.rangeMarker);
             expect(res[0].filter.value).toBe('from');
@@ -34,6 +34,10 @@ describe('Recognize marker tests', function () {
             expect(res[6].term).toBe('PS');
             expect(res[6].filter.type).toBe(_filterTypes.powerMarker);
             expect(res[6].filter.value).toBe('ps');
+
+            expect(res[8].term).toBe('km');
+            expect(res[8].filter.type).toBe(_filterTypes.kmMarker);
+            expect(res[8].filter.value).toBe('km');
         });
 
     });

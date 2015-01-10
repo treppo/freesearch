@@ -6,13 +6,16 @@ module.exports = function () {
 
     var _priceFilter = require('../filters/priceFilter.js')();
     var _powerFilter = require('../filters/powerFilter.js')();
+    var _mileageFilter = require('../filters/mileageFilter.js')();
 
     var filter = function (searchTokens) {
-        var res = searchTokens.reduce(function (accumulator, searchToken) {
+        return searchTokens.reduce(function (accumulator, searchToken) {
             if (searchToken.filter.type === _filterTypes.priceMarker) {
-                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(hasToBreakIteration(), _priceFilter.assignFilter, {
-                    hasMarker: true
-                }));
+                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(
+                    hasToBreakIteration(),
+                    _priceFilter.assignFilter, {
+                        hasMarker: true
+                    }));
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {
@@ -25,11 +28,18 @@ module.exports = function () {
                     }));
             }
 
+            if (searchToken.filter.type === _filterTypes.kmMarker) {
+                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(
+                    hasToBreakIteration(),
+                    _mileageFilter.assignFilter,
+                    {
+                        hasMarker: true
+                    }));
+            }
+
             return accumulator;
 
         }, searchTokens);
-
-        return res;
     };
 
     var hasToBreakIteration = function () {
@@ -45,11 +55,7 @@ module.exports = function () {
             }
 
             curDeep++;
-            if (curDeep > maxDeep) {
-                return true;
-            }
-
-            return false;
+            return curDeep > maxDeep;
         };
     };
 

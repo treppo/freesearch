@@ -7,7 +7,8 @@ module.exports = function () {
         return searchTokens.filter(function (searchToken) {
             if (searchToken.filter.type !== _filterTypes.priceMarker &&
                 searchToken.filter.type !== _filterTypes.powerMarker &&
-                searchToken.filter.type !== _filterTypes.rangeMarker
+                searchToken.filter.type !== _filterTypes.rangeMarker &&
+                searchToken.filter.type !== _filterTypes.kmMarker
             ) {
                 return searchToken;
             }

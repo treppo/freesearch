@@ -9,6 +9,7 @@ module.exports = function () {
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.price, _filterTypes.priceMarker);
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.power, _filterTypes.powerMarker);
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.range, _filterTypes.rangeMarker);
+        searchTokens = _findHelper.searchTokens(searchTokens, _markers.km, _filterTypes.kmMarker);
 
         return searchTokens;
     };

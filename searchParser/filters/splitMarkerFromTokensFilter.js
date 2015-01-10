@@ -2,6 +2,7 @@ module.exports = function () {
     'use strict';
 
     var _synonym = require('../services/synonyms.js')();
+    var _markers = require('../services/markers.js')();
 
     var splitEndsBy = function (synKey) {
         return function (token) {
@@ -24,9 +25,10 @@ module.exports = function () {
     };
 
     var filter = function (tokens) {
-        var t = splitByFunction(tokens, splitEndsBy('Euro'));
-            t = splitByFunction(t, splitEndsBy('Ps'));
-            t = splitByFunction(t, splitEndsBy('Kw'));
+        var t = splitByFunction(tokens, splitEndsBy(_markers.price[0].term));
+            t = splitByFunction(t, splitEndsBy(_markers.power[0].term));
+            t = splitByFunction(t, splitEndsBy(_markers.power[1].term));
+            t = splitByFunction(t, splitEndsBy(_markers.km[0].term));
 
         return t;
     };

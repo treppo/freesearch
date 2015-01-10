@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function (filterKind) {
     'use strict';
 
     var normalizeSearchLineFilter = require('./filters/cleanUpSearchLineFilter.js')();
@@ -13,20 +13,20 @@ module.exports = function () {
     var priceFilter = require('./filters/priceFilter.js')();
     var powerFilter = require('./filters/powerFilter.js')();
     var mileageFilter = require('./filters/mileageFilter.js')();
+
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter.js')();
     var noneFilter = require('./filters/noneFilter.js')();
 
-    return [
+    var all = [
         normalizeSearchLineFilter,
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
         createMarkerFilter,
 
-        heuristicFilter, // power, price etc. with entity markers
-
+        heuristicFilter, // power, price etc. terms with entity markers
         makeFilter,
         modelFilter,
         powerFilter.filter,
@@ -36,6 +36,31 @@ module.exports = function () {
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,
         reduceIdenticalFilter,
-        noneFilter,
+        noneFilter
     ];
+
+    var pre = [
+        normalizeSearchLineFilter,
+        createTokensFilter,
+        splitMarkerFromTokensFilter,
+        createSearchTermsFilter,
+        createMarkerFilter
+    ];
+
+    var post = [
+        rangeMarkerFilter,
+        removeMarkerFilter,
+        reduceIdenticalFilter,
+        noneFilter
+    ];
+
+    if (filterKind === 'pre') {
+        return pre;
+    }
+
+    if (filterKind === 'post') {
+        return post;
+    }
+
+    return all;
 };

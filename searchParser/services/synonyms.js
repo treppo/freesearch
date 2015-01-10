@@ -12,6 +12,7 @@ module.exports = function () {
     syns.Kw = ['kw'];
     syns.Ps = ['ps'];
     syns.Euro = ['€', 'euro', 'eur'];
+    syns.Km = ['km', 'kilometer'];
 
     var getSynonyms = function (synKey) {
         if (syns[synKey]) {

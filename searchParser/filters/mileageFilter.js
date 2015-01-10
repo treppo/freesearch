@@ -33,8 +33,8 @@ module.exports = function () {
         }
 
         searchToken.filter.type = _filterTypes.mileage;
-        searchToken.filter.termFrom = searchToken.term;
-        searchToken.filter.valueFrom = intTerm;
+        searchToken.filter.termTo = searchToken.term;
+        searchToken.filter.valueTo = intTerm;
     };
 
     return {

@@ -24,8 +24,8 @@ describe('Recognize range marker tests', function () {
             expect(res.length).toBe(1);
             expect(res[0].term).toBe('1000');
             expect(res[0].filter.type).toBe(_filterTypes.price);
-            expect(res[0].filter.termFrom).toBe('');
-            expect(res[0].filter.valueFrom).toBe(0);
+            expect(res[0].filter.termFrom).toBeUndefined();
+            expect(res[0].filter.valueFrom).toBeUndefined();
             expect(res[0].filter.termTo).toBe('1000');
             expect(res[0].filter.valueTo).toBe(1000);
         });
@@ -36,8 +36,8 @@ describe('Recognize range marker tests', function () {
             expect(res.length).toBe(2);
             expect(res[0].term).toBe('1000');
             expect(res[0].filter.type).toBe(_filterTypes.price);
-            expect(res[0].filter.termFrom).toBe('');
-            expect(res[0].filter.valueFrom).toBe(0);
+            expect(res[0].filter.termFrom).toBeUndefined();
+            expect(res[0].filter.valueFrom).toBeUndefined();
             expect(res[0].filter.termTo).toBe('1000');
             expect(res[0].filter.valueTo).toBe(1000);
         });
@@ -71,8 +71,8 @@ describe('Recognize range marker tests', function () {
 
             expect(res[1].term).toBe('200');
             expect(res[1].filter.type).toBe(_filterTypes.power);
-            expect(res[1].filter.termFrom).toBe('');
-            expect(res[1].filter.valueFrom).toBe(0);
+            expect(res[1].filter.termFrom).toBeUndefined();
+            expect(res[1].filter.valueFrom).toBeUndefined();
             expect(res[1].filter.termTo).toBe('200');
             expect(res[1].filter.valueTo).toBe(200);
         });

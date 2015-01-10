@@ -2,9 +2,7 @@ module.exports = function () {
     'use strict';
 
     var _filterTypes = require('../statics/filterTypes.js')();
-    var _utilHelper = require('../statics/utilHelper.js')();
     var _filterHelper = require('../statics/filterHelper.js')();
-
 
     var filter = function (searchTokens) {
         var res = searchTokens.reduce(function (accumulator, searchToken) {
@@ -25,29 +23,31 @@ module.exports = function () {
     };
 
     var adjustFilter = function (searchToken, context) {
-        if (context.rangeType === 'from') { // do nothing, range filter are build by default with only "from" value
-            return;
-        }
-
         if (_filterHelper.isUnknownFilter(searchToken.filter)) {
             return;
         }
-
-        if (searchToken.filter.termFrom) {
-            searchToken.filter.termTo = searchToken.filter.termFrom;
-            searchToken.filter.termFrom = '';
-        }
-        if (searchToken.filter.valueFrom) {
-            searchToken.filter.valueTo = searchToken.filter.valueFrom;
-            if (_utilHelper.isNumber(searchToken.filter.valueFrom)) {
-                searchToken.filter.valueFrom = 0;
+        if (context.rangeType === 'from') {
+            if (searchToken.filter.termTo) {
+                searchToken.filter.termFrom = searchToken.filter.termTo;
+                searchToken.filter.termTo = undefined;
             }
-            else {
-                searchToken.filter.valueFrom = null;
+            if (searchToken.filter.valueTo) {
+                searchToken.filter.valueFrom = searchToken.filter.valueTo;
+                searchToken.filter.valueTo = undefined;
+            }
+        }
+
+        if (context.rangeType === 'to') {
+            if (searchToken.filter.termFrom) {
+                searchToken.filter.termTo = searchToken.filter.termFrom;
+                searchToken.filter.termFrom = undefined;
+            }
+            if (searchToken.filter.valueFrom) {
+                searchToken.filter.valueTo = searchToken.filter.valueFrom;
+                searchToken.filter.valueFrom = undefined;
             }
         }
     };
-
 
     var hasToBreakIteration = function () {
         var curDeep = 0;

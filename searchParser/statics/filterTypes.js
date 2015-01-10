@@ -13,6 +13,7 @@ module.exports = function () {
     // entity marker
     filterTypes.priceMarker = 'priceMarker';
     filterTypes.powerMarker = 'powerMarker';
+    filterTypes.kmMarker = 'kmMarker';
     // range marker
     filterTypes.rangeMarker = 'rangerMarker';
 
