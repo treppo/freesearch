@@ -21,7 +21,7 @@ module.exports = function () {
 
     var assignFilter = function (searchToken, context) {
         if (!_utilHelper.isNumber(searchToken.term)) {
-            return;
+            return searchToken;
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
@@ -29,7 +29,7 @@ module.exports = function () {
         if (!context.hasMarker) {
             if (!context.hasMarker) {
                 if (intTerm < 0 || intTerm > _maxPriceInEuro) { // check range
-                    return;
+                    return searchToken;
                 }
             }
         }
@@ -37,6 +37,8 @@ module.exports = function () {
         searchToken.filter.type = _filterTypes.price;
         searchToken.filter.termFrom = searchToken.term;
         searchToken.filter.valueFrom = intTerm;
+
+        return searchToken;
     };
 
     return {

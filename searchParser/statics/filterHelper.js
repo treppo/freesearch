@@ -93,47 +93,13 @@ module.exports = function () {
         }, []);
     };
 
-    var createAssignFilterFnc = function (fncToBreakIteration, fncToApply, context) {
-        var assignFilterFnc = function (searchToken) {
-            if (fncToBreakIteration(searchToken)) {
-                return true;
-            }
-            fncToApply(searchToken, context);
-
-            return false;
-        };
-
-        return assignFilterFnc;
-    };
-
-    var lookBehind = function (searchTokens, fromIndex, fncToApply) {
-        return lookAhead(searchTokens.reverse(), fromIndex, fncToApply).reverse();
-    };
-
-    var lookAhead  = function (searchTokens, fromIndex, fncToApply) {
-        var isNext = false;
-        searchTokens.some(function (searchToken) {
-            if (isNext) {
-                return fncToApply(searchToken);
-            }
-
-            if (searchToken.index === fromIndex) {
-                isNext = true;
-            }
-
-            return false;
-        });
-
-        return searchTokens;
-    };
-
     var mergeSearchTokens = function (mergeTo, mergeFrom) {
         return mergeTo.map(function (mergeToItem) {
-            var m = mergeFrom.filter(function(mergeFromItem){
+            var m = mergeFrom.filter(function (mergeFromItem) {
                 return (mergeFromItem.index === mergeToItem.index);
             });
 
-            if (m) {
+            if (m.length) {
                 return m[0];
             }
 
@@ -141,14 +107,42 @@ module.exports = function () {
         });
     };
 
-    var iterate = function (mergeSearchTokens, fncFilter, fncApply) {
-        var t = mergeSearchTokens.filter(fncFilter);
-        var f = t.map(fncApply);
-        var s = mergeSearchTokens(mergeSearchTokens, f);
+    var iterateToMaxDeep = function (maxDeep, fromIndex, fncCondition) {
+        var curDeep = 0;
+        //var maxDeep = 1;
+        var isNext = false;
 
-        return s;
+        // iterate from fromIndex up to maxDeep
+        return function(searchToken) {
+            if (searchToken.index === fromIndex) {
+                isNext = true;
+                return false;
+            }
+
+            if (!isNext) {
+                return false;
+            }
+
+            if (! fncCondition(searchToken)) {
+                return false;
+            }
+
+            curDeep++;
+            return maxDeep >= curDeep;
+        };
     };
 
+    var iterateForward = function (searchTokens, fncFilter, fncApply) {
+        var f = searchTokens.filter(fncFilter);
+        var a = f.map(fncApply);
+        return mergeSearchTokens(searchTokens, a);
+    };
+
+    var iterateBackward = function (searchTokens, fncFilter, fncApply) {
+        var f = searchTokens.reverse().filter(fncFilter);
+        var a = f.map(fncApply);
+        return mergeSearchTokens(searchTokens.reverse(), a);
+    };
 
     return {
         isUnknownFilter: isUnknownFilter,
@@ -159,9 +153,8 @@ module.exports = function () {
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter: mergeRangeFilter,
         reduceIdenticalFilters: reduceIdenticalFilters,
-        createAssignFilterFnc: createAssignFilterFnc,
-        lookBehind: lookBehind,
-        lookAhead: lookAhead,
-        iterate : iterate
+        iterateToMaxDeep: iterateToMaxDeep,
+        iterateForward : iterateForward,
+        iterateBackward : iterateBackward
     };
 };

@@ -18,7 +18,7 @@ describe('Price tests', function () {
         });
     });
 
-    describe('When parse integer price and currency token', function () {
+    describe('When parse integer price and currency marker is available', function () {
         it('it should remove the currency token', function () {
             var res = _parser.parse('audi 2000 €');
             expect(res.length).toBe(2);

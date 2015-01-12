@@ -21,7 +21,7 @@ module.exports = function () {
 
     var assignFilter = function (searchToken, context) {
         if (!_utilHelper.isNumber(searchToken.term)) {
-            return;
+            return searchToken;
         }
 
         var powerType = context.powerType || 'ps'; // default
@@ -39,13 +39,15 @@ module.exports = function () {
 
         if (!context.hasMarker) {
             if (psTerm < 0 || psTerm > _maxPowerInPs) { // check range
-                return;
+                return searchToken;
             }
         }
 
         searchToken.filter.type = _filterTypes.power;
         searchToken.filter.valueFrom = kwTerm;
         searchToken.filter.termFrom = '' + kwTerm;
+
+        return searchToken;
     };
 
     return {

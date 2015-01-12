@@ -11,28 +11,29 @@ module.exports = function () {
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
             if (searchToken.filter.type === _filterTypes.priceMarker) {
-                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(
-                    hasToBreakIteration(),
-                    _priceFilter.assignFilter, {
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    assignFilter(_priceFilter.assignFilter, {
                         hasMarker: true
                     }));
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {
-                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(
-                    hasToBreakIteration(),
-                    _powerFilter.assignFilter,
-                    {
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    assignFilter(_powerFilter.assignFilter, {
                         hasMarker: true,
                         powerType: searchToken.filter.value
                     }));
             }
 
             if (searchToken.filter.type === _filterTypes.kmMarker) {
-                accumulator = _filterHelper.lookBehind(accumulator, searchToken.index, _filterHelper.createAssignFilterFnc(
-                    hasToBreakIteration(),
-                    _mileageFilter.assignFilter,
-                    {
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    assignFilter(_mileageFilter.assignFilter, {
                         hasMarker: true
                     }));
             }
@@ -42,13 +43,30 @@ module.exports = function () {
         }, searchTokens);
     };
 
-    var hasToBreakIteration = function () {
+    var assignFilter = function (assignFnc, context) {
+        return function (searchToken) {
+            return assignFnc(searchToken, context);
+        };
+    };
+
+    var collectCondition = function (fromIndex) {
         var curDeep = 0;
         var maxDeep = 2;
+        var isNext = false;
 
+        // iterate from fromIndex up to maxDeep
         return function(searchToken) {
+            if (searchToken.index === fromIndex) {
+                isNext = true;
+                return false;
+            }
+
+            if (!isNext) {
+                return false;
+            }
+
             if (_filterHelper.isMarkerFilter(searchToken.filter)) {
-                return true;
+                return false;
             }
 
             if (_filterHelper.isRangeMarker(searchToken.filter)) {
@@ -56,11 +74,11 @@ module.exports = function () {
             }
 
             if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
-                return true;
+                return false;
             }
 
             curDeep++;
-            return curDeep > maxDeep;
+            return maxDeep >= curDeep;
         };
     };
 

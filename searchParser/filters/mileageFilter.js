@@ -21,20 +21,22 @@ module.exports = function () {
 
     var assignFilter = function (searchToken, context) {
         if (!_utilHelper.isNumber(searchToken.term)) {
-            return;
+            return searchToken;
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
 
         if (!context.hasMarker) {
             if (intTerm < 0 || intTerm > _maxMileage) { // check range
-                return;
+                return searchToken;
             }
         }
 
         searchToken.filter.type = _filterTypes.mileage;
         searchToken.filter.termTo = searchToken.term;
         searchToken.filter.valueTo = intTerm;
+
+        return searchToken;
     };
 
     return {
