@@ -52,24 +52,26 @@ module.exports = function () {
         };
     };
 
-    //var collectCondition = function (fromIndex) {
-    //    var maxDeep = 1;
-    //
-    //    // iterate from fromIndex up to maxDeep
-    //    return function(searchToken) {
-    //       return _filterHelper.iterateToMaxDeep(maxDeep, fromIndex, function(searchToken) {
-    //           if (_filterHelper.isMarkerFilter(searchToken.filter)) {
-    //               return false;
-    //           }
-    //
-    //           if (_filterHelper.isRangeMarker(searchToken.filter)) {
-    //               return false;
-    //           }
-    //
-    //           return true;
-    //       });
-    //    };
-    //};
+    var collectConditionTTT = function (fromIndex) {
+        var maxDeep = 1;
+
+        // iterate from fromIndex up to maxDeep
+        return function(searchToken) {
+            var bb = searchToken;
+
+           return _filterHelper.iterateToMaxDeep(maxDeep, fromIndex, function(searchToken) {
+               if (_filterHelper.isMarkerFilter(searchToken.filter)) {
+                   return false;
+               }
+
+               if (_filterHelper.isRangeMarker(searchToken.filter)) {
+                   return false;
+               }
+
+               return true;
+           })(searchToken);
+        };
+    };
 
     var collectCondition = function (fromIndex) {
         var curDeep = 0;

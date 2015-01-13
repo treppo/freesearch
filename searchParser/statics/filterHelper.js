@@ -107,9 +107,8 @@ module.exports = function () {
         });
     };
 
-    var iterateToMaxDeep = function (maxDeep, fromIndex, fncCondition) {
+    var iterateToMaxDeep = function (maxDeep, fromIndex, fncCollect) {
         var curDeep = 0;
-        //var maxDeep = 1;
         var isNext = false;
 
         // iterate from fromIndex up to maxDeep
@@ -123,7 +122,7 @@ module.exports = function () {
                 return false;
             }
 
-            if (! fncCondition(searchToken)) {
+            if (! fncCollect(searchToken)) {
                 return false;
             }
 
