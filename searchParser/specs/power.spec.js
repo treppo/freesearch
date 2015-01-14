@@ -1,6 +1,5 @@
 var filters = require('../registeredFilters.js')();
 var _parser = require('../parser.js')(filters);
-var _findHelper = require('../statics/findHelper.js')();
 var _utilHelper = require('../statics/utilHelper.js')();
 var _filterTypes = require('../statics/filterTypes.js')();
 

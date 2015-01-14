@@ -13,8 +13,8 @@ TODO
 Multiple Make/Model Filter umschreiben mit loolbehind / lookahead
 
 Filters:
-    Mileage
-    Erstzulassung (Jahr)
+    +Mileage (km)
+    +Firstregistration (Year)
     PLZ / Ort / Umkreis / Land ??
     Kraftstoff
     Karosserieform

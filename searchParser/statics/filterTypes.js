@@ -9,11 +9,14 @@ module.exports = function () {
     filterTypes.price = 'price';
     filterTypes.power = 'power';
     filterTypes.mileage = 'mileage';
+    filterTypes.firstRegistration  = 'firstRegistration';
 
-    // entity marker
+    // entity marker = isMarkerFilter
     filterTypes.priceMarker = 'priceMarker';
     filterTypes.powerMarker = 'powerMarker';
     filterTypes.kmMarker = 'kmMarker';
+    filterTypes.firstRegistrationMarker = 'firstRegistrationMarker';
+
     // range marker
     filterTypes.rangeMarker = 'rangerMarker';
 

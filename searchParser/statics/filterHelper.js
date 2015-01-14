@@ -10,7 +10,8 @@ module.exports = function () {
     var isMarkerFilter = function (filter) {
         return filter.type === _filterTypes.priceMarker ||
             filter.type === _filterTypes.powerMarker ||
-            filter.type === _filterTypes.kmMarker;
+            filter.type === _filterTypes.kmMarker ||
+            filter.type === _filterTypes.firstRegistrationMarker;
     };
 
     var isRangeMarker = function (filter) {

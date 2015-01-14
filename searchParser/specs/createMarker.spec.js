@@ -1,20 +1,13 @@
-var _parser = require('../parser.js')(
-    [
-        require('../filters/cleanUpSearchLineFilter.js')(),
-        require('../filters/createTokensFilter.js')(),
-        require('../filters/splitMarkerFromTokensFilter.js')(),
-        require('../filters/createSearchTermsFilter.js')(),
-        require('../filters/createMarkerFilter.js')()
-    ]
-);
+var filters = require('../registeredFilters.js')('pre');
+var _parser = require('../parser.js')(filters);
 var _filterTypes = require('../statics/filterTypes.js')();
 
 describe('Recognize marker tests', function () {
     describe('when parse tokens with markers', function () {
         it('it should recognize markers', function () {
-            var res = _parser.parse('von 1000 bis 2000 euro kw PS blub km');
+            var res = _parser.parse('von 1000 bis 2000 euro kw PS blub km erstZulaßung');
 
-            expect(res.length).toBe(9);
+            expect(res.length).toBe(10);
             expect(res[0].term).toBe('von');
             expect(res[0].filter.type).toBe(_filterTypes.rangeMarker);
             expect(res[0].filter.value).toBe('from');
@@ -37,8 +30,9 @@ describe('Recognize marker tests', function () {
 
             expect(res[8].term).toBe('km');
             expect(res[8].filter.type).toBe(_filterTypes.kmMarker);
-            expect(res[8].filter.value).toBe('km');
-        });
 
+            expect(res[9].term).toBe('erstZulaßung');
+            expect(res[9].filter.type).toBe(_filterTypes.firstRegistrationMarker);
+        });
     });
 });

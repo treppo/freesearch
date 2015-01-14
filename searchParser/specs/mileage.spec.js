@@ -1,10 +1,9 @@
 var _filterTypes = require('../statics/filterTypes.js')();
-var maxMileage = 1000000;
+var _maxMileage = 1000000;
 
 describe('Mileage tests single filter', function () {
-    var specsHelper = require('./specsHelper.js')();
-    var mileageFilter = require('../filters/mileageFilter.js')().filter;
-    var filters = specsHelper.combineFilters(mileageFilter);
+    var underTest = require('../filters/mileageFilter.js')().filter;
+    var filters = require('./specsHelper.js')().combineFilters(underTest);
     var parser = require('../parser.js')(filters);
 
     describe('When parse a number', function () {
@@ -20,8 +19,8 @@ describe('Mileage tests single filter', function () {
     });
 
     describe('When parse a number outside of suitable range', function () {
-        it('it should not be parsed as price', function () {
-            var res = parser.parse('audi ' + (maxMileage + 1));
+        it('it should not be parsed as mileage', function () {
+            var res = parser.parse('audi ' + (_maxMileage + 1));
 
             expect(res.length).toBe(2);
             expect(res[1].filter.type).not.toBe(_filterTypes.mileage);
@@ -73,7 +72,7 @@ describe('Mileage tests all filters', function () {
 
     describe('When parse a number outside of suitable range but the number is followed by a mileage marker', function () {
         it('it should be parsed as mileage', function () {
-            var expected = maxMileage + 10;
+            var expected = _maxMileage + 10;
             var res = parser.parse('audi ' + expected + 'km');
 
             expect(res.length).toBe(2);

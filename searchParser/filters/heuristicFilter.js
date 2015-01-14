@@ -7,6 +7,7 @@ module.exports = function () {
     var _priceFilter = require('../filters/priceFilter.js')();
     var _powerFilter = require('../filters/powerFilter.js')();
     var _mileageFilter = require('../filters/mileageFilter.js')();
+    var _firstRegistration = require('../filters/firstRegistrationFilter.js')();
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
@@ -36,6 +37,22 @@ module.exports = function () {
                     assignFilter(_mileageFilter.assignFilter, {
                         hasMarker: true
                     }));
+            }
+
+            if (searchToken.filter.type === _filterTypes.firstRegistrationMarker) {
+                var context = {};
+
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    assignFilter(_firstRegistration.assignFilter, context));
+
+                if (!context.found) {
+                    accumulator = _filterHelper.iterateForward(
+                        accumulator,
+                        collectCondition(searchToken.index),
+                        assignFilter(_firstRegistration.assignFilter, context));
+                }
             }
 
             return accumulator;

@@ -13,6 +13,7 @@ module.exports = function () {
     syns.Ps = ['ps'];
     syns.Euro = ['€', 'euro', 'eur'];
     syns.Km = ['km', 'kilometer'];
+    syns.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
 
     var getSynonyms = function (synKey) {
         if (syns[synKey]) {

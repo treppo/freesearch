@@ -1,18 +1,19 @@
-module.exports = function (filterKind) {
+module.exports = function (filterPart) {
     'use strict';
 
-    var normalizeSearchLineFilter = require('./filters/cleanUpSearchLineFilter.js')();
+    var cleanUpSearchLineFilter = require('./filters/cleanUpSearchLineFilter.js')();
     var createTokensFilter = require('./filters/createTokensFilter.js')();
     var splitMarkerFromTokensFilter = require('./filters/splitMarkerFromTokensFilter.js')();
     var createSearchTermsFilter = require('./filters/createSearchTermsFilter.js')();
-
     var createMarkerFilter = require('./filters/createMarkerFilter.js')();
+
     var heuristicFilter = require('./filters/heuristicFilter.js')();
     var makeFilter = require('./filters/makeFilter.js')();
     var modelFilter = require('./filters/modelFilter.js')();
     var priceFilter = require('./filters/priceFilter.js')();
     var powerFilter = require('./filters/powerFilter.js')();
     var mileageFilter = require('./filters/mileageFilter.js')();
+    var firstRegistration = require('./filters/firstRegistrationFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
@@ -20,7 +21,7 @@ module.exports = function (filterKind) {
     var noneFilter = require('./filters/noneFilter.js')();
 
     var all = [
-        normalizeSearchLineFilter,
+        cleanUpSearchLineFilter,
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
@@ -29,6 +30,7 @@ module.exports = function (filterKind) {
         heuristicFilter, // power, price etc. terms with entity markers
         makeFilter,
         modelFilter,
+        firstRegistration.filter,
         powerFilter.filter,
         priceFilter.filter,
         mileageFilter.filter,
@@ -40,7 +42,7 @@ module.exports = function (filterKind) {
     ];
 
     var pre = [
-        normalizeSearchLineFilter,
+        cleanUpSearchLineFilter,
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
@@ -54,11 +56,11 @@ module.exports = function (filterKind) {
         noneFilter
     ];
 
-    if (filterKind === 'pre') {
+    if (filterPart === 'pre') {
         return pre;
     }
 
-    if (filterKind === 'post') {
+    if (filterPart === 'post') {
         return post;
     }
 
