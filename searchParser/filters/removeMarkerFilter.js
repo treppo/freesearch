@@ -1,13 +1,14 @@
 module.exports = function () {
     'use strict';
 
-    var _filterHelper = require('../statics/filterHelper.js')();
+    var _isMarkerFilter = require('../statics/filterTypes.js').isMarkerFilter;
+    var _isRangeMarker = require('../statics/filterTypes.js').isRangeMarker;
 
     var filter = function (searchTokens) {
         return searchTokens.filter(function (searchToken) {
             return (
-                ! _filterHelper.isRangeMarker(searchToken.filter) &&
-                ! _filterHelper.isMarkerFilter(searchToken.filter)
+                ! _isRangeMarker(searchToken.filter) &&
+                ! _isMarkerFilter(searchToken.filter)
             );
         });
     };

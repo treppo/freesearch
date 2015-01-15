@@ -1,6 +1,6 @@
 var filters = require('../registeredFilters.js')();
 var _parser = require('../parser.js')(filters);
-var _filterTypes = require('../statics/filterTypes.js')();
+var _filterTypes = require('../statics/filterTypes.js').filterTypes;
 
 describe('Model tests', function () {
     describe('when parse search line with single model', function () {

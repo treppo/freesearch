@@ -1,4 +1,4 @@
-var _filterTypes = require('../statics/filterTypes.js')();
+var _filterTypes = require('../statics/filterTypes.js').filterTypes;
 var _maxPriceInEuro = 1000000;
 
 describe('Price tests single filter', function () {

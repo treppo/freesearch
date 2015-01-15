@@ -1,8 +1,12 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js')();
+    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
     var _filterHelper = require('../statics/filterHelper.js')();
+
+    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
+    var _isMarkerFilter = require('../statics/filterTypes.js').isMarkerFilter;
+    var _isRangeMarker = require('../statics/filterTypes.js').isRangeMarker;
 
     var _priceFilter = require('../filters/priceFilter.js')();
     var _powerFilter = require('../filters/powerFilter.js')();
@@ -82,15 +86,15 @@ module.exports = function () {
                 return false;
             }
 
-            if (_filterHelper.isMarkerFilter(searchToken.filter)) {
+            if (_isMarkerFilter(searchToken.filter)) {
                 return false;
             }
 
-            if (_filterHelper.isRangeMarker(searchToken.filter)) {
+            if (_isRangeMarker(searchToken.filter)) {
                 return false;
             }
 
-            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
+            if (! _isUnknownFilter(searchToken.filter)) {
                 return false;
             }
 

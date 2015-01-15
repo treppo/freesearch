@@ -1,15 +1,16 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js')();
+    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
     var _utilHelper = require('../statics/utilHelper.js')();
     var _filterHelper = require('../statics/filterHelper.js')();
+    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
 
     var _maxPriceInEuro = 1000000;
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
-            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
+            if (! _isUnknownFilter(searchToken.filter)) {
                 return;
             }
 

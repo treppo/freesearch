@@ -2,7 +2,7 @@ module.exports = function () {
     'use strict';
 
     var _synonymService = require('./../services/synonyms.js')();
-    var _filterHelper = require('../statics/filterHelper.js')();
+    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
     //
@@ -31,7 +31,7 @@ module.exports = function () {
         var filterTerms = termToStruct(filter.term);
 
         searchTokens.forEach(function (searchToken, index) {
-            if (! _filterHelper.isUnknownFilter(searchToken.filter)) {
+            if (! _isUnknownFilter(searchToken.filter)) {
                 return;
             }
             if (index < startIndex) {

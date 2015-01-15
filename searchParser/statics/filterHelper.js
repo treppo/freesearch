@@ -1,22 +1,22 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('./filterTypes.js')();
+    //var _filterTypes = require('./filterTypes.js').filterTypes;
 
-    var isUnknownFilter = function (filter) {
-        return filter.type === _filterTypes.unknown;
-    };
-
-    var isMarkerFilter = function (filter) {
-        return filter.type === _filterTypes.priceMarker ||
-            filter.type === _filterTypes.powerMarker ||
-            filter.type === _filterTypes.kmMarker ||
-            filter.type === _filterTypes.firstRegistrationMarker;
-    };
-
-    var isRangeMarker = function (filter) {
-        return filter.type === _filterTypes.rangeMarker;
-    };
+    //var isUnknownFilter = function (filter) {
+    //    return filter.type === _filterTypes.unknown;
+    //};
+    //
+    //var isMarkerFilter = function (filter) {
+    //    return filter.type === _filterTypes.priceMarker ||
+    //        filter.type === _filterTypes.powerMarker ||
+    //        filter.type === _filterTypes.kmMarker ||
+    //        filter.type === _filterTypes.firstRegistrationMarker;
+    //};
+    //
+    //var isRangeMarker = function (filter) {
+    //    return filter.type === _filterTypes.rangeMarker;
+    //};
 
     var compareTermFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
@@ -145,9 +145,9 @@ module.exports = function () {
     };
 
     return {
-        isUnknownFilter: isUnknownFilter,
-        isMarkerFilter: isMarkerFilter,
-        isRangeMarker: isRangeMarker,
+        //isUnknownFilter: isUnknownFilter,
+        //isMarkerFilter: isMarkerFilter,
+        //isRangeMarker: isRangeMarker,
         compareTermFilter: compareTermFilter,
         mergeTermFilter: mergeTermFilter,
         compareRangeFilter: compareRangeFilter,

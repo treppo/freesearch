@@ -1,4 +1,4 @@
-var _filterTypes = require('../statics/filterTypes.js')();
+var _filterTypes = require('../statics/filterTypes.js').filterTypes;
 var _maxMileage = 1000000;
 
 describe('Mileage tests single filter', function () {

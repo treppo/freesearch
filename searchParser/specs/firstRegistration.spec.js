@@ -1,4 +1,4 @@
-var _filterTypes = require('../statics/filterTypes.js')();
+var _filterTypes = require('../statics/filterTypes.js').filterTypes;
 
 var _maxFirstRegistration = new Date().getFullYear();
 var _minFirstRegistration = 1910;
