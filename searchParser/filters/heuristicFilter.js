@@ -44,7 +44,9 @@ module.exports = function () {
             }
 
             if (searchToken.filter.type === _filterTypes.firstRegistrationMarker) {
-                var context = {};
+                var context = {
+                    hasMarker: true
+                };
 
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,

@@ -27,9 +27,11 @@ module.exports = function () {
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
 
-        if (intTerm <_minFirstRegistration || intTerm > _maxFirstRegistration) { // check range
-            return searchToken;
-        }
+      //  if (!context.hasMarker) {
+            if (intTerm < _minFirstRegistration || intTerm > _maxFirstRegistration) { // check range
+                return searchToken;
+            }
+//        }
 
         context.found = true;
 

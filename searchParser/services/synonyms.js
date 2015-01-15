@@ -15,6 +15,9 @@ module.exports = function () {
     syns.Km = ['km', 'kilometer'];
     syns.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
 
+    syns.Diesel = ['diesel', 'diesl'];
+    syns.Benzin = ['benzin'];
+
     var getSynonyms = function (synKey) {
         if (syns[synKey]) {
             return syns[synKey];

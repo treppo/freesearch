@@ -7,10 +7,8 @@ module.exports = function () {
     //      Polo
     //
 
-    var models = [
+    return [
         {term: 'Cross Golf', value: 20315},
         {term: 'Golf', value: 2084},
     ];
-
-    return models;
 };

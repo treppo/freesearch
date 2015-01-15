@@ -9,6 +9,7 @@ filterTypes.price = 'price';
 filterTypes.power = 'power';
 filterTypes.mileage = 'mileage';
 filterTypes.firstRegistration = 'firstRegistration';
+filterTypes.fuel = 'fuel';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
