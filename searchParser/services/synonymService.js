@@ -2,21 +2,39 @@ module.exports = function () {
     'use strict';
 
     var syns = {};
-    syns.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
-    syns.Volkswagen = ['volkswagen', 'vw'];
-    //syns.Golf = ['golf'];
-    syns.Cross = ['cross'];
 
+    // Marker
     syns.From = ['von', 'vom', 'ab'];
     syns.To = ['bis'];
     syns.Kw = ['kw'];
     syns.Ps = ['ps'];
     syns.Euro = ['€', 'euro', 'eur'];
     syns.Km = ['km', 'kilometer'];
+
+    // Make
+    syns.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
+    syns.Volkswagen = ['volkswagen', 'vw'];
+
+    // Model
+    //syns.Golf = ['golf'];
+    syns.Cross = ['cross'];
+
+    // First registraion
     syns.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
 
+
+    // Fuel
     syns.Diesel = ['diesel', 'diesl'];
-    syns.Benzin = ['benzin'];
+    syns.Benzin = ['benzin', 'benziner'];
+
+    // Body Type
+    syns.Compact = ['kleinwagen'];
+    syns.Cabrio = ['cabrio', 'kabrio'];
+    syns.Coupe = ['coupe', 'cupe', 'kupe', 'koupe'];
+    syns.SUV = ['suv', 'geländewagen'];
+    syns.Sedan = ['sedan', 'limousine'];
+    syns.Van = ['van'];
+    syns.Transporter = ['transporter'];
 
     var getSynonyms = function (synKey) {
         if (syns[synKey]) {

@@ -3,10 +3,10 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js').filterTypes;
     var _findHelper = require('../statics/findHelper.js')();
-    var _models = require('../services/modelService.js')();
+    var _bodyType = require('../services/bodyTypeService.js')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _models, _filterTypes.model);
+        return _findHelper.searchTokens(searchTokens, _bodyType, _filterTypes.bodyType);
     };
 
     return filter;

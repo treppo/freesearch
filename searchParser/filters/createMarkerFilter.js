@@ -2,7 +2,7 @@ module.exports = function () {
     'use strict';
 
     var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-    var _markers = require('../services/markers.js')();
+    var _markers = require('../services/markerService.js')();
     var _findHelper = require('../statics/findHelper.js')();
 
     var filter = function (searchTokens) {

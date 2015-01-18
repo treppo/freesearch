@@ -15,6 +15,7 @@ module.exports = function (filterPart) {
     var mileageFilter = require('./filters/mileageFilter.js')();
     var firstRegistration = require('./filters/firstRegistrationFilter.js')();
     var fuel = require('./filters/fuelFilter.js')();
+    var bodyType = require('./filters/bodyTypeFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
@@ -36,6 +37,7 @@ module.exports = function (filterPart) {
         priceFilter.filter,
         mileageFilter.filter,
         fuel,
+        bodyType,
 
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,

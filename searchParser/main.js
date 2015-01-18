@@ -16,8 +16,8 @@ Filters:
     +Mileage (km)
     +Firstregistration (Year)
     PLZ / Ort / Umkreis / Land ??
-    Kraftstoff
-    Karosserieform
+    +Fuel
+    +BodyTyoe
     Ausstattung
     Getriebe
     Angebote

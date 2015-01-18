@@ -1,8 +1,8 @@
 module.exports = function () {
     'use strict';
 
-    var _synonym = require('../services/synonyms.js')();
-    var _markers = require('../services/markers.js')();
+    var _synonym = require('../services/synonymService.js')();
+    var _markers = require('../services/markerService.js')();
 
     var splitEndsBy = function (synKey) {
         return function (token) {
