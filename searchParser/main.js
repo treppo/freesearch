@@ -20,7 +20,7 @@ Filters:
     PLZ / Ort / Umkreis / Land ??
     +Fuel
     +BodyTyoe
-    Equipment
+    +Equipment
     +Gearing
     Angebote
     Außenfarbe

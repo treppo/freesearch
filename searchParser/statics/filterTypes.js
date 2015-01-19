@@ -12,6 +12,7 @@ filterTypes.firstRegistration = 'firstRegistration';
 filterTypes.fuel = 'fuel';
 filterTypes.bodyType = 'bodyType';
 filterTypes.gearing = 'gearing';
+filterTypes.equipment = 'equipment';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

@@ -1,49 +1,55 @@
 module.exports = function () {
     'use strict';
 
-    var syns = {};
+    var s = {};
 
     // Marker
-    syns.From = ['von', 'vom', 'ab'];
-    syns.To = ['bis'];
-    syns.Kw = ['kw'];
-    syns.Ps = ['ps'];
-    syns.Euro = ['€', 'euro', 'eur'];
-    syns.Km = ['km', 'kilometer'];
+    s.From = ['von', 'vom', 'ab'];
+    s.To = ['bis'];
+    s.Kw = ['kw'];
+    s.Ps = ['ps'];
+    s.Euro = ['€', 'euro', 'eur'];
+    s.Km = ['km', 'kilometer'];
 
     // Make
-    syns.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
-    syns.Volkswagen = ['volkswagen', 'vw'];
+    s.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
+    s.Volkswagen = ['volkswagen', 'vw'];
 
     // Model
     //syns.Golf = ['golf'];
-    syns.Cross = ['cross'];
+    s.Cross = ['cross'];
 
     // First registraion
-    syns.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
+    s.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
 
 
     // Fuel
-    syns.Diesel = ['diesel', 'diesl'];
-    syns.Benzin = ['benzin', 'benziner'];
+    s.Diesel = ['diesel', 'diesl'];
+    s.Benzin = ['benzin', 'benziner'];
 
     // Body Type
-    syns.Compact = ['kleinwagen'];
-    syns.Cabrio = ['cabrio', 'kabrio'];
-    syns.Coupe = ['coupe', 'cupe', 'kupe', 'koupe'];
-    syns.SUV = ['suv', 'geländewagen'];
-    syns.Sedan = ['sedan', 'limousine'];
-    syns.Van = ['van'];
-    syns.Transporter = ['transporter'];
+    s.Compact = ['kleinwagen'];
+    s.Cabrio = ['cabrio', 'kabrio'];
+    s.Coupe = ['coupe', 'cupe', 'kupe', 'koupe'];
+    s.SUV = ['suv', 'geländewagen'];
+    s.Sedan = ['sedan', 'limousine'];
+    s.Van = ['van'];
+    s.Transporter = ['transporter'];
 
     // Gearing Type
-    syns.ManualTransmission = ['schaltgetriebe'];
-    syns.Automatic = ['automatik'];
-    syns.Semiautomatic = ['halbautomatik'];
+    s.ManualTransmission = ['schaltgetriebe'];
+    s.Automatic = ['automatik'];
+    s.Semiautomatic = ['halbautomatik'];
+
+    // equipment
+    s.ABS = ['abs'];
+    s.Radio = ['radio'];
+    s.CdPlayer = ['cd'];
+    s.AirConditioning = ['klima', 'klimaanlage'];
 
     var getSynonyms = function (synKey) {
-        if (syns[synKey]) {
-            return syns[synKey];
+        if (s[synKey]) {
+            return s[synKey];
         }
         return [synKey.toLowerCase()];
     };
