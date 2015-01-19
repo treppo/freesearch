@@ -36,6 +36,11 @@ module.exports = function () {
     syns.Van = ['van'];
     syns.Transporter = ['transporter'];
 
+    // Gearing Type
+    syns.ManualTransmission = ['schaltgetriebe'];
+    syns.Automatic = ['automatik'];
+    syns.Semiautomatic = ['halbautomatik'];
+
     var getSynonyms = function (synKey) {
         if (syns[synKey]) {
             return syns[synKey];

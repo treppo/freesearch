@@ -11,6 +11,7 @@ filterTypes.mileage = 'mileage';
 filterTypes.firstRegistration = 'firstRegistration';
 filterTypes.fuel = 'fuel';
 filterTypes.bodyType = 'bodyType';
+filterTypes.gearing = 'gearing';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

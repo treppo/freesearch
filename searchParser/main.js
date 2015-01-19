@@ -13,13 +13,15 @@ TODO
 Multiple Make/Model Filter umschreiben mit loolbehind / lookahead
 
 Filters:
+    +Make
+    +Model
     +Mileage (km)
     +Firstregistration (Year)
     PLZ / Ort / Umkreis / Land ??
     +Fuel
     +BodyTyoe
-    Ausstattung
-    Getriebe
+    Equipment
+    +Gearing
     Angebote
     Außenfarbe
     Fahrzeugart

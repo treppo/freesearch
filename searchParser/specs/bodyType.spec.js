@@ -3,8 +3,8 @@ var _parser = require('../parser.js')(filters);
 var _filterTypes = require('../statics/filterTypes.js').filterTypes;
 
 describe('BodyType tests', function () {
-    describe('when parse search line with fuel', function () {
-        it('it should parse to expected fuel type', function () {
+    describe('when parse search line with body type', function () {
+        it('it should parse to expected body type', function () {
             var res = _parser.parse('Audi blub cabrio');
 
             expect(res.length).toBe(3);
@@ -15,8 +15,8 @@ describe('BodyType tests', function () {
         });
     });
 
-    describe('when parse search line with multiple fuel types', function () {
-        it('it should parse to expected fuel types', function () {
+    describe('when parse search line with multiple body types', function () {
+        it('it should parse to expected body types', function () {
             var res = _parser.parse('Audi blub cupe oder kleinwagen');
 
             expect(res.length).toBe(5);
