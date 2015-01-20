@@ -22,7 +22,7 @@ Filters:
     +BodyTyoe
     +Equipment
     +Gearing
-    Angebote
+    +Angebote
     Außenfarbe
     Fahrzeugart
     Online seit
