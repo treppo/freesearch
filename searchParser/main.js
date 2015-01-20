@@ -23,7 +23,7 @@ Filters:
     +Equipment
     +Gearing
     +CustomerType
-    Außenfarbe
+    +Bodycolor
     Fahrzeugart
     Online seit
     Fahrzeughalter (Anbieter)

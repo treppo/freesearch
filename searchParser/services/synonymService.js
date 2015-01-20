@@ -51,6 +51,22 @@ module.exports = function () {
     s.Private = ['private'];
     s.Dealer = ['händler', 'dealer'];
 
+    // Body Color
+    s.Beige = ["beige"];
+    s.Blue = ["blau"];
+    s.Brown = ["braun"];
+    s.Bronze = ["bronze"];
+    s.Yellow = ["gelb"];
+    s.Grey = ["grau"];
+    s.Green = ["grün", "gruen"];
+    s.Red = ["rot"];
+    s.Black = ["schwarz"];
+    s.Silver = ["silber"];
+    s.Violet = ["violett", "violet"];
+    s.White = ["weiß", "weiss"];
+    s.Orange = ["orange"];
+    s.Gold = ["gold"];
+
     var getSynonyms = function (synKey) {
         if (s[synKey]) {
             return s[synKey];

@@ -19,6 +19,7 @@ module.exports = function (filterPart) {
     var gearing = require('./filters/gearingFilter.js')();
     var equipment = require('./filters/equipmentFilter.js')();
     var customerType = require('./filters/customerTypeFilter.js')();
+    var bodyColor = require('./filters/bodyColorFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
@@ -44,6 +45,7 @@ module.exports = function (filterPart) {
         gearing,
         equipment,
         customerType,
+        bodyColor,
 
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,
