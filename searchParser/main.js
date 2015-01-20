@@ -24,9 +24,9 @@ Filters:
     +Gearing
     +CustomerType
     +Bodycolor
-    ArticleOfferType
-    Online seit
-    Fahrzeughalter (Anbieter)
+    +ArticleOfferType
+    OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
+    +PreviousOwner
     Farbeffekte (Metallic)
     Sitzplätze
 
