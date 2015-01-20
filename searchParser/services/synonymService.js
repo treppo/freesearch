@@ -41,11 +41,15 @@ module.exports = function () {
     s.Automatic = ['automatik'];
     s.Semiautomatic = ['halbautomatik'];
 
-    // equipment
+    // Equipment
     s.ABS = ['abs'];
     s.Radio = ['radio'];
     s.CdPlayer = ['cd'];
     s.AirConditioning = ['klima', 'klimaanlage'];
+
+    // Customer Type
+    s.Private = ['private'];
+    s.Dealer = ['händler', 'dealer'];
 
     var getSynonyms = function (synKey) {
         if (s[synKey]) {
