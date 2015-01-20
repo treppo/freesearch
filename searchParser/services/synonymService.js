@@ -75,6 +75,9 @@ module.exports = function () {
     s.NewCar = ['neu'];
     s.SingleDay = ['tageszulassung', 'tageszulaßung'];
 
+    // Seat
+    s.Seat = ['sitze', 'sitz'];
+
     var getSynonyms = function (synKey) {
         if (s[synKey]) {
             return s[synKey];

@@ -16,12 +16,14 @@ filterTypes.equipment = 'equipment';
 filterTypes.customerType = 'customerType';
 filterTypes.bodyColor = 'bodyColor';
 filterTypes.articleOfferType = 'articleOfferType';
+filterTypes.seat = 'seat';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
 filterTypes.powerMarker = 'powerMarker';
 filterTypes.kmMarker = 'kmMarker';
 filterTypes.firstRegistrationMarker = 'firstRegistrationMarker';
+filterTypes.seatMarker = 'seatMarker';
 
 // range marker
 filterTypes.rangeMarker = 'rangerMarker';
@@ -30,7 +32,9 @@ var isMarkerFilter = function (filter) {
     return filter.type === filterTypes.priceMarker ||
         filter.type === filterTypes.powerMarker ||
         filter.type === filterTypes.kmMarker ||
-        filter.type === filterTypes.firstRegistrationMarker;
+        filter.type === filterTypes.firstRegistrationMarker ||
+        filter.type === filterTypes.seatMarker
+        ;
 };
 
 var isRangeMarker = function (filter) {

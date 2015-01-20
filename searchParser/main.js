@@ -26,9 +26,9 @@ Filters:
     +Bodycolor
     +ArticleOfferType
     OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
-    +PreviousOwner
+    PreviousOwner
     Farbeffekte (Metallic)
-    Sitzplätze
+    +Seats TODO exact the seat,not range
 
     von advanced search
     Türen

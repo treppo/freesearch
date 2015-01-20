@@ -18,7 +18,7 @@ module.exports = function () {
         {term: 'WinterTyres', value: '25'},
         {term: 'Immobilizer', value: '26'},
         {term: 'CatalycConverter', value: '29'},
-        {term: 'SideAirbag	', value: '32'},
+        {term: 'SideAirbag', value: '32'},
         {term: 'ElectricMirrors', value: '33'},
         {term: 'SeatHeating', value: '34'},
         {term: 'HandicappedEnabled', value: '36'},

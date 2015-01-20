@@ -21,6 +21,7 @@ module.exports = function (filterPart) {
     var customerType = require('./filters/customerTypeFilter.js')();
     var bodyColor = require('./filters/bodyColorFilter.js')();
     var articleOfferType = require('./filters/articleOfferTypeFilter.js')();
+    var seat = require('./filters/seatFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
@@ -48,6 +49,7 @@ module.exports = function (filterPart) {
         customerType,
         bodyColor,
         articleOfferType,
+        seat.filter,
 
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,

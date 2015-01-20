@@ -7,6 +7,7 @@ module.exports = function () {
         range: [{term: 'From', value: 'from'}, {term: 'To', value: 'to'}],
         power: [{term: 'Kw', value: 'kw'}, {term: 'Ps', value: 'ps'}],
         km: [{term: 'Km', value: ''}],
-        firstRegistration: [{term: 'FirstRegistration', value: ''}]
+        firstRegistration: [{term: 'FirstRegistration', value: ''}],
+        seat: [{term: 'Seat', value: ''}]
     };
 };

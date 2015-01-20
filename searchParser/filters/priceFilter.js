@@ -3,7 +3,6 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes.js').filterTypes;
     var _utilHelper = require('../statics/utilHelper.js')();
-    var _filterHelper = require('../statics/filterHelper.js')();
     var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
 
     var _maxPriceInEuro = 1000000;
@@ -26,12 +25,9 @@ module.exports = function () {
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
-
         if (!context.hasMarker) {
-            if (!context.hasMarker) {
-                if (intTerm < 0 || intTerm > _maxPriceInEuro) { // check range
-                    return searchToken;
-                }
+            if (intTerm < 0 || intTerm > _maxPriceInEuro) { // check range
+                return searchToken;
             }
         }
 

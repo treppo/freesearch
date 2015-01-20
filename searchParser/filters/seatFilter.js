@@ -5,7 +5,8 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper.js')();
     var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
 
-    var _maxMileage = 1000000;
+    var _minSeats = 2;
+    var _maxSeats = 10;
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
@@ -26,14 +27,14 @@ module.exports = function () {
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
         if (!context.hasMarker) {
-            if (intTerm < 0 || intTerm > _maxMileage) { // check range
+            if (intTerm < _minSeats || intTerm > _maxSeats) { // check range
                 return searchToken;
             }
         }
 
-        searchToken.filter.type = _filterTypes.mileage;
-        searchToken.filter.termTo = searchToken.term;
-        searchToken.filter.valueTo = intTerm;
+        searchToken.filter.type = _filterTypes.seat;
+        searchToken.filter.termFrom = searchToken.term;
+        searchToken.filter.valueFrom = intTerm;
 
         return searchToken;
     };
