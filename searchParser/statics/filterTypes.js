@@ -15,6 +15,7 @@ filterTypes.gearing = 'gearing';
 filterTypes.equipment = 'equipment';
 filterTypes.customerType = 'customerType';
 filterTypes.bodyColor = 'bodyColor';
+filterTypes.articleOfferType = 'articleOfferType';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

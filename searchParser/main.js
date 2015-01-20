@@ -24,7 +24,7 @@ Filters:
     +Gearing
     +CustomerType
     +Bodycolor
-    Fahrzeugart
+    ArticleOfferType
     Online seit
     Fahrzeughalter (Anbieter)
     Farbeffekte (Metallic)

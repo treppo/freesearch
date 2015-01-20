@@ -67,6 +67,14 @@ module.exports = function () {
     s.Orange = ["orange"];
     s.Gold = ["gold"];
 
+    // Article offer type
+    s.Jahreswagen = ['jahreswagen'];
+    s.Demonstration = ['demo', 'demonstration'];
+    s.Oldtimer = ['oldtimer'];
+    s.UsedCar = ['gebraucht'];
+    s.NewCar = ['neu'];
+    s.SingleDay = ['tageszulassung', 'tageszulaßung'];
+
     var getSynonyms = function (synKey) {
         if (s[synKey]) {
             return s[synKey];
