@@ -37,7 +37,7 @@ describe('Seat tests single filter', function () {
 
     describe('When parse with range markers', function () {
         it('and contains from and to, it should parse them as a seat ranges', function () {
-            var res = parser.parse('von 2 bis 7');
+            var res = parser.parse('von 7 bis 2');
 
             expect(res.length).toBe(1);
             expect(res[0].term).toBe('2 - 7');
@@ -71,6 +71,19 @@ describe('Seat tests single filter', function () {
             expect(res[0].filter.valueTo).toBe(2);
             expect(res[0].filter.termTo).toBe('2');
         });
+
+
+        it('and contains only single value, it should be parsed as seat single value', function () {
+            var res = parser.parse('2');
+
+            expect(res.length).toBe(1);
+            expect(res[0].term).toBe('2');
+            expect(res[0].filter.type).toBe(_filterTypes.seat);
+            expect(res[0].filter.valueFrom).toBe(2);
+            expect(res[0].filter.termFrom).toBe('2');
+            expect(res[0].filter.valueTo).toBe(2);
+            expect(res[0].filter.termTo).toBe('2');
+        });
     });
 });
 
@@ -89,17 +102,19 @@ describe('Seat tests all filters', function () {
             expect(res[1].filter.valueFrom).toBe(expected);
             expect(res[1].filter.termFrom).toBe('' + expected);
         });
+    });
 
+    describe('When parse a suitable range followed by a seat marker', function () {
         it('it should be parsed as seat range', function () {
-            var res = parser.parse('audi 2 7 Sitze');
+            var res = parser.parse('audi 2000 €  2 7 Sitze');
 
-            expect(res.length).toBe(2);
-            expect(res[1].term).toBe('2 - 7');
-            expect(res[1].filter.type).toBe(_filterTypes.seat);
-            expect(res[1].filter.valueFrom).toBe(2);
-            expect(res[1].filter.termFrom).toBe('2');
-            expect(res[1].filter.valueTo).toBe(7);
-            expect(res[1].filter.termTo).toBe('7');
+            expect(res.length).toBe(3);
+            expect(res[2].term).toBe('2 - 7');
+            expect(res[2].filter.type).toBe(_filterTypes.seat);
+            expect(res[2].filter.valueFrom).toBe(2);
+            expect(res[2].filter.termFrom).toBe('2');
+            expect(res[2].filter.valueTo).toBe(7);
+            expect(res[2].filter.termTo).toBe('7');
         });
     });
 });

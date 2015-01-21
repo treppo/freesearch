@@ -4,14 +4,8 @@ var parser = require('../parser.js')(filters);
 var searchLine = 'bmw';
 var res = parser.parse(searchLine);
 
-var bb = 1;
-bb = bb + 1;
 console.log('Done servus');
-//var b = res.length;
 /*
-TODO
-Multiple Make/Model Filter umschreiben mit loolbehind / lookahead
-
 Filters:
     +Make
     +Model
@@ -28,7 +22,7 @@ Filters:
     OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
     PreviousOwner
     Farbeffekte (Metallic)
-    +Seats TODO exact the seat,not range
+    +Seats
 
     von advanced search
     Türen

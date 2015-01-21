@@ -38,6 +38,8 @@ module.exports = function () {
                     searchToken.filter.valueFrom = searchToken.filter.valueTo;
                     searchToken.filter.valueTo = undefined;
                 }
+
+                searchToken.filter.assignedByRangeFilter = true;
             }
 
             if (context.rangeType === 'to') {
@@ -49,6 +51,8 @@ module.exports = function () {
                     searchToken.filter.valueTo = searchToken.filter.valueFrom;
                     searchToken.filter.valueFrom = undefined;
                 }
+
+                searchToken.filter.assignedByRangeFilter = true;
             }
 
             return searchToken;
