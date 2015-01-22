@@ -8,7 +8,7 @@ module.exports = function () {
         {term: 'Autogas', value: 'L'}, // LPG
         {term: 'Erdgas', value: 'C'}, // CNG
         {term: 'Hybrid', value: '2'},
-        {term: 'Elektrobezin', value: 'TODO'},
+        {term: 'Elektrobenzin', value: 'TODO'},
         {term: 'Elektrodiesel', value: '3'},
         {term: 'Ethanol', value: 'M'},
         {term: 'Electric', value: 'E'}, // Elektro
