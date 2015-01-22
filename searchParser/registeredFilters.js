@@ -13,19 +13,20 @@ module.exports = function (filterPart) {
     var priceFilter = require('./filters/priceFilter.js')();
     var powerFilter = require('./filters/powerFilter.js')();
     var mileageFilter = require('./filters/mileageFilter.js')();
-    var firstRegistration = require('./filters/firstRegistrationFilter.js')();
-    var fuel = require('./filters/fuelFilter.js')();
-    var bodyType = require('./filters/bodyTypeFilter.js')();
-    var gearing = require('./filters/gearingFilter.js')();
-    var equipment = require('./filters/equipmentFilter.js')();
-    var customerType = require('./filters/customerTypeFilter.js')();
-    var bodyColor = require('./filters/bodyColorFilter.js')();
-    var articleOfferType = require('./filters/articleOfferTypeFilter.js')();
-    var seat = require('./filters/seatFilter.js')();
+    var firstRegistrationFilter = require('./filters/firstRegistrationFilter.js')();
+    var fuelFilter = require('./filters/fuelFilter.js')();
+    var bodyTypeFilter = require('./filters/bodyTypeFilter.js')();
+    var gearingFilter = require('./filters/gearingFilter.js')();
+    var equipmentFilter = require('./filters/equipmentFilter.js')();
+    var customerTypeFilter = require('./filters/customerTypeFilter.js')();
+    var bodyColorFilter = require('./filters/bodyColorFilter.js')();
+    var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
+    var seatFilter = require('./filters/seatFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
-    var rangeMarkerFilter = require('./filters/rangeMarkerFilter.js')();
+    var rangeMarkerFilter = require('./filters/assignRangeFilter.js')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter.js')();
+    var normalizeRangeFilter = require('./filters/normalizeRangeFilter.js')();
     var noneFilter = require('./filters/noneFilter.js')();
 
     var all = [
@@ -38,22 +39,23 @@ module.exports = function (filterPart) {
         heuristicFilter, // power, price etc. terms with entity markers
         makeFilter,
         modelFilter,
-        firstRegistration.filter,
+        firstRegistrationFilter.filter,
         powerFilter.filter,
         priceFilter.filter,
         mileageFilter.filter,
-        fuel,
-        bodyType,
-        gearing,
-        equipment,
-        customerType,
-        bodyColor,
-        articleOfferType,
-        seat.filter,
+        fuelFilter,
+        bodyTypeFilter,
+        gearingFilter,
+        equipmentFilter,
+        customerTypeFilter,
+        bodyColorFilter,
+        articleOfferTypeFilter,
+        seatFilter.filter,
 
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,
         reduceIdenticalFilter,
+        normalizeRangeFilter,
         noneFilter
     ];
 
@@ -69,6 +71,7 @@ module.exports = function (filterPart) {
         rangeMarkerFilter,
         removeMarkerFilter,
         reduceIdenticalFilter,
+        normalizeRangeFilter,
         noneFilter
     ];
 

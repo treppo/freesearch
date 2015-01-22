@@ -15,7 +15,7 @@ module.exports = function () {
         if (tokenLeft.filter.type !== tokenRight.filter.type) {
             return false;
         }
-        // if one of the range tokens has already from and to values, don't merge the tokens
+        // if one of the range filters has already from and to values, don't merge the filters
         if ((tokenLeft.filter.valueFrom && tokenLeft.filter.valueTo) ||
             (tokenRight.filter.valueFrom && tokenRight.filter.valueTo)
         ) {
@@ -91,6 +91,30 @@ module.exports = function () {
         });
     };
 
+    var transferRangeFilterToSingleValue = function (searchToken) {
+        if (searchToken.filter.assignedByRangeFilter) { // from or to is done by marker filter, don't touch it
+            return;
+        }
+
+        if (searchToken.filter.valueFrom && searchToken.filter.valueTo) {
+            return;
+        }
+        if ( ! searchToken.filter.valueFrom && ! searchToken.filter.valueTo){
+            return;
+        }
+
+        if (searchToken.filter.valueFrom) {
+            searchToken.filter.valueTo = searchToken.filter.valueFrom;
+            searchToken.filter.termTo = searchToken.filter.termFrom;
+        }
+        else {
+            searchToken.filter.valueFrom = searchToken.filter.valueTo;
+            searchToken.filter.termFrom = searchToken.filter.termTo;
+        }
+
+        return searchToken;
+    };
+
     var iterateToMaxDeep = function (maxDeep, fromIndex, fncCollect) {
         var curDeep = 0;
         var isNext = false;
@@ -133,6 +157,7 @@ module.exports = function () {
         compareRangeFilter: compareRangeFilter,
         mergeRangeFilter: mergeRangeFilter,
         reduceIdenticalFilters: reduceIdenticalFilters,
+        transferRangeFilterToSingleValue: transferRangeFilterToSingleValue,
         iterateToMaxDeep: iterateToMaxDeep,
         iterateForward : iterateForward,
         iterateBackward : iterateBackward
