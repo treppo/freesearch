@@ -37,8 +37,6 @@ module.exports = function (filterPart) {
         createMarkerFilter,
 
         heuristicFilter, // power, price etc. terms with entity markers
-        makeFilter,
-        modelFilter,
         firstRegistrationFilter.filter,
         powerFilter.filter,
         priceFilter.filter,
@@ -51,6 +49,8 @@ module.exports = function (filterPart) {
         bodyColorFilter,
         articleOfferTypeFilter,
         seatFilter.filter,
+        makeFilter,
+        modelFilter,
 
         rangeMarkerFilter, // work out range markers (from to)
         removeMarkerFilter,

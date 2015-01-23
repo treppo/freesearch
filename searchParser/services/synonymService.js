@@ -12,7 +12,7 @@ module.exports = function () {
     s.Km = ['km', 'kilometer'];
 
     // Make
-    s.Mercedes = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
+    s.MercedesBenz = ['mercedes', 'mers', 'merc', 'benz', 'benc'];
     s.Volkswagen = ['volkswagen', 'vw'];
 
     // Model

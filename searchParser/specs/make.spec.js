@@ -11,7 +11,7 @@ describe('Make tests', function () {
             expect(res[0].term).toBe('BMW');
             expect(res[0].filter.term).toBe('BMW');
             expect(res[0].filter.type).toBe(_filterTypes.make);
-            expect(res[0].filter.value).toBe(13);
+            expect(res[0].filter.value).toBe('13');
         });
 
         it('it should parse to expected make', function () {
@@ -19,9 +19,9 @@ describe('Make tests', function () {
 
             expect(res.length).toBe(1);
             expect(res[0].term).toBe('Mercedes Benz');
-            expect(res[0].filter.term).toBe('Mercedes');
+            expect(res[0].filter.term).toBe('MercedesBenz');
             expect(res[0].filter.type).toBe(_filterTypes.make);
-            expect(res[0].filter.value).toBe(47);
+            expect(res[0].filter.value).toBe('47');
         });
     });
 
@@ -34,17 +34,17 @@ describe('Make tests', function () {
             expect(res[0].term).toBe('vw');
             expect(res[0].filter.term).toBe('Volkswagen');
             expect(res[0].filter.type).toBe(_filterTypes.make);
-            expect(res[0].filter.value).toBe(74);
+            expect(res[0].filter.value).toBe('74');
 
             expect(res[1].term).toBe('mers');
-            expect(res[1].filter.term).toBe('Mercedes');
+            expect(res[1].filter.term).toBe('MercedesBenz');
             expect(res[1].filter.type).toBe(_filterTypes.make);
-            expect(res[1].filter.value).toBe(47);
+            expect(res[1].filter.value).toBe('47');
 
             expect(res[2].term).toBe('bmw');
             expect(res[2].filter.term).toBe('BMW');
             expect(res[2].filter.type).toBe(_filterTypes.make);
-            expect(res[2].filter.value).toBe(13);
+            expect(res[2].filter.value).toBe('13');
         });
     });
 });
