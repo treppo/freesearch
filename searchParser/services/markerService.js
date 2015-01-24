@@ -8,6 +8,7 @@ module.exports = function () {
         power: [{term: 'Kw', value: 'kw'}, {term: 'Ps', value: 'ps'}],
         km: [{term: 'Km', value: ''}],
         firstRegistration: [{term: 'FirstRegistration', value: ''}],
-        seat: [{term: 'Seat', value: ''}]
+        seat: [{term: 'Seat', value: ''}],
+        prevOwner: [{term: 'PrevOwner', value: ''}]
     };
 };

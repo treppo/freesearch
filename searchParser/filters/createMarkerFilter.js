@@ -12,6 +12,7 @@ module.exports = function () {
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.km, _filterTypes.kmMarker);
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.firstRegistration, _filterTypes.firstRegistrationMarker);
         searchTokens = _findHelper.searchTokens(searchTokens, _markers.seat, _filterTypes.seatMarker);
+        searchTokens = _findHelper.searchTokens(searchTokens, _markers.prevOwner, _filterTypes.prevOwnerMarker);
 
         return searchTokens;
     };

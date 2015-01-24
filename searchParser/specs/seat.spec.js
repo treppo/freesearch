@@ -1,6 +1,8 @@
 var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-var _maxSeats = 10;
+
 var _minSeats = 1;
+var _maxSeats = 10;
+
 
 describe('Seat tests single filter', function () {
     var underTest = require('../filters/seatFilter.js')().filter;

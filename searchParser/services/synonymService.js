@@ -67,7 +67,7 @@ module.exports = function () {
     s.Orange = ["orange"];
     s.Gold = ["gold"];
 
-    // Article offer type
+    // Article Offer Type
     s.Jahreswagen = ['jahreswagen'];
     s.Demonstration = ['demo', 'demonstration'];
     s.Oldtimer = ['oldtimer'];
@@ -77,6 +77,9 @@ module.exports = function () {
 
     // Seat
     s.Seat = ['sitze', 'sitz'];
+
+    // Previous Owner
+    s.PrevOwner = ['hand', 'vorbesizter', 'halter', 'fahrzeughalter'];
 
     var getSynonyms = function (synKey) {
         if (s[synKey]) {

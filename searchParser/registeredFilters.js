@@ -22,6 +22,7 @@ module.exports = function (filterPart) {
     var bodyColorFilter = require('./filters/bodyColorFilter.js')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
     var seatFilter = require('./filters/seatFilter.js')();
+    var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/assignRangeFilter.js')();
@@ -49,6 +50,7 @@ module.exports = function (filterPart) {
         bodyColorFilter,
         articleOfferTypeFilter,
         seatFilter.filter,
+        prevOwnerFilter.filter,
         makeFilter,
         modelFilter,
 

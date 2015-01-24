@@ -92,7 +92,7 @@ module.exports = function () {
     };
 
     var transferRangeFilterToSingleValue = function (searchToken) {
-        if (searchToken.filter.assignedByRangeFilter) { // from or to is done by marker filter, don't touch it
+        if (searchToken.filter.assignedByRangeFilter) { // from or to is done by range marker filter, don't touch it
             return;
         }
 

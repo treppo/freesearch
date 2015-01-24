@@ -13,6 +13,7 @@ module.exports = function () {
     var _mileageFilter = require('../filters/mileageFilter.js')();
     var _firstRegistration = require('../filters/firstRegistrationFilter.js')();
     var _seat = require('../filters/seatFilter.js')();
+    var _prevOwner = require('../filters/previousOwnerFilter.js')();
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
@@ -71,6 +72,17 @@ module.exports = function () {
                     accumulator,
                     collectCondition(searchToken.index),
                     assignFilter(_seat.assignFilter, context));
+            }
+
+            if (searchToken.filter.type === _filterTypes.prevOwnerMarker) {
+                var context = {
+                    hasMarker: true
+                };
+
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    assignFilter(_prevOwner.assignFilter, context));
             }
 
             return accumulator;
