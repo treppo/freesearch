@@ -27,7 +27,7 @@ module.exports = function () {
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
         if (!context.hasMarker) {
-            if (intTerm < _minPrevOwner || intTerm > _maxPrevOwner) { // check range
+            if (_utilHelper.isNotInRange(intTerm, _minPrevOwner, _maxPrevOwner)) {
                 return searchToken;
             }
         }

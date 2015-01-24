@@ -26,12 +26,9 @@ module.exports = function () {
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
-
-      //  if (!context.hasMarker) {
-            if (intTerm < _minFirstRegistration || intTerm > _maxFirstRegistration) { // check range
-                return searchToken;
-            }
-//        }
+        if (_utilHelper.isNotInRange(intTerm, _minFirstRegistration, _maxFirstRegistration)) {
+            return searchToken;
+        }
 
         context.found = true;
 

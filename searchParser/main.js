@@ -20,13 +20,12 @@ Filters:
     +Bodycolor
     +ArticleOfferType
     OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
-    PreviousOwner
+    +PreviousOwner
     Farbeffekte (Metallic)
     +Seats
 
     von advanced search
     Türen
-    Fahrzeugart
     Unfallfahrzeug
     mit Bild/Video
     Schadstoffklasse (Euro 6)

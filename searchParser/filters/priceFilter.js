@@ -26,7 +26,7 @@ module.exports = function () {
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
         if (!context.hasMarker) {
-            if (intTerm < 0 || intTerm > _maxPriceInEuro) { // check range
+            if (_utilHelper.isNotInRange(intTerm, 0, _maxPriceInEuro)) {
                 return searchToken;
             }
         }

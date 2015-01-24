@@ -27,7 +27,7 @@ module.exports = function () {
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
         if (!context.hasMarker) {
-            if (intTerm < _minSeats || intTerm > _maxSeats) { // check range
+            if (_utilHelper.isNotInRange(intTerm, _minSeats, _maxSeats)) {
                 return searchToken;
             }
         }

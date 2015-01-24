@@ -38,7 +38,7 @@ module.exports = function () {
         }
 
         if (!context.hasMarker) {
-            if (psTerm < 0 || psTerm > _maxPowerInPs) { // check range
+            if (_utilHelper.isNotInRange(psTerm, 0, _maxPowerInPs)) {
                 return searchToken;
             }
         }
