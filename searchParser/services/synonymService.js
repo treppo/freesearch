@@ -4,7 +4,7 @@ module.exports = function () {
     var s = {};
 
     // Marker
-    s.From = ['von', 'vom', 'ab'];
+    s.From = ['von', 'vom', 'ab', 'seit'];
     s.To = ['bis'];
     s.Kw = ['kw'];
     s.Ps = ['ps'];
@@ -19,9 +19,8 @@ module.exports = function () {
     //syns.Golf = ['golf'];
     s.Cross = ['cross'];
 
-    // First registraion
+    // First Registration
     s.FirstRegistration = ['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung'];
-
 
     // Fuel
     s.Diesel = ['diesel', 'diesl'];
@@ -80,6 +79,13 @@ module.exports = function () {
 
     // Previous Owner
     s.PrevOwner = ['hand', 'vorbesizter', 'halter', 'fahrzeughalter'];
+
+    // Online since
+    s.OnlineSince = ['online'];
+    s.Day = ['tag', 'tagen'];
+    s.Week = ['woche', 'wochen'];
+    s.Yesterday = ['gestern'];
+    s.DayBeforeYesterday = ['vorgestern'];
 
     var getSynonyms = function (synKey) {
         if (s[synKey]) {

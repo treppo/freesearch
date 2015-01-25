@@ -19,7 +19,7 @@ Filters:
     +CustomerType
     +Bodycolor
     +ArticleOfferType
-    OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
+    +OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
     +PreviousOwner
     Farbeffekte (Metallic)
     +Seats

@@ -16,6 +16,8 @@ module.exports = function () {
         searchLine = searchLine.replace(/\s\s+/g, ' ');
         searchLine = searchLine.trim();
 
+
+
         return searchLine;
     };
 

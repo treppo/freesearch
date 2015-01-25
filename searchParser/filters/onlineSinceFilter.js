@@ -5,7 +5,8 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper.js')();
     var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
 
-    var _maxPowerInPs = 500; // in PS
+    var _minOnlineSince = 1;
+    var _maxOnlineSince = 14;
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
@@ -20,32 +21,33 @@ module.exports = function () {
     };
 
     var assignFilter = function (searchToken, context) {
-        if (!_utilHelper.isNumber(searchToken.term)) {
+        var term = searchToken.term;
+
+        if (context.markerType === 'yesterday') {
+            term = 1;
+        }
+        if (context.markerType === 'daybeforeyesterday')  {
+            term = 2;
+        }
+
+        if (!_utilHelper.isNumber(term)) {
             return searchToken;
         }
 
-        var powerType = context.markerType || 'ps'; // default
-        var intTerm = _utilHelper.convertToInt(searchToken.term);
-
-        var kwTerm = 0;
-        var psTerm = 0;
-        if (powerType === 'ps') {
-            kwTerm = _utilHelper.convertFromPsToKw(intTerm);
-            psTerm = intTerm;
-        } else {
-            kwTerm = intTerm;
-            psTerm = _utilHelper.convertFromKwToPs(intTerm);
+        var intTerm = _utilHelper.convertToInt(term);
+        if (context.markerType === 'week') {
+            intTerm *= 7;
         }
 
         if (!context.hasMarker) {
-            if (_utilHelper.isNotInRange(psTerm, 0, _maxPowerInPs)) {
+            if (_utilHelper.isNotInRange(intTerm, _minOnlineSince, _maxOnlineSince)) {
                 return searchToken;
             }
         }
 
-        searchToken.filter.type = _filterTypes.power;
-        searchToken.filter.valueFrom = kwTerm;
-        searchToken.filter.termFrom = '' + kwTerm;
+        searchToken.filter.type = _filterTypes.onlineSince;
+        searchToken.filter.termFrom = '' + intTerm;
+        searchToken.filter.valueFrom = intTerm;
 
         return searchToken;
     };

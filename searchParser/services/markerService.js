@@ -9,6 +9,13 @@ module.exports = function () {
         km: [{term: 'Km', value: ''}],
         firstRegistration: [{term: 'FirstRegistration', value: ''}],
         seat: [{term: 'Seat', value: ''}],
-        prevOwner: [{term: 'PrevOwner', value: ''}]
+        prevOwner: [{term: 'PrevOwner', value: ''}],
+        onlineSince: [
+            {term: 'OnlineSince', value: 'onlinesince'},
+            {term: 'Day', value: 'day'},
+            {term: 'Week', value: 'week'},
+            {term: 'Yesterday', value: 'yesterday'},
+            {term: 'DayBeforeYesterday', value: 'daybeforeyesterday'}
+        ]
     };
 };

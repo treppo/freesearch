@@ -14,42 +14,37 @@ module.exports = function () {
     var _firstRegistration = require('../filters/firstRegistrationFilter.js')();
     var _seat = require('../filters/seatFilter.js')();
     var _prevOwner = require('../filters/previousOwnerFilter.js')();
+    var _onlineSince = require('../filters/onlineSinceFilter.js')();
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
+            var context = {
+                hasMarker: true,
+                markerType: searchToken.filter.value
+            };
+
             if (searchToken.filter.type === _filterTypes.priceMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_priceFilter.assignFilter, {
-                        hasMarker: true
-                    }));
+                    assignFilter(_priceFilter.assignFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_powerFilter.assignFilter, {
-                        hasMarker: true,
-                        powerType: searchToken.filter.value
-                    }));
+                    assignFilter(_powerFilter.assignFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.kmMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_mileageFilter.assignFilter, {
-                        hasMarker: true
-                    }));
+                    assignFilter(_mileageFilter.assignFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.firstRegistrationMarker) {
-                var context = {
-                    hasMarker: true
-                };
-
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
@@ -64,10 +59,6 @@ module.exports = function () {
             }
 
             if (searchToken.filter.type === _filterTypes.seatMarker) {
-                var context = {
-                    hasMarker: true
-                };
-
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
@@ -75,14 +66,28 @@ module.exports = function () {
             }
 
             if (searchToken.filter.type === _filterTypes.prevOwnerMarker) {
-                var context = {
-                    hasMarker: true
-                };
-
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
                     assignFilter(_prevOwner.assignFilter, context));
+            }
+
+            if (searchToken.filter.type === _filterTypes.onlineSinceMarker) {
+                if (searchToken.filter.value === 'onlinesince') {
+                    accumulator = _filterHelper.iterateForward(
+                        accumulator,
+                        collectCondition(searchToken.index),
+                        assignFilter(_onlineSince.assignFilter, context));
+                }
+                else if (searchToken.filter.value === 'yesterday' || searchToken.filter.value === 'daybeforeyesterday') {
+                    _onlineSince.assignFilter(searchToken, context);
+                }
+                else {
+                    accumulator = _filterHelper.iterateBackward(
+                        accumulator,
+                        collectCondition(searchToken.index),
+                        assignFilter(_onlineSince.assignFilter, context));
+                }
             }
 
             return accumulator;

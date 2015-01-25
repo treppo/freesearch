@@ -23,6 +23,7 @@ module.exports = function (filterPart) {
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
     var seatFilter = require('./filters/seatFilter.js')();
     var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
+    var onlineSinceFilter = require('./filters/onlineSinceFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/assignRangeFilter.js')();
@@ -51,6 +52,7 @@ module.exports = function (filterPart) {
         articleOfferTypeFilter,
         seatFilter.filter,
         prevOwnerFilter.filter,
+        onlineSinceFilter.filter,
         makeFilter,
         modelFilter,
 
