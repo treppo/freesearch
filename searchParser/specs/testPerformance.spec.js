@@ -10,21 +10,37 @@ describe('Split marker tests', function () {
             var t = (searchString['bla-blub']) ? true : false;
             expect(t).toBeTruthy();
 
-            var tt = projectTermValueToObject(_models);
+            var source = projectTermValueToObject(_models);
 
-            var f = 0;
+            var f = exists("Polo R WRC", source);
+
+            var ff = 0;
         });
     });
 });
 
+var exists = function (val, source) {
+    var tokens = val.toLowerCase().split(' ');
+
+    var res = [];
+    tokens.forEach(function(token){
+        if (source[token]) {
+            res.push(source[token]);
+        }
+    });
+
+    return res;
+};
+
 var projectTermValueToObject = function(arr) {
     var t = {};
     arr.forEach(function(elem){
-        if (t[elem.term]) {
-            t[elem.term] = t[elem.term].concat(elem.value);
+        var term = elem.term.toLowerCase();
+        if (t[term]) {
+            t[term] = t[term].concat(elem.value);
         }
         else {
-            t[elem.term] = [elem.value];
+            t[term] = [elem.value];
         }
     });
 
