@@ -1,10 +1,18 @@
-var filters = require('../registeredFilters.js')();
-var parser = require('../parser.js')(filters);
+var filters = require('./registeredFilters.js')();
+var _parser = require('./parser.js')(filters);
 
-var searchLine = 'bmw';
-var res = parser.parse(searchLine);
 
-console.log('Done servus');
+var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004';
+
+var begin = new Date();
+
+var res = _parser.parse(searchLine);
+
+var diff = new Date() - begin;
+
+console.log('Done in ' + diff + ' ms ');
+console.log(res);
+
 /*
 Filters:
     +Make
