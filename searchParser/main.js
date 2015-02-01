@@ -39,4 +39,9 @@ Filters:
     Schadstoffklasse (Euro 6)
     Feinstaubplakette
     Geprüfte Qualität
+
+Serialize to URL for Search API
+
+
+Autocomplete
 */
