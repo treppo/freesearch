@@ -33,15 +33,16 @@ Filters:
     +Seats
 
     von advanced search
-    Türen
+    +Türen
     Unfallfahrzeug
     mit Bild/Video
     Schadstoffklasse (Euro 6)
     Feinstaubplakette
     Geprüfte Qualität
 
-Serialize to URL for Search API
+should understand 10.000 as 10000
 
+Serialize to URL for Search API
 
 Autocomplete
 */
