@@ -14,13 +14,13 @@ module.exports = function () {
                 return;
             }
 
-            assignFilter(searchToken, {});
+            processFilter(searchToken, {});
         });
 
         return searchTokens;
     };
 
-    var assignFilter = function (searchToken, context) {
+    var processFilter = function (searchToken, context) {
         var term = searchToken.term;
 
         if (context.markerType === 'yesterday') {
@@ -54,6 +54,6 @@ module.exports = function () {
 
     return {
         filter: filter,
-        assignFilter: assignFilter
+        processFilter: processFilter
     };
 };

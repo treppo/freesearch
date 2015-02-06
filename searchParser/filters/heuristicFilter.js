@@ -27,34 +27,34 @@ module.exports = function () {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_priceFilter.assignFilter, context));
+                    processFilter(_priceFilter.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_powerFilter.assignFilter, context));
+                    processFilter(_powerFilter.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.kmMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_mileageFilter.assignFilter, context));
+                    processFilter(_mileageFilter.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.firstRegistrationMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_firstRegistration.assignFilter, context));
+                    processFilter(_firstRegistration.processFilter, context));
 
                 if (!context.found) {
                     accumulator = _filterHelper.iterateForward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        assignFilter(_firstRegistration.assignFilter, context));
+                        processFilter(_firstRegistration.processFilter, context));
                 }
             }
 
@@ -62,14 +62,14 @@ module.exports = function () {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_seat.assignFilter, context));
+                    processFilter(_seat.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.prevOwnerMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    assignFilter(_prevOwner.assignFilter, context));
+                    processFilter(_prevOwner.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.onlineSinceMarker) {
@@ -77,16 +77,16 @@ module.exports = function () {
                     accumulator = _filterHelper.iterateForward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        assignFilter(_onlineSince.assignFilter, context));
+                        processFilter(_onlineSince.processFilter, context));
                 }
                 else if (searchToken.filter.value === 'yesterday' || searchToken.filter.value === 'daybeforeyesterday') {
-                    _onlineSince.assignFilter(searchToken, context);
+                    _onlineSince.processFilter(searchToken, context);
                 }
                 else {
                     accumulator = _filterHelper.iterateBackward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        assignFilter(_onlineSince.assignFilter, context));
+                        processFilter(_onlineSince.processFilter, context));
                 }
             }
 
@@ -95,9 +95,9 @@ module.exports = function () {
         }, searchTokens);
     };
 
-    var assignFilter = function (assignFnc, context) {
+    var processFilter = function (processFnc, context) {
         return function (searchToken) {
-            return assignFnc(searchToken, context);
+            return processFnc(searchToken, context);
         };
     };
 

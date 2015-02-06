@@ -13,13 +13,13 @@ module.exports = function () {
                 return;
             }
 
-            assignFilter(searchToken, {});
+            processFilter(searchToken, {});
         });
 
         return searchTokens;
     };
 
-    var assignFilter = function (searchToken, context) {
+    var processFilter = function (searchToken, context) {
         if (!_utilHelper.isNumber(searchToken.term)) {
             return searchToken;
         }
@@ -52,6 +52,6 @@ module.exports = function () {
 
     return {
         filter: filter,
-        assignFilter: assignFilter
+        processFilter: processFilter
     };
 };
