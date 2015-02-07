@@ -16,18 +16,27 @@ module.exports = function (context) {
     };
 
     var processMake = function(searchTokens) {
-        var i = 0;
         var query = '';
 
         _getFiltersByType(searchTokens, _filterTypes.make)
-        .forEach(function(make) {
-            if (i < 3) { // only three makes are allowed
-                query += '&mmvmk' + i + '=' + make.filter.value;
-                i++;
-            }
+        .forEach(function (make) {
+            query += make.filter.value + ',';
         });
 
+        if (query) {
+            query = '&make=' + query;
+            query = removeLastComma(query);
+        }
+
         return query;
+    };
+
+    var removeLastComma = function(str) {
+        var t = str.length - 1;
+        if (str.charAt(t) == ',') {
+            return str.substring(0, t);
+        }
+        return str;
     };
 
     return filter;
