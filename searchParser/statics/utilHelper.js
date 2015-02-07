@@ -5,8 +5,12 @@ module.exports = function () {
         return !isNaN(parseFloat(n)) && isFinite(n);
     };
 
-    var convertToInt = function (term) {
-        return parseInt(term);
+    var convertToInt = function (val) {
+        if (typeof val === 'string'){
+            val = val.replace('.', '').replace(',', '');
+        }
+
+        return parseInt(val);
     };
 
     var convertFromPsToKw = function (ps) {

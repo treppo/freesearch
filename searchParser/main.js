@@ -40,9 +40,8 @@ Filters:
     Feinstaubplakette
     Geprüfte Qualität
 
-should understand 10.000 as 10000
+serialize to URL for Search API
+complete missed make based on existing model
 
-Serialize to URL for Search API
-
-Autocomplete
+autocomplete
 */
