@@ -51,7 +51,14 @@ var isUnknownFilter = function (filter) {
     return filter.type === filterTypes.unknown;
 };
 
+var getFiltersByType = function(searchTokens, filterType) {
+    return searchTokens.filter(function(searchToken) {
+        return (searchToken.filter.type === filterType);
+    });
+};
+
 module.exports.filterTypes = filterTypes;
 module.exports.isUnknownFilter = isUnknownFilter;
 module.exports.isMarkerFilter = isMarkerFilter;
 module.exports.isRangeMarker = isRangeMarker;
+module.exports.getFiltersByType = getFiltersByType;

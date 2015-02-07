@@ -1,4 +1,4 @@
-module.exports = function (filterPart) {
+module.exports = function (context) {
     'use strict';
 
     var cleanUpSearchLineFilter = require('./filters/cleanUpSearchLineFilter.js')();
@@ -31,6 +31,8 @@ module.exports = function (filterPart) {
     var normalizeRangeFilter = require('./filters/normalizeRangeFilter.js')();
     var noneFilter = require('./filters/noneFilter.js')();
 
+    var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter.js')(context);
+
     var all = [
         cleanUpSearchLineFilter,
         createTokensFilter,
@@ -60,7 +62,7 @@ module.exports = function (filterPart) {
         removeMarkerFilter,
         reduceIdenticalFilter,
         normalizeRangeFilter,
-        noneFilter
+        createPublicQueryParamsFilter
     ];
 
     var pre = [
@@ -76,14 +78,14 @@ module.exports = function (filterPart) {
         removeMarkerFilter,
         reduceIdenticalFilter,
         normalizeRangeFilter,
-        noneFilter
+        createPublicQueryParamsFilter
     ];
 
-    if (filterPart === 'pre') {
+    if (context && context.pre) {
         return pre;
     }
 
-    if (filterPart === 'post') {
+    if (context && context.post) {
         return post;
     }
 
