@@ -473,11 +473,53 @@ describe('Test query params for seats', function () {
 
     describe('when seats fromValue and toValue are available', function () {
         it('it should generate seats query param', function () {
-            _parser.parse('audi 2 5 Sitze km blub');
+            _parser.parse('audi 2 5 Sitze blub');
 
             expect(_ctx.publicQueryParams).toBeDefined();
             expect(containOnce(_ctx.publicQueryParams, 'seatsfrom=2')).toBeTruthy();
             expect(containOnce(_ctx.publicQueryParams, 'seatsto=5')).toBeTruthy();
+        });
+    });
+});
+
+describe('Test query params for doors', function () {
+    describe('when no doors is available', function () {
+        it('it should not generate query param', function () {
+            _parser.parse('blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('doorfrom');
+            expect(_ctx.publicQueryParams).not.toContain('doorto');
+        });
+    });
+
+    describe('when doors fromValue is available', function () {
+        it('it should generate doors query param', function () {
+            _parser.parse('audi ab 2 türen blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'doorfrom=2')).toBeTruthy();
+            expect(_ctx.publicQueryParams).not.toContain('doorto');
+        });
+    });
+
+    describe('when doors toValue is available', function () {
+        it('it should generate doors query param', function () {
+            _parser.parse('audi bis 5 Türen blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('doorfrom');
+            expect(containOnce(_ctx.publicQueryParams, 'doorto=5')).toBeTruthy();
+        });
+    });
+
+    describe('when doors fromValue and toValue are available', function () {
+        it('it should generate doors query param', function () {
+            _parser.parse('audi 2 5 Türen blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'doorfrom=2')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'doorto=5')).toBeTruthy();
         });
     });
 });

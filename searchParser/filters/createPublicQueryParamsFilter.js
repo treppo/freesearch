@@ -25,6 +25,7 @@ module.exports = function (context) {
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.onlineSince, 'adage');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
+        query += createRangeQueryParams(searchTokens, _filterTypes.door, 'doorfrom', 'doorto');
 
         context.publicQueryParams = query;
 
