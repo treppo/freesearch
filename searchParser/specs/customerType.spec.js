@@ -17,11 +17,11 @@ describe('Customer type tests', function () {
 
     describe('when parse search line with multiple customer types', function () {
         it('it should parse to expected customer types', function () {
-            var res = _parser.parse('Audi blub private oder händler');
+            var res = _parser.parse('Audi blub privat oder händler');
 
             expect(res.length).toBe(5);
 
-            expect(res[2].term).toBe('private');
+            expect(res[2].term).toBe('privat');
             expect(res[2].filter.term).toBe('Private');
             expect(res[2].filter.type).toBe(_filterTypes.customerType);
             expect(res[2].filter.value).toBe('P');

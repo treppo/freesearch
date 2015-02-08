@@ -20,6 +20,7 @@ module.exports = function (context) {
     var equipmentFilter = require('./filters/equipmentFilter.js')();
     var customerTypeFilter = require('./filters/customerTypeFilter.js')();
     var bodyColorFilter = require('./filters/bodyColorFilter.js')();
+    var colorEffectFilter = require('./filters/colorEffectFilter.js')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
     var seatFilter = require('./filters/seatFilter.js')();
     var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
@@ -51,6 +52,7 @@ module.exports = function (context) {
         equipmentFilter,
         customerTypeFilter,
         bodyColorFilter,
+        colorEffectFilter,
         articleOfferTypeFilter,
         seatFilter.filter,
         prevOwnerFilter.filter,

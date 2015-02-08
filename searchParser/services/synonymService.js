@@ -45,26 +45,30 @@ module.exports = function () {
     s.Radio = ['radio'];
     s.CdPlayer = ['cd'];
     s.AirConditioning = ['klima', 'klimaanlage'];
+    s.AlloyWheels = ['alu', 'alufelgen'];
 
     // Customer Type
-    s.Private = ['private'];
-    s.Dealer = ['händler', 'dealer'];
+    s.Private = ['private', 'privat'];
+    s.Dealer = ['händler', 'haendler', 'dealer'];
 
     // Body Color
-    s.Beige = ["beige"];
-    s.Blue = ["blau"];
-    s.Brown = ["braun"];
-    s.Bronze = ["bronze"];
-    s.Yellow = ["gelb"];
-    s.Grey = ["grau"];
-    s.Green = ["grün", "gruen"];
-    s.Red = ["rot"];
-    s.Black = ["schwarz"];
-    s.Silver = ["silber"];
-    s.Violet = ["violett", "violet"];
-    s.White = ["weiß", "weiss"];
-    s.Orange = ["orange"];
-    s.Gold = ["gold"];
+    s.Beige = ['beige'];
+    s.Blue = ['blau'];
+    s.Brown = ['braun'];
+    s.Bronze = ['bronze'];
+    s.Yellow = ['gelb'];
+    s.Grey = ['grau'];
+    s.Green = ['grün', 'gruen'];
+    s.Red = ['rot'];
+    s.Black = ['schwarz'];
+    s.Silver = ['silber'];
+    s.Violet = ['violett', 'violet'];
+    s.White = ['weiß', 'weiss'];
+    s.Orange = ['orange'];
+    s.Gold = ['gold'];
+
+    // Color effects
+    s.Metallic = ['metallic', 'metalic'];
 
     // Article Offer Type
     s.Jahreswagen = ['jahreswagen'];

@@ -10,6 +10,8 @@ module.exports = function () {
     return [
         {term: 'Cross Golf', value: '20315'},
         {term: 'Golf', value: '2084'},
+        {term: "A4", value: "1626"},
+        {term: "X5", value: "16406"},
     ];
 
     //select '{term: ', generic_name, ',value:', model_id, '},' from model order by make_id;

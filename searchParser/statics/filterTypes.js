@@ -19,6 +19,7 @@ filterTypes.articleOfferType = 'articleOfferType';
 filterTypes.seat = 'seat';
 filterTypes.prevOwner = 'prevOwner';
 filterTypes.onlineSince = 'onlineSince';
+filterTypes.colorEffect = 'colorEffect';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

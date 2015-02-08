@@ -19,7 +19,7 @@ Filters:
     +Model
     +Mileage (km)
     +Firstregistration (Year)
-    PLZ / Ort / Umkreis / Land ??
+ PLZ / Ort / Umkreis / Land ??
     +Fuel
     +BodyTyoe
     +Equipment
@@ -29,11 +29,11 @@ Filters:
     +ArticleOfferType
     +OnlineSince (seit 1 Tag, ..., 1 Woche, 2 Wochen)
     +PreviousOwner
-    Farbeffekte (Metallic)
+    +Farbeffekte (Metallic)
     +Seats
 
     von advanced search
-    +Türen
+    Türen
     Unfallfahrzeug
     mit Bild/Video
     Schadstoffklasse (Euro 6)
@@ -42,6 +42,9 @@ Filters:
 
 serialize to URL for Search API
 complete missed make based on existing model
+set correct default range values (from or to)
+bug - von 200 km blub von 20000 km ergibt 200 to 20000
+create synonyms for equipments
 
 autocomplete
 */

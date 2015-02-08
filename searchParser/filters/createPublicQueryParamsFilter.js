@@ -5,30 +5,70 @@ module.exports = function (context) {
     var _getFiltersByType = require('../statics/filterTypes').getFiltersByType;
 
     var filter = function (searchTokens) {
-        var query = '';
-        query += processMake(searchTokens);
-
-        if (context) {
-            context.publicQueryParams = query;
+        if (! context) {
+            return searchTokens;
         }
+
+        var query = '';
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model');
+        query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
+        query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.fuel, 'fuel');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyType, 'body');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.equipment, 'eq');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.gearing, 'gear');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.customerType, 'custtype');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyColor, 'bcol');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.colorEffect, 'ptype');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleOfferType, 'offer');
+        query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.onlineSince, 'adage');
+        query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
+        query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
+
+        context.publicQueryParams = query;
 
         return searchTokens;
     };
 
-    var processMake = function(searchTokens) {
+    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp) {
         var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                query += searchToken.filter.value + ',';
+            });
 
-        _getFiltersByType(searchTokens, _filterTypes.make)
-        .forEach(function (make) {
-            query += make.filter.value + ',';
-        });
+        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
+    };
 
-        if (query) {
-            query = '&make=' + query;
-            query = removeLastComma(query);
-        }
+    var createRangeQueryParams = function (searchTokens, filterType, qpFrom, qpTo) {
+        var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                if (searchToken.filter.valueFrom) {
+                    query += '&' + qpFrom + '='  + searchToken.filter.valueFrom;
+                }
+                if (searchToken.filter.valueTo) {
+                    query += '&' + qpTo + '=' + searchToken.filter.valueTo;
+                }
+            });
 
-        return query;
+        return (query) ? removeLastComma(query) : query;
+    };
+
+    var createCommaSeparatedFromRangeQueryParam = function (searchTokens, filterType, qp) {
+        var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                if (searchToken.filter.valueFrom) {
+                    query += searchToken.filter.valueFrom + ',';
+                }
+                if (searchToken.filter.valueTo) {
+                    query += searchToken.filter.valueTo + ',';
+                }
+            });
+
+        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
     };
 
     var removeLastComma = function(str) {
@@ -36,6 +76,7 @@ module.exports = function (context) {
         if (str.charAt(t) == ',') {
             return str.substring(0, t);
         }
+
         return str;
     };
 
