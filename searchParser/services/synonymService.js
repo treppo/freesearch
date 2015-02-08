@@ -78,6 +78,10 @@ module.exports = function () {
     s.NewCar = ['neu'];
     s.SingleDay = ['tageszulassung', 'tageszulaßung'];
 
+    // Usage state
+    s.AccidentedCar = ['unfallfahrzeug', 'unfall'];
+    s.WreckCar = ['wrack'];
+
     // Seat
     s.Seat = ['sitze', 'sitz', 'sitzer'];
 

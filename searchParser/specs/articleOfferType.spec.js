@@ -15,7 +15,7 @@ describe('Article offer type tests', function () {
         });
     });
 
-    describe('when parse search line with multiple article offer type', function () {
+    describe('when parse search line with multiple article offer types', function () {
         it('it should parse to expected article offer types', function () {
             var res = _parser.parse('Audi blub gebraucht oder neu');
 

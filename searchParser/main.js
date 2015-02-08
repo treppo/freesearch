@@ -34,16 +34,11 @@ Filters:
 
     von advanced search
     +Door
-    Unfallfahrzeug // select * from usagestate;
+    +Usagestate
     mit Bild/Video
     Schadstoffklasse (Euro 6)
     Feinstaubplakette
     Geprüfte Qualität
-
- N	new
- U	used
- A	accidented
- W	wreck
 
 serialize to URL for Search API
 complete missed make based on existing model

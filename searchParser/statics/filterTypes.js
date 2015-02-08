@@ -16,6 +16,7 @@ filterTypes.equipment = 'equipment';
 filterTypes.customerType = 'customerType';
 filterTypes.bodyColor = 'bodyColor';
 filterTypes.articleOfferType = 'articleOfferType';
+filterTypes.usageState = 'usageState';
 filterTypes.seat = 'seat';
 filterTypes.prevOwner = 'prevOwner';
 filterTypes.onlineSince = 'onlineSince';

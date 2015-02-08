@@ -22,6 +22,7 @@ module.exports = function (context) {
     var bodyColorFilter = require('./filters/bodyColorFilter.js')();
     var colorEffectFilter = require('./filters/colorEffectFilter.js')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
+    var usageStateFilter = require('./filters/usageStateFilter.js')();
     var seatFilter = require('./filters/seatFilter.js')();
     var doorFilter = require('./filters/doorFilter.js')();
     var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
@@ -55,6 +56,7 @@ module.exports = function (context) {
         bodyColorFilter,
         colorEffectFilter,
         articleOfferTypeFilter,
+        usageStateFilter,
         seatFilter.filter,
         doorFilter.filter,
         prevOwnerFilter.filter,
