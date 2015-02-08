@@ -523,3 +523,32 @@ describe('Test query params for doors', function () {
         });
     });
 });
+
+describe('Test query params for usage state', function () {
+    describe('when no article usage state is available', function () {
+        it('it should not generate query param', function () {
+            _parser.parse('blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('ustate');
+        });
+    });
+
+    describe('when single usage state is available', function () {
+        it('it should generate usage state query param', function () {
+            _parser.parse('audi unfall blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'ustate=A')).toBeTruthy();
+        });
+    });
+
+    describe('when multiple usage states are available', function () {
+        it('it should generate usage state query params', function () {
+            _parser.parse('audi unfall oder wrack blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'ustate=A,W')).toBeTruthy();
+        });
+    });
+});
