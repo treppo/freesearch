@@ -33,12 +33,17 @@ Filters:
     +Seats
 
     von advanced search
-    Türen
-    Unfallfahrzeug
+    +Door
+    Unfallfahrzeug // select * from usagestate;
     mit Bild/Video
     Schadstoffklasse (Euro 6)
     Feinstaubplakette
     Geprüfte Qualität
+
+ N	new
+ U	used
+ A	accidented
+ W	wreck
 
 serialize to URL for Search API
 complete missed make based on existing model

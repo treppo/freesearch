@@ -9,6 +9,7 @@ module.exports = function () {
         km: [{term: 'Km', value: ''}],
         firstRegistration: [{term: 'FirstRegistration', value: ''}],
         seat: [{term: 'Seat', value: ''}],
+        door: [{term: 'Door', value: ''}],
         prevOwner: [{term: 'PrevOwner', value: ''}],
         onlineSince: [
             {term: 'OnlineSince', value: 'onlinesince'},

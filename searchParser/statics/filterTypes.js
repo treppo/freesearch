@@ -20,6 +20,7 @@ filterTypes.seat = 'seat';
 filterTypes.prevOwner = 'prevOwner';
 filterTypes.onlineSince = 'onlineSince';
 filterTypes.colorEffect = 'colorEffect';
+filterTypes.door = 'door';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
@@ -27,6 +28,7 @@ filterTypes.powerMarker = 'powerMarker';
 filterTypes.kmMarker = 'kmMarker';
 filterTypes.firstRegistrationMarker = 'firstRegistrationMarker';
 filterTypes.seatMarker = 'seatMarker';
+filterTypes.doorMarker = 'doorMarker';
 filterTypes.prevOwnerMarker = 'prevOwnerMarker';
 filterTypes.onlineSinceMarker = 'onlineSinceMarker';
 
@@ -39,6 +41,7 @@ var isMarkerFilter = function (filter) {
         filter.type === filterTypes.kmMarker ||
         filter.type === filterTypes.firstRegistrationMarker ||
         filter.type === filterTypes.seatMarker ||
+        filter.type === filterTypes.doorMarker ||
         filter.type === filterTypes.prevOwnerMarker ||
         filter.type === filterTypes.onlineSinceMarker
         ;

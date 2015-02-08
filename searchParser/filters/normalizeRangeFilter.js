@@ -10,6 +10,10 @@ module.exports = function () {
                 _filterHelper.transferRangeFilterToSingleValue(searchToken);
             }
 
+            if (searchToken.filter.type === _filterTypes.door) {
+                _filterHelper.transferRangeFilterToSingleValue(searchToken);
+            }
+
             if (searchToken.filter.type === _filterTypes.prevOwner) {
                 _filterHelper.transferRangeFilterToSingleValue(searchToken);
             }

@@ -13,6 +13,7 @@ module.exports = function () {
     var _mileageFilter = require('../filters/mileageFilter.js')();
     var _firstRegistration = require('../filters/firstRegistrationFilter.js')();
     var _seat = require('../filters/seatFilter.js')();
+    var _door = require('../filters/doorFilter.js')();
     var _prevOwner = require('../filters/previousOwnerFilter.js')();
     var _onlineSince = require('../filters/onlineSinceFilter.js')();
 
@@ -63,6 +64,13 @@ module.exports = function () {
                     accumulator,
                     collectCondition(searchToken.index),
                     processFilter(_seat.processFilter, context));
+            }
+
+            if (searchToken.filter.type === _filterTypes.doorMarker) {
+                accumulator = _filterHelper.iterateBackward(
+                    accumulator,
+                    collectCondition(searchToken.index),
+                    processFilter(_door.processFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.prevOwnerMarker) {

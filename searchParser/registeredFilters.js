@@ -23,6 +23,7 @@ module.exports = function (context) {
     var colorEffectFilter = require('./filters/colorEffectFilter.js')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter.js')();
     var seatFilter = require('./filters/seatFilter.js')();
+    var doorFilter = require('./filters/doorFilter.js')();
     var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
     var onlineSinceFilter = require('./filters/onlineSinceFilter.js')();
 
@@ -55,6 +56,7 @@ module.exports = function (context) {
         colorEffectFilter,
         articleOfferTypeFilter,
         seatFilter.filter,
+        doorFilter.filter,
         prevOwnerFilter.filter,
         onlineSinceFilter.filter,
         makeFilter,

@@ -79,7 +79,10 @@ module.exports = function () {
     s.SingleDay = ['tageszulassung', 'tageszulaßung'];
 
     // Seat
-    s.Seat = ['sitze', 'sitz'];
+    s.Seat = ['sitze', 'sitz', 'sitzer'];
+
+    // Door
+    s.Door = ['türe', 'tuere', 'türen', 'tueren', 'türer', 'tuerer'];
 
     // Previous Owner
     s.PrevOwner = ['hand', 'vorbesizter', 'halter', 'fahrzeughalter'];
