@@ -98,6 +98,10 @@ module.exports = function () {
     s.Yesterday = ['gestern'];
     s.DayBeforeYesterday = ['vorgestern'];
 
+    // Picture / Video
+    s.Picture = ['bild', 'bilder', 'bildern'];
+    s.Video = ['video', 'videos'];
+
     var getSynonyms = function (synKey) {
         if (s[synKey]) {
             return s[synKey];

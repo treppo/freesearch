@@ -27,6 +27,7 @@ module.exports = function (context) {
     var doorFilter = require('./filters/doorFilter.js')();
     var prevOwnerFilter = require('./filters/previousOwnerFilter.js')();
     var onlineSinceFilter = require('./filters/onlineSinceFilter.js')();
+    var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
     var rangeMarkerFilter = require('./filters/assignRangeFilter.js')();
@@ -61,6 +62,7 @@ module.exports = function (context) {
         doorFilter.filter,
         prevOwnerFilter.filter,
         onlineSinceFilter.filter,
+        pictureAndVideoFilter,
         makeFilter,
         modelFilter,
 

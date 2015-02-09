@@ -22,6 +22,7 @@ filterTypes.prevOwner = 'prevOwner';
 filterTypes.onlineSince = 'onlineSince';
 filterTypes.colorEffect = 'colorEffect';
 filterTypes.door = 'door';
+filterTypes.pictureAndVideo = 'pictureAndVideo';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

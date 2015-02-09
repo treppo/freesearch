@@ -35,7 +35,7 @@ Filters:
     von advanced search
     +Door
     +Usagestate
-    mit Bild/Video
+    +mit Bild/Video
     Schadstoffklasse (Euro 6)
     Feinstaubplakette
     Geprüfte Qualität
@@ -45,7 +45,7 @@ complete missed make based on existing model
 set correct default range values (from or to)
 bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
-heuristic filter. price backwards and then if nothing found forward
+heuristic filter. price backwards and then, if nothing found, forward
 
 autocomplete
 */

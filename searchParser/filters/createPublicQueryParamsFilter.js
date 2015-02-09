@@ -27,6 +27,7 @@ module.exports = function (context) {
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
         query += createRangeQueryParams(searchTokens, _filterTypes.door, 'doorfrom', 'doorto');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.usageState, 'ustate');
+        query += processPictureAndVideo(searchTokens);
 
         context.publicQueryParams = query;
 
@@ -80,6 +81,26 @@ module.exports = function (context) {
         }
 
         return str;
+    };
+
+    var processPictureAndVideo = function(searchTokens) {
+        var query = '';
+
+        var hasPicture = searchTokens.some(function(searchToken) {
+            return (searchToken.filter.type === _filterTypes.pictureAndVideo && searchToken.filter.value === 'P')
+        });
+        if (hasPicture) {
+            query += '&pic=True';
+        }
+
+        var hasVideo = searchTokens.some(function(searchToken) {
+            return (searchToken.filter.type === _filterTypes.pictureAndVideo && searchToken.filter.value === 'V')
+        });
+        if (hasVideo) {
+            query += '&hasvideo=True';
+        }
+
+        return query;
     };
 
     return filter;

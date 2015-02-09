@@ -552,3 +552,45 @@ describe('Test query params for usage state', function () {
         });
     });
 });
+
+describe('Test query params for picture/video', function () {
+    describe('when no picture/video usage state is available', function () {
+        it('it should not generate query param', function () {
+            _parser.parse('blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('pic');
+            expect(_ctx.publicQueryParams).not.toContain('hasvideo');
+        });
+    });
+
+    describe('when picture is available', function () {
+        it('it should generate picture query param', function () {
+            _parser.parse('audi mit bild blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'pic=True')).toBeTruthy();
+            expect(_ctx.publicQueryParams).not.toContain('hasvideo');
+        });
+    });
+
+    describe('when video is available', function () {
+        it('it should generate video query param', function () {
+            _parser.parse('audi mit video blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'hasvideo=True')).toBeTruthy();
+            expect(_ctx.publicQueryParams).not.toContain('pic');
+        });
+    });
+
+    describe('when picture and video are available', function () {
+        it('it should generate picture and video query param', function () {
+            _parser.parse('audi mit bildern und video blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'pic=True')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'hasvideo=True')).toBeTruthy();
+        });
+    });
+});
