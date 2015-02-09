@@ -92,7 +92,7 @@ module.exports = function () {
     s.PrevOwner = ['hand', 'vorbesizter', 'halter', 'fahrzeughalter'];
 
     // Online since
-    s.OnlineSince = ['online'];
+    s.OnlineSince = ['online', 'eingestellt', 'aktive'];
     s.Day = ['tag', 'tagen'];
     s.Week = ['woche', 'wochen'];
     s.Yesterday = ['gestern'];

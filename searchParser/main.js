@@ -2,7 +2,7 @@ var filters = require('./registeredFilters.js')();
 var _parser = require('./parser.js')(filters);
 
 
-var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004';
+var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt vorgestern';
 
 var begin = new Date();
 
@@ -45,6 +45,7 @@ complete missed make based on existing model
 set correct default range values (from or to)
 bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
+heuristic filter. price backwards and then if nothing found forward
 
 autocomplete
 */
