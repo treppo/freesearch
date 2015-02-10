@@ -15,8 +15,8 @@ describe('First registration tests single filter', function () {
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.firstRegistration);
-            expect(res[1].filter.valueTo).toBe(2000);
-            expect(res[1].filter.termTo).toBe('2000');
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
         });
     });
 
@@ -97,8 +97,8 @@ describe('First registration tests all filters', function () {
             expect(res.length).toBe(2);
             expect(res[1].term).toBe('' + expected);
             expect(res[1].filter.type).toBe(_filterTypes.firstRegistration);
-            expect(res[1].filter.valueTo).toBe(expected);
-            expect(res[1].filter.termTo).toBe('' + expected);
+            expect(res[1].filter.valueFrom).toBe(expected);
+            expect(res[1].filter.termFrom).toBe('' + expected);
         });
     });
 

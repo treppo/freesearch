@@ -33,8 +33,8 @@ module.exports = function () {
         context.found = true;
 
         searchToken.filter.type = _filterTypes.firstRegistration;
-        searchToken.filter.termTo = searchToken.term;
-        searchToken.filter.valueTo = intTerm;
+        searchToken.filter.termFrom = searchToken.term;
+        searchToken.filter.valueFrom = intTerm;
 
         return searchToken;
     };

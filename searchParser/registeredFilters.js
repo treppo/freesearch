@@ -30,7 +30,7 @@ module.exports = function (context) {
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter.js')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter.js')();
-    var rangeMarkerFilter = require('./filters/assignRangeFilter.js')();
+    var assignRangeFilter = require('./filters/assignRangeFilter.js')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter.js')();
     var normalizeRangeFilter = require('./filters/normalizeRangeFilter.js')();
     var noneFilter = require('./filters/noneFilter.js')();
@@ -66,7 +66,7 @@ module.exports = function (context) {
         makeFilter,
         modelFilter,
 
-        rangeMarkerFilter, // work out range markers (from to)
+        assignRangeFilter, // work out range markers (from to)
         removeMarkerFilter,
         reduceIdenticalFilter,
         normalizeRangeFilter,
@@ -82,7 +82,7 @@ module.exports = function (context) {
     ];
 
     var post = [
-        rangeMarkerFilter,
+        assignRangeFilter,
         removeMarkerFilter,
         reduceIdenticalFilter,
         normalizeRangeFilter,

@@ -33,8 +33,8 @@ module.exports = function () {
         }
 
         searchToken.filter.type = _filterTypes.prevOwner;
-        searchToken.filter.termFrom = searchToken.term;
-        searchToken.filter.valueFrom = intTerm;
+        searchToken.filter.termTo = searchToken.term;
+        searchToken.filter.valueTo = intTerm;
 
         return searchToken;
     };
