@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Log Parser 2.2\LogParser.exe" -headerRow:OFF "SELECT field2 AS plz, field3 AS lon, field4 AS lat INTO plzJson.tab FROM .\plz.tab  ORDER BY plz " -i:TSV -o:TPL -tpl:plz.tpl
