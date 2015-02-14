@@ -1,1 +1,1 @@
-"C:\Program Files (x86)\Log Parser 2.2\LogParser.exe" -headerRow:OFF "SELECT DISTINCT field4 AS city, field5 AS lat,  field6 AS lon INTO cityJson.tab FROM .\de.tab ORDER BY city " -i:TSV -o:TPL -tpl:city.tpl
+"C:\Program Files (x86)\Log Parser 2.2\LogParser.exe" -headerRow:OFF "SELECT DISTINCT field4 AS city, field5 AS lat,  field6 AS lon INTO city.json FROM .\de.tab ORDER BY city " -i:TSV -o:TPL -tpl:city.tpl
