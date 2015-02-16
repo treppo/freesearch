@@ -41,7 +41,7 @@ Filters:
     Feinstaubplakette
     Geprüfte Qualität
 
-serialize to URL for Search API
++serialize to URL for Search API
 complete missed make based on existing model
 bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
