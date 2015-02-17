@@ -15,12 +15,11 @@ module.exports = function () {
         line = line.trim();
 
         if (line) {
-            try {
-                _suggester.createOrUpdate(line);
-            }
-            catch(e) {
-                console.log('suggester throws ' + e);
-            }
+            _suggester.createOrUpdate(line)
+                .catch(function (err) {
+                    console.log('suggester throws ' + err);
+                }
+            );
         }
 
         return searchTokens;

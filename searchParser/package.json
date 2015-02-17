@@ -4,13 +4,11 @@
   "description": "desc",
   "main": "main.js",
   "dependencies": {
-    "node-inspector": "~0.8.1",
-    "gulp-shell": "~0.2.11",
-    "gulp": "~3.8.10",
-    "jasmine-node": "~1.14.5",
     "suggester": "0.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
