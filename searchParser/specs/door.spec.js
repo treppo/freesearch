@@ -1,12 +1,12 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var _minDoors  = 2;
 var _maxDoors = 7;
 
 describe('Door tests single filter', function () {
-    var underTest = require('../filters/doorFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/doorFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a number', function () {
         it('it should parse it as door', function () {
@@ -89,8 +89,8 @@ describe('Door tests single filter', function () {
 });
 
 describe('Door tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
     describe('When parse a number outside of suitable range but the number is followed by a door marker', function () {
         it('it should be parsed as door', function () {

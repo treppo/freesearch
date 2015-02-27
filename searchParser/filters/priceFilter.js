@@ -1,9 +1,9 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-    var _utilHelper = require('../statics/utilHelper.js')();
-    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
+    var _filterTypes = require('../statics/filterTypes').filterTypes;
+    var _utilHelper = require('../statics/utilHelper')();
+    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     var _maxPriceInEuro = 1000000;
 
@@ -30,6 +30,7 @@ module.exports = function () {
                 return searchToken;
             }
         }
+        context.found = true;
 
         searchToken.filter.type = _filterTypes.price;
         searchToken.filter.termFrom = searchToken.term;

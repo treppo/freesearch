@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+    var _filterTypes = require('../statics/filterTypes').filterTypes;
 
     var filter = function (tokens) {
         return tokens.map(function (token, index) {

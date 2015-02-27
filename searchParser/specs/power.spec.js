@@ -1,7 +1,7 @@
-var filters = require('../registeredFilters.js')();
-var _parser = require('../parser.js')(filters);
-var _utilHelper = require('../statics/utilHelper.js')();
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var filters = require('../registeredFilters')();
+var _parser = require('../parser')(filters);
+var _utilHelper = require('../statics/utilHelper')();
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Power tests', function () {
     var kw200 = _utilHelper.convertFromPsToKw(200);

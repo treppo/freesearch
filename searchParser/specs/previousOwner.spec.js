@@ -1,12 +1,12 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var _minPrevOwner = 1;
 var _maxPrevOwner = 10;
 
 describe('Previous owner tests single filter', function () {
-    var underTest = require('../filters/previousOwnerFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/previousOwnerFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a number', function () {
         it('it should parse it as previous owner', function () {
@@ -89,8 +89,8 @@ describe('Previous owner tests single filter', function () {
 });
 
 describe('Previous owner tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
     describe('When parse a number outside of suitable range but the number is followed by a previous owner marker', function () {
         it('it should be parsed as previous owner', function () {

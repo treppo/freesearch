@@ -1,11 +1,11 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-    var _filterHelper = require('../statics/filterHelper.js')();
-    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
-    var _isMarkerFilter = require('../statics/filterTypes.js').isMarkerFilter;
-    var _isRangeMarker = require('../statics/filterTypes.js').isRangeMarker;
+    var _filterTypes = require('../statics/filterTypes').filterTypes;
+    var _filterHelper = require('../statics/filterHelper')();
+    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
+    var _isMarkerFilter = require('../statics/filterTypes').isMarkerFilter;
+    var _isRangeMarker = require('../statics/filterTypes').isRangeMarker;
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
@@ -29,6 +29,7 @@ module.exports = function () {
             if (_isUnknownFilter(searchToken.filter)) {
                 return searchToken;
             }
+
             if (context.rangeType === 'from') {
                 if (searchToken.filter.termTo) {
                     searchToken.filter.termFrom = searchToken.filter.termTo;

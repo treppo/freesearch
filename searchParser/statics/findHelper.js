@@ -1,8 +1,8 @@
 module.exports = function () {
     'use strict';
 
-    var _synonymService = require('./../services/synonymService.js')();
-    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
+    var _synonymService = require('./../services/synonymService')();
+    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
     //

@@ -1,8 +1,8 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-    var _filterHelper = require('../statics/filterHelper.js')();
+    var _filterTypes = require('../statics/filterTypes').filterTypes;
+    var _filterHelper = require('../statics/filterHelper')();
 
     var filter = function (searchTokens) {
         searchTokens.forEach(function (searchToken) {
@@ -17,6 +17,8 @@ module.exports = function () {
             if (searchToken.filter.type === _filterTypes.prevOwner) {
                 _filterHelper.transferRangeFilterToSingleValue(searchToken);
             }
+
+            _filterHelper.transferRangeFilterToSingleValue(searchToken);
         });
 
         return searchTokens;

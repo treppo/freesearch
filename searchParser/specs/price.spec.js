@@ -1,10 +1,10 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 var _maxPriceInEuro = 1000000;
 
 describe('Price tests single filter', function () {
-    var underTest = require('../filters/priceFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/priceFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a suitable number', function () {
         it('it should find the price', function () {
@@ -111,8 +111,8 @@ describe('Price tests single filter', function () {
 });
 
 describe('Price tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
     describe('When parse integer price and currency marker is available', function () {
         it('it should remove the currency token', function () {
@@ -132,6 +132,31 @@ describe('Price tests all filters', function () {
             expect(res[1].filter.termFrom).toBe('2000');
         });
     });
+
+    describe('When parse a number with a price marker on the right side', function () {
+        it('it should find the price', function () {
+            var res = parser.parse('audi € 2000');
+
+            expect(res.length).toBe(2);
+            expect(res[1].term).toBe('2000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
+        });
+    });
+
+    describe('When parse a number with a price marker on the left side', function () {
+        it('it should find the price', function () {
+            var res = parser.parse('audi 2000 €');
+
+            expect(res.length).toBe(2);
+            expect(res[1].term).toBe('2000');
+            expect(res[1].filter.type).toBe(_filterTypes.price);
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
+        });
+    });
+
 
     describe('When parse a number outside of suitable range but the number is followed by a price marker', function () {
         it('it should be parsed as price', function () {

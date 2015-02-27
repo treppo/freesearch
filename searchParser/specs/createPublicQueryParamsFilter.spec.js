@@ -1,6 +1,6 @@
 var _ctx = {};
-var filters = require('../registeredFilters.js')(_ctx);
-var _parser = require('../parser.js')(filters);
+var filters = require('../registeredFilters')(_ctx);
+var _parser = require('../parser')(filters);
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var containOnce = function (source, substring) {

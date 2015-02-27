@@ -1,12 +1,12 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var _minOnlineSince = 1;
 var _maxOnlineSince = 14;
 
 describe('OnlineSince tests single filter', function () {
-    var underTest = require('../filters/onlineSinceFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/onlineSinceFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a number', function () {
         it('it should parse it as OnlineSince', function () {
@@ -76,8 +76,8 @@ describe('OnlineSince tests single filter', function () {
 });
 
 describe('Onlin since tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
 
     describe('When parse a OnlineSince synonyms', function () {

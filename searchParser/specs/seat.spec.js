@@ -1,13 +1,13 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var _minSeats = 1;
 var _maxSeats = 10;
 
 
 describe('Seat tests single filter', function () {
-    var underTest = require('../filters/seatFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/seatFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a number', function () {
         it('it should parse it as seat', function () {
@@ -90,8 +90,8 @@ describe('Seat tests single filter', function () {
 });
 
 describe('Seat tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
     describe('When parse a number outside of suitable range but the number is followed by a seat marker', function () {
         it('it should be parsed as seat', function () {

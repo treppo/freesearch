@@ -1,6 +1,6 @@
-var filters = require('../registeredFilters.js')({'pre': 1});
-var _parser = require('../parser.js')(filters);
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var filters = require('../registeredFilters')({'pre': 1});
+var _parser = require('../parser')(filters);
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Recognize marker tests', function () {
     describe('when parse tokens with markers', function () {

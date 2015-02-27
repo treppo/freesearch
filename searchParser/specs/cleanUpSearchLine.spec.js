@@ -1,5 +1,5 @@
-var filters = require('../registeredFilters.js')();
-var _parser = require('../parser.js')(filters);
+var filters = require('../registeredFilters')();
+var _parser = require('../parser')(filters);
 
 describe('when parse garbage symbols in the search line', function () {
     describe('when parse empty search line', function () {

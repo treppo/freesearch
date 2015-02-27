@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var config = require('../config/indexConfig.js');
+    var config = require('../config/indexConfig');
     var _suggester = require('suggester')(config).suggester;
 
     var filter = function (searchTokens) {

@@ -1,21 +1,21 @@
 module.exports = function () {
     'use strict';
 
-    var _filterTypes = require('../statics/filterTypes.js').filterTypes;
-    var _filterHelper = require('../statics/filterHelper.js')();
+    var _filterTypes = require('../statics/filterTypes').filterTypes;
+    var _filterHelper = require('../statics/filterHelper')();
 
-    var _isUnknownFilter = require('../statics/filterTypes.js').isUnknownFilter;
-    var _isMarkerFilter = require('../statics/filterTypes.js').isMarkerFilter;
-    var _isRangeMarker = require('../statics/filterTypes.js').isRangeMarker;
+    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
+    var _isMarkerFilter = require('../statics/filterTypes').isMarkerFilter;
+    var _isRangeMarker = require('../statics/filterTypes').isRangeMarker;
 
-    var _priceFilter = require('../filters/priceFilter.js')();
-    var _powerFilter = require('../filters/powerFilter.js')();
-    var _mileageFilter = require('../filters/mileageFilter.js')();
-    var _firstRegistration = require('../filters/firstRegistrationFilter.js')();
-    var _seat = require('../filters/seatFilter.js')();
-    var _door = require('../filters/doorFilter.js')();
-    var _prevOwner = require('../filters/previousOwnerFilter.js')();
-    var _onlineSince = require('../filters/onlineSinceFilter.js')();
+    var _priceFilter = require('../filters/priceFilter')();
+    var _powerFilter = require('../filters/powerFilter')();
+    var _mileageFilter = require('../filters/mileageFilter')();
+    var _firstRegistration = require('../filters/firstRegistrationFilter')();
+    var _seat = require('../filters/seatFilter')();
+    var _door = require('../filters/doorFilter')();
+    var _prevOwner = require('../filters/previousOwnerFilter')();
+    var _onlineSince = require('../filters/onlineSinceFilter')();
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
@@ -29,6 +29,13 @@ module.exports = function () {
                     accumulator,
                     collectCondition(searchToken.index),
                     processFilter(_priceFilter.processFilter, context));
+
+                if (!context.found) {
+                    accumulator = _filterHelper.iterateForward(
+                        accumulator,
+                        collectCondition(searchToken.index),
+                        processFilter(_priceFilter.processFilter, context));
+                }
             }
 
             if (searchToken.filter.type === _filterTypes.powerMarker) {

@@ -1,4 +1,4 @@
-var _filterHelper = require('../statics/filterHelper.js')();
+var _filterHelper = require('../statics/filterHelper')();
 
 describe('Test iterate function', function() {
     var fncApply = function (item, idx) {

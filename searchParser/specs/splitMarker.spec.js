@@ -1,6 +1,6 @@
-var createTokensFilter = require('../filters/createTokensFilter.js')();
-var splitMarkerFromTokensFilter = require('../filters/splitMarkerFromTokensFilter.js')();
-var _parser = require('../parser.js')([
+var createTokensFilter = require('../filters/createTokensFilter')();
+var splitMarkerFromTokensFilter = require('../filters/splitMarkerFromTokensFilter')();
+var _parser = require('../parser')([
     createTokensFilter,
     splitMarkerFromTokensFilter
 ]);

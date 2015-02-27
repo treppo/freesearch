@@ -1,6 +1,6 @@
-var filters = require('../registeredFilters.js')();
-var _parser = require('../parser.js')(filters);
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var filters = require('../registeredFilters')();
+var _parser = require('../parser')(filters);
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Color effect tests', function () {
     describe('when parse search line with color effect', function () {

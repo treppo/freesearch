@@ -1,12 +1,12 @@
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 var _maxFirstRegistration = new Date().getFullYear();
 var _minFirstRegistration = 1910;
 
 describe('First registration tests single filter', function () {
-    var underTest = require('../filters/firstRegistrationFilter.js')().filter;
-    var filters = require('./specsHelper.js')().combineFilters(underTest);
-    var parser = require('../parser.js')(filters);
+    var underTest = require('../filters/firstRegistrationFilter')().filter;
+    var filters = require('./specsHelper')().combineFilters(underTest);
+    var parser = require('../parser')(filters);
 
     describe('When parse a number in inside of suitable range', function () {
         it('it should parse it as first registration year', function () {
@@ -76,8 +76,8 @@ describe('First registration tests single filter', function () {
 });
 
 describe('First registration tests all filters', function () {
-    var filters = require('../registeredFilters.js')();
-    var parser = require('../parser.js')(filters);
+    var filters = require('../registeredFilters')();
+    var parser = require('../parser')(filters);
 
     describe('When parse a number outside of suitable range but the number is followed by a first registration marker', function () {
         it('it should NOT be parsed as first registration', function () {

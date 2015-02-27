@@ -1,5 +1,5 @@
-var filters = require('./registeredFilters.js')();
-var _parser = require('./parser.js')(filters);
+var filters = require('./registeredFilters')();
+var _parser = require('./parser')(filters);
 
 
 var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern';
@@ -45,7 +45,7 @@ Filters:
 complete missed make based on existing model
 bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
-heuristic filter. price backwards and then, if nothing found, forward
++heuristic filter. price backwards and then, if nothing found, forward
 bind searchTokens together
 
 autocomplete

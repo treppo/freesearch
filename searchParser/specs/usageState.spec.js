@@ -1,6 +1,6 @@
-var filters = require('../registeredFilters.js')();
-var _parser = require('../parser.js')(filters);
-var _filterTypes = require('../statics/filterTypes.js').filterTypes;
+var filters = require('../registeredFilters')();
+var _parser = require('../parser')(filters);
+var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Usage state tests', function () {
     describe('when parse search line with usage state', function () {
