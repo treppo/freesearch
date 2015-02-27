@@ -1,1 +1,1 @@
-{term: '%plz%', value: {lat: '%lat%', lon: '%lon%'}},
+{"term": "%plz%", "value": {"lat": "%lat%", "lon": "%lon%"}},

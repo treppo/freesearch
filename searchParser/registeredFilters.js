@@ -28,6 +28,7 @@ module.exports = function (context) {
     var prevOwnerFilter = require('./filters/previousOwnerFilter')();
     var onlineSinceFilter = require('./filters/onlineSinceFilter')();
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter')();
+    var zipFilter = require('./filters/zipFilter')();
     var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter')();
@@ -65,6 +66,7 @@ module.exports = function (context) {
         prevOwnerFilter.filter,
         onlineSinceFilter.filter,
         pictureAndVideoFilter,
+        //zipFilter,
         makeFilter,
         modelFilter,
 //        saveSuggestionFilter,

@@ -21,9 +21,13 @@ module.exports = function () {
         ) {
             return false;
         }
-        // if both filters were defined by range markers, dont't merge them
+        // if both filters were defined by range markers, don't touch not crossed values (from and to)
+        // +bug - von 200 km blub von 20000 km ergibt 200 to 20000
         if (tokenLeft.filter.assignedByRangeFilter && tokenRight.filter.assignedByRangeFilter) {
-            return false;
+            if (tokenLeft.filter.valueFrom && tokenRight.filter.valueFrom ||
+                tokenLeft.filter.valueTo && tokenRight.filter.valueTo) {
+                return false;
+            }
         }
 
         // merge tokens where only one part is filled

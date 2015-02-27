@@ -23,6 +23,7 @@ filterTypes.onlineSince = 'onlineSince';
 filterTypes.colorEffect = 'colorEffect';
 filterTypes.door = 'door';
 filterTypes.pictureAndVideo = 'pictureAndVideo';
+filterTypes.zip = 'zip';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
