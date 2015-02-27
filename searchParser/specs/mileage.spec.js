@@ -66,7 +66,7 @@ xdescribe('Mileage tests single filter', function () {
     });
 });
 
-xdescribe('Mileage tests all filters', function () {
+describe('Mileage tests all filters', function () {
     var filters = require('../registeredFilters')();
     var parser = require('../parser')(filters);
 
@@ -102,10 +102,17 @@ xdescribe('Mileage tests all filters', function () {
             expect(res.length).toBe(4);
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.mileage);
-            expect(res[1].filter.valueFrom).toBe(20000);
-            expect(res[1].filter.termFrom).toBe('20000');
+            expect(res[1].filter.valueFrom).toBe(2000);
+            expect(res[1].filter.termFrom).toBe('2000');
             expect(res[1].filter.valueTo).toBeUndefined();
             expect(res[1].filter.termTo).toBeUndefined();
+
+            expect(res[3].term).toBe('10000');
+            expect(res[3].filter.type).toBe(_filterTypes.mileage);
+            expect(res[3].filter.valueFrom).toBe(10000);
+            expect(res[3].filter.termFrom).toBe('10000');
+            expect(res[3].filter.valueTo).toBeUndefined();
+            expect(res[3].filter.termTo).toBeUndefined();
         });
     });
 });

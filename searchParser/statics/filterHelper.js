@@ -21,6 +21,10 @@ module.exports = function () {
         ) {
             return false;
         }
+        // if both filters were defined by range markers, dont't merge them
+        if (tokenLeft.filter.assignedByRangeFilter && tokenRight.filter.assignedByRangeFilter) {
+            return false;
+        }
 
         // merge tokens where only one part is filled
         return (

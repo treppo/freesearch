@@ -43,7 +43,7 @@ Filters:
 
 +serialize to URL for Search API
 complete missed make based on existing model
-bug - von 200 km blub von 20000 km ergibt 200 to 20000
++bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
 +heuristic filter. price backwards and then, if nothing found, forward
 bind searchTokens together

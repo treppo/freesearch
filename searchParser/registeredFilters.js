@@ -33,8 +33,8 @@ module.exports = function (context) {
     var removeMarkerFilter = require('./filters/removeMarkerFilter')();
     var assignRangeFilter = require('./filters/assignRangeFilter')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter')();
-    var normalizeRangeFilter = require('./filters/normalizeRangeFilter')();
-    var debugFilter = require('./filters/debugFilter')();
+    var rangeToSingleValueFilter = require('./filters/rangeToSingleValueFilter')();
+    //var debugFilter = require('./filters/debugFilter')();
     var noneFilter = require('./filters/noneFilter')();
 
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
@@ -72,7 +72,7 @@ module.exports = function (context) {
         assignRangeFilter, // work out range markers (from to)
         removeMarkerFilter,
         reduceIdenticalFilter,
-        normalizeRangeFilter,
+        rangeToSingleValueFilter,
         createPublicQueryParamsFilter
     ];
 
@@ -88,7 +88,7 @@ module.exports = function (context) {
         assignRangeFilter,
         removeMarkerFilter,
         reduceIdenticalFilter,
-        normalizeRangeFilter,
+        rangeToSingleValueFilter,
         createPublicQueryParamsFilter
     ];
 
