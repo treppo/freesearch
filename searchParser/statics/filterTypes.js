@@ -24,6 +24,7 @@ filterTypes.colorEffect = 'colorEffect';
 filterTypes.door = 'door';
 filterTypes.pictureAndVideo = 'pictureAndVideo';
 filterTypes.zip = 'zip';
+filterTypes.city = 'city';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
