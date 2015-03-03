@@ -50,6 +50,7 @@ module.exports = function (context) {
         heuristicFilter, // power, price etc. terms with entity markers
         firstRegistrationFilter.filter,
         powerFilter.filter,
+        zipFilter, // greedy, therefore before price
         priceFilter.filter,
         mileageFilter.filter,
         fuelFilter,
@@ -66,7 +67,6 @@ module.exports = function (context) {
         prevOwnerFilter.filter,
         onlineSinceFilter.filter,
         pictureAndVideoFilter,
-        //zipFilter,
         makeFilter,
         modelFilter,
 //        saveSuggestionFilter,

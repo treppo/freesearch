@@ -1,14 +1,18 @@
+var zip;
+
 module.exports = function (file) {
     'use strict';
+    if (zip) {
+        return zip;
+    }
     var path = require('path');
     var fs = require('fs');
     var f = file || path.join(__dirname, '../data/plz.json');
 
-
-    try{
+    try {
         var ff = fs.readFileSync(f, 'utf8');
+        zip = JSON.parse(ff); // sync
 
-        var zip = JSON.parse(ff); // sync
         return zip;
     }
     catch (e) {
