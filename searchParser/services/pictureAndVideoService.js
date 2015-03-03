@@ -1,8 +1,15 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        {term: 'Picture', value: 'P'},
-        {term: 'Video', value: 'V'}
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            {term: 'Picture', value: 'P'},
+            {term: 'Video', value: 'V'}
+        ];
+
+    return t;
 };

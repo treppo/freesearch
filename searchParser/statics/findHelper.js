@@ -18,6 +18,21 @@ module.exports = function () {
     //         return original searchTerms back
     //     no, filter match
     //         merge all noticed searchTerms, return the new searchTerms back.
+
+    var searchTokensN = function (searchTokens, valueService, filterType) {
+        var keys =  Object.keys(valueService);
+        keys.forEach(function (key) {
+            var filter = {
+                term: key,
+                value: valueService[key]
+            };
+
+            searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
+        });
+
+        return searchTokens;
+    };
+
     var searchTokens = function (searchTokens, filters, filterType) {
         filters.forEach(function (filter) {
             searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);

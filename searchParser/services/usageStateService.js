@@ -1,10 +1,17 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        //{term: 'Used', value: 'U'}, article offer type ?
-        //{term: 'New', value: 'N'}, article offer type ?
-        {term: 'AccidentedCar', value: 'A'},
-        {term: 'WreckCar', value: 'W'}
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            //{term: 'Used', value: 'U'}, article offer type ?
+            //{term: 'New', value: 'N'}, article offer type ?
+            {term: 'AccidentedCar', value: 'A'},
+            {term: 'WreckCar', value: 'W'}
+        ];
+
+    return t;
 };

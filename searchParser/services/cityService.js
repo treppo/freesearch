@@ -5,13 +5,15 @@ module.exports = function (file) {
     if (city) {
         return city;
     }
+
+    var _utilHelper = require('../statics/utilHelper')();
     var path = require('path');
     var fs = require('fs');
     var f = file || path.join(__dirname, '../data/city.json');
 
     try {
-        var ff = fs.readFileSync(f, 'utf8');
-        city = JSON.parse(ff);
+        var t = fs.readFileSync(f, 'utf8');
+        city = JSON.parse(t);
 
         return city;
     }

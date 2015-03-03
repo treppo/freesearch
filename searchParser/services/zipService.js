@@ -5,13 +5,15 @@ module.exports = function (file) {
     if (zip) {
         return zip;
     }
+
+    var _utilHelper = require('../statics/utilHelper')();
     var path = require('path');
     var fs = require('fs');
     var f = file || path.join(__dirname, '../data/plz.json');
 
     try {
-        var ff = fs.readFileSync(f, 'utf8');
-        zip = JSON.parse(ff); // sync
+        var t = fs.readFileSync(f, 'utf8');
+        zip = _utilHelper.transformToObject(JSON.parse(t));
 
         return zip;
     }

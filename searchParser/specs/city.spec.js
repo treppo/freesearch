@@ -1,6 +1,6 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
-describe('City tests single filter', function () {
+xdescribe('City tests single filter', function () {
     var underTest = require('../filters/cityFilter')();
     var filters = require('./specsHelper')().combineFilters(underTest);
     var parser = require('../parser')(filters);
@@ -18,7 +18,7 @@ describe('City tests single filter', function () {
     });
 });
 
-describe('Zip tests all filters', function () {
+xdescribe('Zip tests all filters', function () {
     var filters = require('../registeredFilters')();
     var parser = require('../parser')(filters);
 

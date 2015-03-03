@@ -1,12 +1,19 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        {term: 'UsedCar', value: 'U'},
-        {term: 'NewCar', value: 'N'},
-        {term: 'Demonstration', value: 'D'},
-        {term: 'Oldtimer', value: 'O'},
-        {term: 'Jahreswagen', value: 'J'},
-        {term: 'SingleDay', value: 'S'}
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            {term: 'UsedCar', value: 'U'},
+            {term: 'NewCar', value: 'N'},
+            {term: 'Demonstration', value: 'D'},
+            {term: 'Oldtimer', value: 'O'},
+            {term: 'Jahreswagen', value: 'J'},
+            {term: 'SingleDay', value: 'S'}
+        ];
+
+    return t;
 };

@@ -1,9 +1,16 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        {term: 'ManualTransmission', value: 'M'}, // Schaltgetriebe
-        {term: 'Automatic', value: 'A'}, // Automatik
-        {term: 'Semiautomatic', value: 'S'} // Halbautomatik
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            {term: 'ManualTransmission', value: 'M'}, // Schaltgetriebe
+            {term: 'Automatic', value: 'A'}, // Automatik
+            {term: 'Semiautomatic', value: 'S'} // Halbautomatik
+        ];
+
+    return t;
 };

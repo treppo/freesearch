@@ -29,7 +29,7 @@ module.exports = function (context) {
     var onlineSinceFilter = require('./filters/onlineSinceFilter')();
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter')();
     var zipFilter = require('./filters/zipFilter')();
-    var cityFilter = require('./filters/cityFilter')();
+    //var cityFilter = require('./filters/cityFilter')();
     var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
 
     var removeMarkerFilter = require('./filters/removeMarkerFilter')();
@@ -52,7 +52,7 @@ module.exports = function (context) {
         firstRegistrationFilter.filter,
         powerFilter.filter,
         zipFilter, // greedy, therefore before price
-        cityFilter,
+        //cityFilter,
         priceFilter.filter,
         mileageFilter.filter,
         fuelFilter,

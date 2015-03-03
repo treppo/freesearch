@@ -28,11 +28,21 @@ module.exports = function () {
         return false;
     };
 
+    var transformToObject = function(arr) {
+        var t = {};
+        arr.forEach(function(elem) {
+            t[elem.term.toLowerCase()] = elem.value;
+        });
+
+        return t;
+    };
+
     return {
         isNumber: isNumber,
         convertToInt: convertToInt,
         convertFromPsToKw: convertFromPsToKw,
         convertFromKwToPs: convertFromKwToPs,
-        isNotInRange: isNotInRange
+        isNotInRange: isNotInRange,
+        transformToObject: transformToObject
     };
 };

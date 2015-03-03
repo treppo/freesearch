@@ -1,16 +1,23 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        {term: 'Compact', value: '1'}, // Kleinwagen
-        {term: 'Cabrio', value: '2'},
-        {term: 'Coupe', value: '3'},
-        {term: 'SUV', value: '4'},
-        {term: 'Kombi', value: '5'},
-        {term: 'Sedan', value: '6'}, // Limousine
-        {term: 'Van', value: '12'}, // Van / Kleinbus
-        {term: 'Transporter', value: '13'} // Transporter
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            {term: 'Compact', value: '1'}, // Kleinwagen
+            {term: 'Cabrio', value: '2'},
+            {term: 'Coupe', value: '3'},
+            {term: 'SUV', value: '4'},
+            {term: 'Kombi', value: '5'},
+            {term: 'Sedan', value: '6'}, // Limousine
+            {term: 'Van', value: '12'}, // Van / Kleinbus
+            {term: 'Transporter', value: '13'} // Transporter
+        ];
+
+    return t;
 
     /*
      1	Compact	C

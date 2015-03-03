@@ -1,8 +1,15 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var t;
 
-    return [
-        {term: 'Private', value: 'P'},
-        {term: 'Dealer', value: 'D'}
-    ];
+module.exports = function () {
+    if (t) {
+        return t;
+    }
+
+    t = [
+            {term: 'Private', value: 'P'},
+            {term: 'Dealer', value: 'D'}
+        ];
+
+    return t;
 };
