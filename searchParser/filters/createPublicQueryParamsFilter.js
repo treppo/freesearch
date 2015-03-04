@@ -11,7 +11,7 @@ module.exports = function (context) {
 
         var query = '';
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model');
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', function(searchToken) { return searchToken.filter.value.modelId; });
         query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
         query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.fuel, 'fuel');
@@ -22,6 +22,7 @@ module.exports = function (context) {
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyColor, 'bcol');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.colorEffect, 'ptype');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleOfferType, 'offer');
+        query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.onlineSince, 'adage');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
@@ -86,35 +87,59 @@ module.exports = function (context) {
         return query;
     };
 
-    var processDefaultParameters = function (searchTockens) {
+    var processDefaultParameters = function (searchTokens) {
         //atype=C&pricefrom=1000&ustate=N%2CU
         var query = '';
 
-        if (! searchTockens.some(function(searchTocken) {
-            return (searchTocken.filter.type === _filterTypes.usageState);
-        })) {
+        if (! searchTokens.some(function(searchToken) {
+                return (searchToken.filter.type === _filterTypes.articleType);
+            })) {
+            query += 'atype=C';
+        }
+
+        if (! searchTokens.some(function(searchToken) {
+                return (searchToken.filter.type === _filterTypes.price);
+            })) {
+            if (isBike(searchTokens)) {
+                query += '&price=500';
+            }
+            else {
+                query += '&price=1000';
+            }
+        }
+
+        if (! searchTokens.some(function(searchToken) {
+                return (searchToken.filter.type === _filterTypes.usageState);
+            })) {
             query += 'ustate=N,U';
         }
-        //C,B
-        //if (! searchTockens.some(function(searchTocken) {
-        //        return (searchTocken.filter.type === _filterTypes.usageState);
-        //    })) {
-        //    query += 'ustate=N,U';
-        //}
-
 
         return query;
+    };
+
+    var isBike = function(searchTokens) {
+        return searchTokens.some(function(searchToken){
+            return (
+                (searchToken.filter.type === _filterTypes.articleType && searchToken.filter.value === 'B') ||
+                (searchToken.filter.type === _filterTypes.model && searchToken.filter.value.articleType === 'B')
+            );
+        });
     };
 
     var roundTo = function(value, places) {
         return +(Math.round(value + 'e+' + places)  + 'e-' + places);
     };
 
-    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp) {
+    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp, fncGetValue) {
         var query = '';
         _getFiltersByType(searchTokens, filterType)
             .forEach(function (searchToken) {
-                query += searchToken.filter.value + ',';
+                if (fncGetValue) {
+                    query += fncGetValue(searchToken) + ',';
+                }
+                else {
+                    query += searchToken.filter.value + ',';
+                }
             });
 
         return (query) ? removeLastComma('&' + qp+ '=' + query) : query;

@@ -12,8 +12,8 @@ var containOnce = function (source, substring) {
     return false;
 };
 
-xdescribe('Test query params for make', function () {
-    xdescribe('when no make is available', function () {
+describe('Test query params for make', function () {
+    describe('when no make is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -22,7 +22,7 @@ xdescribe('Test query params for make', function () {
         });
     });
 
-    xdescribe('when single make is available', function () {
+    describe('when single make is available', function () {
         it('it should generate make query param', function () {
             _parser.parse('audi blub');
 
@@ -31,7 +31,7 @@ xdescribe('Test query params for make', function () {
         });
     });
 
-    xdescribe('when multiple makes are available', function () {
+    describe('when multiple makes are available', function () {
         it('it should generate make query params', function () {
             _parser.parse('audi Volkswagen bmw Ford  blub');
 
@@ -46,8 +46,8 @@ http://fahrzeuge.autoscout24.de/?atype=C&make=9,13&model=1626,16406&pricefrom=10
 http://fahrzeuge.autoscout24.de/?atype=C&make=13,9&model=1626,16406&pricefrom=1000&cy=D&ustate=N%2CU&sort=price&dtr=s
 */
 
-xdescribe('Test query params for model', function () {
-    xdescribe('when no model is available', function () {
+describe('Test query params for model', function () {
+    describe('when no model is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -56,7 +56,7 @@ xdescribe('Test query params for model', function () {
         });
     });
 
-    xdescribe('when single model is available', function () {
+    describe('when single model is available', function () {
         it('it should generate model query param', function () {
             _parser.parse('audi a4 blub');
 
@@ -65,7 +65,7 @@ xdescribe('Test query params for model', function () {
         });
     });
 
-    xdescribe('when multiple models are available', function () {
+    describe('when multiple models are available', function () {
         it('it should generate model query params', function () {
             _parser.parse('audi a4 bmw x5 blub');
 
@@ -75,8 +75,8 @@ xdescribe('Test query params for model', function () {
     });
 });
 
-xdescribe('Test query params for mileage', function () {
-    xdescribe('when no mileage is available', function () {
+describe('Test query params for mileage', function () {
+    describe('when no mileage is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -86,7 +86,7 @@ xdescribe('Test query params for mileage', function () {
         });
     });
 
-    xdescribe('when mileage fromValue is available', function () {
+    describe('when mileage fromValue is available', function () {
         it('it should generate mileage query param', function () {
             _parser.parse('audi von 20000 km blub');
 
@@ -96,7 +96,7 @@ xdescribe('Test query params for mileage', function () {
         });
     });
 
-    xdescribe('when mileage toValue is available', function () {
+    describe('when mileage toValue is available', function () {
         it('it should generate mileage query param', function () {
             _parser.parse('audi bis 30000 km blub');
 
@@ -106,7 +106,7 @@ xdescribe('Test query params for mileage', function () {
         });
     });
 
-    xdescribe('when mileage fromValue and toValue are available', function () {
+    describe('when mileage fromValue and toValue are available', function () {
         it('it should generate mileage query param', function () {
             _parser.parse('audi 20000 30000 km blub');
 
@@ -117,8 +117,40 @@ xdescribe('Test query params for mileage', function () {
     });
 });
 
-xdescribe('Test query params for first registration', function () {
-    xdescribe('when no first registration is available', function () {
+describe('Test query params for price', function () {
+    describe('when price fromValue is available', function () {
+        it('it should generate price query param', function () {
+            _parser.parse('audi von 2000 € blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'pricefrom=2000')).toBeTruthy();
+            expect(_ctx.publicQueryParams).not.toContain('priceto');
+        });
+    });
+
+    describe('when price toValue is available', function () {
+        it('it should generate price query param', function () {
+            _parser.parse('audi bis 3000 € blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('pricefrom');
+            expect(containOnce(_ctx.publicQueryParams, 'priceto=3000')).toBeTruthy();
+        });
+    });
+
+    describe('when price fromValue and toValue are available', function () {
+        it('it should generate price query param', function () {
+            _parser.parse('audi 2000 3000 € blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'pricefrom=2000')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'priceto=3000')).toBeTruthy();
+        });
+    });
+});
+
+describe('Test query params for first registration', function () {
+    describe('when no first registration is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -128,7 +160,7 @@ xdescribe('Test query params for first registration', function () {
         });
     });
 
-    xdescribe('when first registration fromValue is available', function () {
+    describe('when first registration fromValue is available', function () {
         it('it should generate first registration query param', function () {
             _parser.parse('audi Erstzulassung von 2012 blub');
 
@@ -138,7 +170,7 @@ xdescribe('Test query params for first registration', function () {
         });
     });
 
-    xdescribe('when first registration toValue is available', function () {
+    describe('when first registration toValue is available', function () {
         it('it should generate first registration query param', function () {
             _parser.parse('audi Erstzulassung bis 2013 blub');
 
@@ -148,7 +180,7 @@ xdescribe('Test query params for first registration', function () {
         });
     });
 
-    xdescribe('when first registration fromValue and toValue are available', function () {
+    describe('when first registration fromValue and toValue are available', function () {
         it('it should generate first registration query param', function () {
             _parser.parse('audi Erstzulassung 2012 2013 km blub');
 
@@ -159,8 +191,8 @@ xdescribe('Test query params for first registration', function () {
     });
 });
 
-xdescribe('Test query params for fuel', function () {
-    xdescribe('when no fuel is available', function () {
+describe('Test query params for fuel', function () {
+    describe('when no fuel is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -169,7 +201,7 @@ xdescribe('Test query params for fuel', function () {
         });
     });
 
-    xdescribe('when single fuel is available', function () {
+    describe('when single fuel is available', function () {
         it('it should generate fuel query param', function () {
             _parser.parse('audi benziner blub');
 
@@ -178,7 +210,7 @@ xdescribe('Test query params for fuel', function () {
         });
     });
 
-    xdescribe('when multiple fuels are available', function () {
+    describe('when multiple fuels are available', function () {
         it('it should generate fuel query params', function () {
             _parser.parse('audi benziner oder diesel');
 
@@ -188,8 +220,8 @@ xdescribe('Test query params for fuel', function () {
     });
 });
 
-xdescribe('Test query params for body type', function () {
-    xdescribe('when no body type is available', function () {
+describe('Test query params for body type', function () {
+    describe('when no body type is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -198,7 +230,7 @@ xdescribe('Test query params for body type', function () {
         });
     });
 
-    xdescribe('when single body type is available', function () {
+    describe('when single body type is available', function () {
         it('it should generate body type query param', function () {
             _parser.parse('audi kleinwagen blub');
 
@@ -207,7 +239,7 @@ xdescribe('Test query params for body type', function () {
         });
     });
 
-    xdescribe('when multiple body types are available', function () {
+    describe('when multiple body types are available', function () {
         it('it should generate body type query params', function () {
             _parser.parse('audi kleinwagen oder Limousine');
 
@@ -217,8 +249,8 @@ xdescribe('Test query params for body type', function () {
     });
 });
 
-xdescribe('Test query params for equipment', function () {
-    xdescribe('when no equipment is available', function () {
+describe('Test query params for equipment', function () {
+    describe('when no equipment is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -227,7 +259,7 @@ xdescribe('Test query params for equipment', function () {
         });
     });
 
-    xdescribe('when single equipment is available', function () {
+    describe('when single equipment is available', function () {
         it('it should generate equipment query param', function () {
             _parser.parse('audi ABS blub');
 
@@ -236,7 +268,7 @@ xdescribe('Test query params for equipment', function () {
         });
     });
 
-    xdescribe('when multiple equipments are available', function () {
+    describe('when multiple equipments are available', function () {
         it('it should generate equipment query params', function () {
             _parser.parse('audi ABS mit alufelgen blub');
 
@@ -246,8 +278,8 @@ xdescribe('Test query params for equipment', function () {
     });
 });
 
-xdescribe('Test query params for gearing type', function () {
-    xdescribe('when no gearing type is available', function () {
+describe('Test query params for gearing type', function () {
+    describe('when no gearing type is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -256,7 +288,7 @@ xdescribe('Test query params for gearing type', function () {
         });
     });
 
-    xdescribe('when single gearing type is available', function () {
+    describe('when single gearing type is available', function () {
         it('it should generate gearing type query param', function () {
             _parser.parse('audi automatik blub');
 
@@ -265,7 +297,7 @@ xdescribe('Test query params for gearing type', function () {
         });
     });
 
-    xdescribe('when multiple gearing types are available', function () {
+    describe('when multiple gearing types are available', function () {
         it('it should generate gearing type query params', function () {
             _parser.parse('audi automatik oder halbautomatik blub');
 
@@ -275,8 +307,8 @@ xdescribe('Test query params for gearing type', function () {
     });
 });
 
-xdescribe('Test query params for customer type', function () {
-    xdescribe('when no customer type is available', function () {
+describe('Test query params for customer type', function () {
+    describe('when no customer type is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -285,7 +317,7 @@ xdescribe('Test query params for customer type', function () {
         });
     });
 
-    xdescribe('when single customer type is available', function () {
+    describe('when single customer type is available', function () {
         it('it should generate customer type query param', function () {
             _parser.parse('audi privat blub');
 
@@ -294,7 +326,7 @@ xdescribe('Test query params for customer type', function () {
         });
     });
 
-    xdescribe('when multiple customer types are available', function () {
+    describe('when multiple customer types are available', function () {
         it('it should generate customer type query params', function () {
             _parser.parse('audi privat oder händler angebot blub');
 
@@ -304,8 +336,8 @@ xdescribe('Test query params for customer type', function () {
     });
 });
 
-xdescribe('Test query params for body color', function () {
-    xdescribe('when no body color is available', function () {
+describe('Test query params for body color', function () {
+    describe('when no body color is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -314,7 +346,7 @@ xdescribe('Test query params for body color', function () {
         });
     });
 
-    xdescribe('when single body color is available', function () {
+    describe('when single body color is available', function () {
         it('it should generate body color query param', function () {
             _parser.parse('audi grün blub');
 
@@ -323,7 +355,7 @@ xdescribe('Test query params for body color', function () {
         });
     });
 
-    xdescribe('when multiple body colors are available', function () {
+    describe('when multiple body colors are available', function () {
         it('it should generate body color query params', function () {
             _parser.parse('audi grün oder rot blub');
 
@@ -333,8 +365,8 @@ xdescribe('Test query params for body color', function () {
     });
 });
 
-xdescribe('Test query params for color effect', function () {
-    xdescribe('when no color effect is available', function () {
+describe('Test query params for color effect', function () {
+    describe('when no color effect is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -343,7 +375,7 @@ xdescribe('Test query params for color effect', function () {
         });
     });
 
-    xdescribe('when single color effect is available', function () {
+    describe('when single color effect is available', function () {
         it('it should generate color effect query param', function () {
             _parser.parse('audi grün metallic blub');
 
@@ -353,8 +385,8 @@ xdescribe('Test query params for color effect', function () {
     });
 });
 
-xdescribe('Test query params for article offer type', function () {
-    xdescribe('when no article offer type is available', function () {
+describe('Test query params for article offer type', function () {
+    describe('when no article offer type is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -363,7 +395,7 @@ xdescribe('Test query params for article offer type', function () {
         });
     });
 
-    xdescribe('when single article offer type is available', function () {
+    describe('when single article offer type is available', function () {
         it('it should generatearticle offer type query param', function () {
             _parser.parse('audi gebraucht blub');
 
@@ -372,7 +404,7 @@ xdescribe('Test query params for article offer type', function () {
         });
     });
 
-    xdescribe('when multiple article offer types are available', function () {
+    describe('when multiple article offer types are available', function () {
         it('it should generatearticle offer type query params', function () {
             _parser.parse('audi gebraucht oder neu blub');
 
@@ -382,8 +414,8 @@ xdescribe('Test query params for article offer type', function () {
     });
 });
 
-xdescribe('Test query params for online since', function () {
-    xdescribe('when no online since is available', function () {
+describe('Test query params for online since', function () {
+    describe('when no online since is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -392,7 +424,7 @@ xdescribe('Test query params for online since', function () {
         });
     });
 
-    xdescribe('when single online since is available', function () {
+    describe('when single online since is available', function () {
         it('it should generate online since query param', function () {
             _parser.parse('audi online seit 2 Tagen blub');
 
@@ -401,7 +433,7 @@ xdescribe('Test query params for online since', function () {
         });
     });
 
-    xdescribe('when multiple online sinces are available', function () {
+    describe('when multiple online sinces are available', function () {
         it('it should generate online since query params', function () {
             _parser.parse('audi online seit 2 oder 3 Tagen blub');
 
@@ -411,8 +443,8 @@ xdescribe('Test query params for online since', function () {
     });
 });
 
-xdescribe('Test query params for previous owner', function () {
-    xdescribe('when no previous owner is available', function () {
+describe('Test query params for previous owner', function () {
+    describe('when no previous owner is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -421,7 +453,7 @@ xdescribe('Test query params for previous owner', function () {
         });
     });
 
-    xdescribe('when single previous owner is available', function () {
+    describe('when single previous owner is available', function () {
         it('it should generate previous owner query param', function () {
             _parser.parse('audi 2 fahrzeughalter blub');
 
@@ -430,7 +462,7 @@ xdescribe('Test query params for previous owner', function () {
         });
     });
 
-    xdescribe('when multiple previous owners are available', function () {
+    describe('when multiple previous owners are available', function () {
         it('it should generate previous owner query params', function () {
             _parser.parse('audi 2 bis 3 Halter blub');
 
@@ -440,8 +472,8 @@ xdescribe('Test query params for previous owner', function () {
     });
 });
 
-xdescribe('Test query params for seats', function () {
-    xdescribe('when no seats is available', function () {
+describe('Test query params for seats', function () {
+    describe('when no seats is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -451,7 +483,7 @@ xdescribe('Test query params for seats', function () {
         });
     });
 
-    xdescribe('when seats fromValue is available', function () {
+    describe('when seats fromValue is available', function () {
         it('it should generate seats query param', function () {
             _parser.parse('audi von 2 Sitze blub');
 
@@ -461,7 +493,7 @@ xdescribe('Test query params for seats', function () {
         });
     });
 
-    xdescribe('when seats toValue is available', function () {
+    describe('when seats toValue is available', function () {
         it('it should generate seats query param', function () {
             _parser.parse('audi bis 5 Sitze blub');
 
@@ -471,7 +503,7 @@ xdescribe('Test query params for seats', function () {
         });
     });
 
-    xdescribe('when seats fromValue and toValue are available', function () {
+    describe('when seats fromValue and toValue are available', function () {
         it('it should generate seats query param', function () {
             _parser.parse('audi 2 5 Sitze blub');
 
@@ -482,8 +514,8 @@ xdescribe('Test query params for seats', function () {
     });
 });
 
-xdescribe('Test query params for doors', function () {
-    xdescribe('when no doors is available', function () {
+describe('Test query params for doors', function () {
+    describe('when no doors is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -493,7 +525,7 @@ xdescribe('Test query params for doors', function () {
         });
     });
 
-    xdescribe('when doors fromValue is available', function () {
+    describe('when doors fromValue is available', function () {
         it('it should generate doors query param', function () {
             _parser.parse('audi ab 2 türen blub');
 
@@ -503,7 +535,7 @@ xdescribe('Test query params for doors', function () {
         });
     });
 
-    xdescribe('when doors toValue is available', function () {
+    describe('when doors toValue is available', function () {
         it('it should generate doors query param', function () {
             _parser.parse('audi bis 5 Türen blub');
 
@@ -513,7 +545,7 @@ xdescribe('Test query params for doors', function () {
         });
     });
 
-    xdescribe('when doors fromValue and toValue are available', function () {
+    describe('when doors fromValue and toValue are available', function () {
         it('it should generate doors query param', function () {
             _parser.parse('audi 2 5 Türen blub');
 
@@ -524,8 +556,8 @@ xdescribe('Test query params for doors', function () {
     });
 });
 
-xdescribe('Test query params for usage state', function () {
-    xdescribe('when single usage state is available', function () {
+describe('Test query params for usage state', function () {
+    describe('when single usage state is available', function () {
         it('it should generate usage state query param', function () {
             _parser.parse('audi unfall blub');
 
@@ -534,7 +566,7 @@ xdescribe('Test query params for usage state', function () {
         });
     });
 
-    xdescribe('when multiple usage states are available', function () {
+    describe('when multiple usage states are available', function () {
         it('it should generate usage state query params', function () {
             _parser.parse('audi unfall oder wrack blub');
 
@@ -544,8 +576,8 @@ xdescribe('Test query params for usage state', function () {
     });
 });
 
-xdescribe('Test query params for picture/video', function () {
-    xdescribe('when no picture/video usage state is available', function () {
+describe('Test query params for picture/video', function () {
+    describe('when no picture/video usage state is available', function () {
         it('it should not generate query param', function () {
             _parser.parse('blub');
 
@@ -555,7 +587,7 @@ xdescribe('Test query params for picture/video', function () {
         });
     });
 
-    xdescribe('when picture is available', function () {
+    describe('when picture is available', function () {
         it('it should generate picture query param', function () {
             _parser.parse('audi mit bild blub');
 
@@ -565,7 +597,7 @@ xdescribe('Test query params for picture/video', function () {
         });
     });
 
-    xdescribe('when video is available', function () {
+    describe('when video is available', function () {
         it('it should generate video query param', function () {
             _parser.parse('audi mit video blub');
 
@@ -575,7 +607,7 @@ xdescribe('Test query params for picture/video', function () {
         });
     });
 
-    xdescribe('when picture and video are available', function () {
+    describe('when picture and video are available', function () {
         it('it should generate picture and video query param', function () {
             _parser.parse('audi mit bildern und video blub');
 
@@ -586,8 +618,8 @@ xdescribe('Test query params for picture/video', function () {
     });
 });
 
-xdescribe('Test query params for city and zip', function () {
-    xdescribe('When plz is available', function () {
+describe('Test query params for city and zip', function () {
+    describe('When plz is available', function () {
         //zip=85435&zipc=D&zipr=200
         it('it should generate plz param', function () {
             _parser.parse('audi blub 85435');
@@ -599,7 +631,7 @@ xdescribe('Test query params for city and zip', function () {
         });
     });
 
-    xdescribe('When city is available', function () {
+    describe('When city is available', function () {
         // zip=Erding&zipc=D&zipr=200&lat=48.298&lon=11.986&tloc=Erding
         it('it should generate city param', function () {
             _parser.parse('audi blub erding');
@@ -618,21 +650,34 @@ xdescribe('Test query params for city and zip', function () {
 describe('Test adding default query params', function () {
     //atype=C&pricefrom=1000&ustate=N%2CU
     describe('when no article usage state is available', function () {
-        it('it should generate default state param', function () {
+        it('it should generate default article usage state param', function () {
             _parser.parse('blub');
             expect(_ctx.publicQueryParams).toBeDefined();
             expect(containOnce(_ctx.publicQueryParams, 'ustate=N,U')).toBeTruthy();
         });
     });
 
-    //describe('when no price is available', function () {
-    //    it('it should generate default price param', function () {
-    //        _parser.parse('blub');
-    //        expect(_ctx.publicQueryParams).toBeDefined();
-    //        expect(containOnce(_ctx.publicQueryParams, 'price=1000')).toBeTruthy();
-    //    });
-    //});
+    describe('when no article type is available', function () {
+        it('it should generate default article type param', function () {
+            _parser.parse('blub');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'atype=C')).toBeTruthy();
+        });
+    });
 
+    describe('when no price is available', function () {
+        it('it should generate default price param', function () {
+            _parser.parse('blub');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'price=1000')).toBeTruthy();
+        });
+
+        it('it should generate default price param for bike', function () {
+            _parser.parse('blub bike');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'price=500')).toBeTruthy();
+        });
+    });
 
 });
 
