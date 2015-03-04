@@ -594,3 +594,33 @@ describe('Test query params for picture/video', function () {
         });
     });
 });
+
+describe('Test query params for city and zip', function () {
+    describe('When plz is available', function () {
+        //zip=85435&zipc=D&zipr=200
+        it('it should generate plz param', function () {
+            _parser.parse('audi blub 85435');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'zip=85435')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'zipc=D')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'zipr=200')).toBeTruthy();
+        });
+    });
+
+    describe('When city is available', function () {
+        // zip=Erding&zipc=D&zipr=200&lat=48.298&lon=11.986&tloc=Erding
+        it('it should generate city param', function () {
+            _parser.parse('audi blub erding');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'zip=Erding')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'zipc=D')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'zipr=200')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'lat=48.298')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'lon=11.986')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'tloc=Erding')).toBeTruthy();
+        });
+    });
+});
+

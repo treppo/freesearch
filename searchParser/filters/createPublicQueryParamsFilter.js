@@ -28,6 +28,8 @@ module.exports = function (context) {
         query += createRangeQueryParams(searchTokens, _filterTypes.door, 'doorfrom', 'doorto');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.usageState, 'ustate');
         query += processPictureAndVideo(searchTokens);
+        query += processZip(searchTokens);
+        query += processCity(searchTokens);
 
         context.publicQueryParams = query;
 
@@ -101,6 +103,38 @@ module.exports = function (context) {
         }
 
         return query;
+    };
+
+    var processZip = function(searchTokens) {
+        var query = '';
+
+        var zips = searchTokens.filter(function(searchToken) {
+            return (searchToken.filter.type === _filterTypes.zip)
+        });
+        if (zips.length > 0) {
+            query += '&zip=' + zips[0].filter.term + '&zipc=D&zipr=200';
+        }
+
+        return query;
+    };
+
+    var processCity = function(searchTokens) {
+        var query = '';
+
+        var zips = searchTokens.filter(function(searchToken) {
+            return (searchToken.filter.type === _filterTypes.city)
+        });
+        if (zips.length > 0) {
+            query += '&zip=' + zips[0].filter.term + '&zipc=D&zipr=200&tloc=Erding';
+            query += '&lat=' + roundTo(zips[0].filter.value.lat, 3);
+            query += '&lon=' + roundTo(zips[0].filter.value.lon, 3);
+        }
+
+        return query;
+    };
+
+    var roundTo = function(value, places) {
+        return +(Math.round(value + 'e+' + places)  + 'e-' + places);
     };
 
     return filter;

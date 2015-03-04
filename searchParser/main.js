@@ -20,7 +20,9 @@ Filters:
     +Price (def. from)
     +Mileage (km)
     +Firstregistration (Year) (def. from)
- PLZ / Ort / Umkreis / Land ??
+    +PLZ
+    +Ort
+    Umkreis
     +Fuel
     +BodyTyoe
     +Equipment
@@ -47,6 +49,7 @@ complete missed make based on existing model
 create synonyms for equipments
 +heuristic filter. price backwards and then, if nothing found, forward
 bind searchTokens together
+escape HTML content in ela filter
 
 autocomplete
 */
