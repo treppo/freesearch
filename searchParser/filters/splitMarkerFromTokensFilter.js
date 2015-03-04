@@ -1,12 +1,12 @@
 module.exports = function () {
     'use strict';
 
-    var _synonym = require('../services/synonymService')();
+    var splitEndsWithSynonym = require('../services/synonymService').splitEndsWithSynonym;
     var _markers = require('../services/markerService')();
 
     var splitEndsBy = function (synKey) {
         return function (token) {
-            return _synonym.splitEndsWithSynonym(synKey, token);
+            return splitEndsWithSynonym(synKey, token);
         }
     };
 

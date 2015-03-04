@@ -1,7 +1,7 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 var _maxMileage = 1000000;
 
-xdescribe('Mileage tests single filter', function () {
+describe('Mileage tests single filter', function () {
     var underTest = require('../filters/mileageFilter')().filter;
     var filters = require('./specsHelper')().combineFilters(underTest);
     var parser = require('../parser')(filters);
@@ -84,7 +84,7 @@ describe('Mileage tests all filters', function () {
     });
 
     describe('When parse ranges with mileage makrer', function() {
-        xit('it should be parsed as mileage range', function () {
+        it('it should be parsed as mileage range', function () {
             var res = parser.parse('audi 20000 70000 km');
 
             expect(res.length).toBe(2);

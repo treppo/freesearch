@@ -41,7 +41,6 @@ module.exports = function () {
             {term: 'Lotus', value: '44'},
             {term: 'Maserati', value: '45'},
             {term: 'Mazda', value: '46'},
-            {term: 'MercedesBenz', value: '47'},
             {term: 'Mercedes', value: '47'},
             {term: 'MG', value: '48'},
             {term: 'Mitsubishi', value: '50'},

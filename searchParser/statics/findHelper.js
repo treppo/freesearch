@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    var _synonymService = require('./../services/synonymService')();
+    var isSynonymFor = require('./../services/synonymService').isSynonymFor;
     var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
@@ -18,21 +18,6 @@ module.exports = function () {
     //         return original searchTerms back
     //     no, filter match
     //         merge all noticed searchTerms, return the new searchTerms back.
-
-    var searchTokensN = function (searchTokens, valueService, filterType) {
-        var keys =  Object.keys(valueService);
-        keys.forEach(function (key) {
-            var filter = {
-                term: key,
-                value: valueService[key]
-            };
-
-            searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
-        });
-
-        return searchTokens;
-    };
-
     var searchTokens = function (searchTokens, filters, filterType) {
         filters.forEach(function (filter) {
             searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
@@ -54,7 +39,7 @@ module.exports = function () {
             }
 
             filterTerms.some(function (filterTerm) {
-                var foundSynonym = _synonymService.isSynonymFor(filterTerm.term, searchToken.term);
+                var foundSynonym = isSynonymFor(filterTerm.term, searchToken.term);
 
                 if (foundSynonym) {
                     filterTerm.done = true;
@@ -141,7 +126,7 @@ module.exports = function () {
         return function (searchToken) {
 
             filterTerms.some(function (filterTerm) {
-                var foundSynonym = _synonymService.isSynonymFor(filterTerm.term, searchToken.term);
+                var foundSynonym = isSynonymFor(filterTerm.term, searchToken.term);
                 if (foundSynonym) {
                     res.found = true;
                     res.filterTerm = filterTerm;

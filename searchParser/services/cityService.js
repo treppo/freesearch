@@ -6,7 +6,6 @@ module.exports = function (file) {
         return city;
     }
 
-    var _utilHelper = require('../statics/utilHelper')();
     var path = require('path');
     var fs = require('fs');
     var f = file || path.join(__dirname, '../data/city.json');
