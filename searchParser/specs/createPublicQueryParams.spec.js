@@ -681,3 +681,20 @@ describe('Test adding default query params', function () {
 
 });
 
+describe('Test for article type query params', function () {
+    describe('when article type is available', function () {
+        it('it should generate article type param', function () {
+            _parser.parse('blub bike');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'atype=B')).toBeTruthy();
+        });
+    });
+
+    describe('when article type for bike and car is available', function () {
+        it('it should generate bike and car article types param', function () {
+            _parser.parse('blub bike wagen');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'atype=B,C')).toBeTruthy();
+        });
+    });
+});

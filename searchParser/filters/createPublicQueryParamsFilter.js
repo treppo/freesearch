@@ -12,6 +12,7 @@ module.exports = function (context) {
         var query = '';
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', function(searchToken) { return searchToken.filter.value.modelId; });
+        query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
         query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.fuel, 'fuel');
@@ -22,7 +23,6 @@ module.exports = function (context) {
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyColor, 'bcol');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.colorEffect, 'ptype');
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleOfferType, 'offer');
-        query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.onlineSince, 'adage');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
@@ -31,6 +31,7 @@ module.exports = function (context) {
         query += processPictureAndVideo(searchTokens);
         query += processZip(searchTokens);
         query += processCity(searchTokens);
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleType, 'atype');
 
         query += processDefaultParameters(searchTokens);
 
