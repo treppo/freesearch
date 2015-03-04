@@ -95,7 +95,7 @@ module.exports = function (context) {
         if (! searchTokens.some(function(searchToken) {
                 return (searchToken.filter.type === _filterTypes.articleType);
             })) {
-            query += 'atype=C';
+            query += '&atype=C';
         }
 
         if (! searchTokens.some(function(searchToken) {
@@ -112,7 +112,7 @@ module.exports = function (context) {
         if (! searchTokens.some(function(searchToken) {
                 return (searchToken.filter.type === _filterTypes.usageState);
             })) {
-            query += 'ustate=N,U';
+            query += '&ustate=N,U';
         }
 
         return query;
