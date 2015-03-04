@@ -37,12 +37,19 @@ module.exports = function () {
         return t;
     };
 
+    var isQuickTestMode = function () {
+        return process.argv.some(function (val) {
+            return val === 'quick_test'
+        });
+    };
+
     return {
         isNumber: isNumber,
         convertToInt: convertToInt,
         convertFromPsToKw: convertFromPsToKw,
         convertFromKwToPs: convertFromKwToPs,
         isNotInRange: isNotInRange,
-        transformToObject: transformToObject
+        transformToObject: transformToObject,
+        isQuickTestMode: isQuickTestMode
     };
 };

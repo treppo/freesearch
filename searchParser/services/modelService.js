@@ -34,13 +34,18 @@ var sortByGenericNameCount = function (model) {
 module.exports = function (file) {
     'use strict';
 
-    //model = [
-    //    {"term": "Cross Golf", "value": {"makeId": "74", "modelId": "20315", "articleType": "C"}},
-    //    {"term": "Golf", "value": {"makeId": "74", "modelId": "2084", "articleType": "C"}},
-    //    {"term": "A4", "value": {"makeId": "9", "modelId": "1626", "articleType": "C"}},
-    //    {"term": "X5", "value": {"makeId": "13", "modelId": "16406", "articleType": "C"}}
-    //];
     if (model) {
+        return model;
+    }
+
+    var utilHelper = require('../statics/utilHelper')();
+    if (utilHelper.isQuickTestMode()) {
+        model = sortByGenericNameCount([
+            {"term": "Cross Golf", "value": {"makeId": "74", "modelId": "20315", "articleType": "C"}},
+            {"term": "Golf", "value": {"makeId": "74", "modelId": "2084", "articleType": "C"}},
+            {"term": "A4", "value": {"makeId": "9", "modelId": "1626", "articleType": "C"}},
+            {"term": "X5", "value": {"makeId": "13", "modelId": "16406", "articleType": "C"}}
+        ]);
         return model;
     }
 
@@ -50,9 +55,7 @@ module.exports = function (file) {
 
     try {
         var t = fs.readFileSync(f, 'utf8');
-        model = JSON.parse(t);
-
-        model = sortByGenericNameCount(model);
+        model = sortByGenericNameCount(JSON.parse(t));
 
         return model;
     }
