@@ -31,58 +31,11 @@ module.exports = function (context) {
         query += processZip(searchTokens);
         query += processCity(searchTokens);
 
+        query += processDefaultParameters(searchTokens);
+
         context.publicQueryParams = query;
 
         return searchTokens;
-    };
-
-    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp) {
-        var query = '';
-        _getFiltersByType(searchTokens, filterType)
-            .forEach(function (searchToken) {
-                query += searchToken.filter.value + ',';
-            });
-
-        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
-    };
-
-    var createRangeQueryParams = function (searchTokens, filterType, qpFrom, qpTo) {
-        var query = '';
-        _getFiltersByType(searchTokens, filterType)
-            .forEach(function (searchToken) {
-                if (searchToken.filter.valueFrom) {
-                    query += '&' + qpFrom + '='  + searchToken.filter.valueFrom;
-                }
-                if (searchToken.filter.valueTo) {
-                    query += '&' + qpTo + '=' + searchToken.filter.valueTo;
-                }
-            });
-
-        return (query) ? removeLastComma(query) : query;
-    };
-
-    var createCommaSeparatedFromRangeQueryParam = function (searchTokens, filterType, qp) {
-        var query = '';
-        _getFiltersByType(searchTokens, filterType)
-            .forEach(function (searchToken) {
-                if (searchToken.filter.valueFrom) {
-                    query += searchToken.filter.valueFrom + ',';
-                }
-                if (searchToken.filter.valueTo) {
-                    query += searchToken.filter.valueTo + ',';
-                }
-            });
-
-        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
-    };
-
-    var removeLastComma = function(str) {
-        var t = str.length - 1;
-        if (str.charAt(t) == ',') {
-            return str.substring(0, t);
-        }
-
-        return str;
     };
 
     var processPictureAndVideo = function(searchTokens) {
@@ -133,8 +86,77 @@ module.exports = function (context) {
         return query;
     };
 
+    var processDefaultParameters = function (searchTockens) {
+        //atype=C&pricefrom=1000&ustate=N%2CU
+        var query = '';
+
+        if (! searchTockens.some(function(searchTocken) {
+            return (searchTocken.filter.type === _filterTypes.usageState);
+        })) {
+            query += 'ustate=N,U';
+        }
+        //C,B
+        //if (! searchTockens.some(function(searchTocken) {
+        //        return (searchTocken.filter.type === _filterTypes.usageState);
+        //    })) {
+        //    query += 'ustate=N,U';
+        //}
+
+
+        return query;
+    };
+
     var roundTo = function(value, places) {
         return +(Math.round(value + 'e+' + places)  + 'e-' + places);
+    };
+
+    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp) {
+        var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                query += searchToken.filter.value + ',';
+            });
+
+        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
+    };
+
+    var createRangeQueryParams = function (searchTokens, filterType, qpFrom, qpTo) {
+        var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                if (searchToken.filter.valueFrom) {
+                    query += '&' + qpFrom + '='  + searchToken.filter.valueFrom;
+                }
+                if (searchToken.filter.valueTo) {
+                    query += '&' + qpTo + '=' + searchToken.filter.valueTo;
+                }
+            });
+
+        return (query) ? removeLastComma(query) : query;
+    };
+
+    var createCommaSeparatedFromRangeQueryParam = function (searchTokens, filterType, qp) {
+        var query = '';
+        _getFiltersByType(searchTokens, filterType)
+            .forEach(function (searchToken) {
+                if (searchToken.filter.valueFrom) {
+                    query += searchToken.filter.valueFrom + ',';
+                }
+                if (searchToken.filter.valueTo) {
+                    query += searchToken.filter.valueTo + ',';
+                }
+            });
+
+        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
+    };
+
+    var removeLastComma = function(str) {
+        var t = str.length - 1;
+        if (str.charAt(t) == ',') {
+            return str.substring(0, t);
+        }
+
+        return str;
     };
 
     return filter;

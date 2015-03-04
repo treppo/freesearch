@@ -11,7 +11,7 @@ describe('Model tests', function () {
             expect(res[1].term).toBe('golf');
             expect(res[1].filter.type).toBe(_filterTypes.model);
             expect(res[1].filter.term).toBe('Golf');
-            expect(res[1].filter.value).toBe('2084');
+            expect(res[1].filter.value.modelId).toBe('2084');
         });
     });
 
@@ -24,7 +24,7 @@ describe('Model tests', function () {
             expect(res[1].term).toBe('cross golf');
             expect(res[1].filter.type).toBe(_filterTypes.model);
             expect(res[1].filter.term).toBe('Cross Golf');
-            expect(res[1].filter.value).toBe('20315');
+            expect(res[1].filter.value.modelId).toBe('20315');
         });
     });
 
@@ -37,7 +37,7 @@ describe('Model tests', function () {
             expect(res[1].term).toBe('golf cross');
             expect(res[1].filter.type).toBe(_filterTypes.model);
             expect(res[1].filter.term).toBe('Cross Golf');
-            expect(res[1].filter.value).toBe('20315');
+            expect(res[1].filter.value.modelId).toBe('20315');
         });
     });
 
@@ -50,12 +50,12 @@ describe('Model tests', function () {
             expect(res[1].term).toBe('golf cross');
             expect(res[1].filter.type).toBe(_filterTypes.model);
             expect(res[1].filter.term).toBe('Cross Golf');
-            expect(res[1].filter.value).toBe('20315');
+            expect(res[1].filter.value.modelId).toBe('20315');
 
             expect(res[2].term).toBe('golf');
             expect(res[2].filter.type).toBe(_filterTypes.model);
             expect(res[2].filter.term).toBe('Golf');
-            expect(res[2].filter.value).toBe('2084');
+            expect(res[2].filter.value.modelId).toBe('2084');
         });
     });
 });

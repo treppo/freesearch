@@ -1,6 +1,6 @@
-var filters = require('./registeredFilters')();
+var _ctx = {};
+var filters = require('./registeredFilters')(_ctx);
 var _parser = require('./parser')(filters);
-
 
 var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern in erding';
 
@@ -11,6 +11,7 @@ var res = _parser.parse(searchLine);
 var diff = new Date() - begin;
 
 console.log('Done in ' + diff + ' ms ');
+console.log('query: http://www.autoscout24.de/GN/CountV1.ashx?tab=location' + _ctx.publicQueryParams);
 console.log(res);
 
 /*
@@ -34,6 +35,8 @@ Filters:
     +PreviousOwner (def. from and to)
     +Farbeffekte (Metallic)
     +Seats (def. from and to)
+
+    Bike als marker
 
     von advanced search
     +Door (def. from and to)

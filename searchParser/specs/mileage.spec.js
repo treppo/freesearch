@@ -70,7 +70,7 @@ describe('Mileage tests all filters', function () {
     var filters = require('../registeredFilters')();
     var parser = require('../parser')(filters);
 
-    xdescribe('When parse a number outside of suitable range but the number is followed by a mileage marker', function () {
+    describe('When parse a number outside of suitable range but the number is followed by a mileage marker', function () {
         it('it should be parsed as mileage', function () {
             var expected = _maxMileage + 10;
             var res = parser.parse('audi ' + expected + 'km');
