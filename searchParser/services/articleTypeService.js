@@ -7,8 +7,8 @@ module.exports = function () {
     }
 
     t = [
-        {term: 'Private', value: 'P'},
-        {term: 'Dealer', value: 'D'}
+        {term: 'Car', value: 'C'},
+        {term: 'Bike', value: 'B'}
     ];
 
     return t;

@@ -50,6 +50,10 @@ s.AlloyWheels = ['alu', 'alufelgen'];
 s.Private = ['private', 'privat'];
 s.Dealer = ['händler', 'haendler', 'dealer'];
 
+// Article Type
+s.Car = ['wagen', 'fahrzeug'];
+s.Bike = ['motorrad', 'bike'];
+
 // Body Color
 s.Beige = ['beige'];
 s.Blue = ['blau'];

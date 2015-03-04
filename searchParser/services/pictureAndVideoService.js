@@ -7,9 +7,9 @@ module.exports = function () {
     }
 
     t = [
-            {term: 'Picture', value: 'P'},
-            {term: 'Video', value: 'V'}
-        ];
+        {term: 'Picture', value: 'P'},
+        {term: 'Video', value: 'V'}
+    ];
 
     return t;
 };

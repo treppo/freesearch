@@ -19,6 +19,7 @@ module.exports = function (context) {
     var gearingFilter = require('./filters/gearingFilter')();
     var equipmentFilter = require('./filters/equipmentFilter')();
     var customerTypeFilter = require('./filters/customerTypeFilter')();
+    var articleTypeFilter = require('./filters/articleTypeFilter')();
     var bodyColorFilter = require('./filters/bodyColorFilter')();
     var colorEffectFilter = require('./filters/colorEffectFilter')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter')();
@@ -59,6 +60,7 @@ module.exports = function (context) {
         gearingFilter,
         equipmentFilter,
         customerTypeFilter,
+        articleTypeFilter,
         bodyColorFilter,
         colorEffectFilter,
         articleOfferTypeFilter,

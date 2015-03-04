@@ -7,10 +7,10 @@ module.exports = function () {
     }
 
     t = [
-            {term: 'ManualTransmission', value: 'M'}, // Schaltgetriebe
-            {term: 'Automatic', value: 'A'}, // Automatik
-            {term: 'Semiautomatic', value: 'S'} // Halbautomatik
-        ];
+        {term: 'ManualTransmission', value: 'M'}, // Schaltgetriebe
+        {term: 'Automatic', value: 'A'}, // Automatik
+        {term: 'Semiautomatic', value: 'S'} // Halbautomatik
+    ];
 
     return t;
 };

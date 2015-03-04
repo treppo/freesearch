@@ -7,13 +7,13 @@ module.exports = function () {
     }
 
     t = [
-            {term: 'UsedCar', value: 'U'},
-            {term: 'NewCar', value: 'N'},
-            {term: 'Demonstration', value: 'D'},
-            {term: 'Oldtimer', value: 'O'},
-            {term: 'Jahreswagen', value: 'J'},
-            {term: 'SingleDay', value: 'S'}
-        ];
+        {term: 'UsedCar', value: 'U'},
+        {term: 'NewCar', value: 'N'},
+        {term: 'Demonstration', value: 'D'},
+        {term: 'Oldtimer', value: 'O'},
+        {term: 'Jahreswagen', value: 'J'},
+        {term: 'SingleDay', value: 'S'}
+    ];
 
     return t;
 };

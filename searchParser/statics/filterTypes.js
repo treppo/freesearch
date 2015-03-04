@@ -25,6 +25,7 @@ filterTypes.door = 'door';
 filterTypes.pictureAndVideo = 'pictureAndVideo';
 filterTypes.zip = 'zip';
 filterTypes.city = 'city';
+filterTypes.articleType = 'articleType';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

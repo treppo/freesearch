@@ -35,8 +35,7 @@ Filters:
     +PreviousOwner (def. from and to)
     +Farbeffekte (Metallic)
     +Seats (def. from and to)
-
-    Bike als marker
+    +ArticleType
 
     von advanced search
     +Door (def. from and to)

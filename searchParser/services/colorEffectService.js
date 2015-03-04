@@ -7,8 +7,8 @@ module.exports = function () {
     }
 
     t = [
-            {term: 'Metallic', value: 'M'}
-        ];
+        {term: 'Metallic', value: 'M'}
+    ];
 
     return t;
 };
