@@ -32,8 +32,6 @@ module.exports = function (context) {
     var zipFilter = require('./filters/zipFilter')();
     var cityFilter = require('./filters/cityFilter')();
     var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
-
-    var removeMarkerFilter = require('./filters/removeMarkerFilter')();
     var assignRangeFilter = require('./filters/assignRangeFilter')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter')();
     var rangeToSingleValueFilter = require('./filters/rangeToSingleValueFilter')();
@@ -76,7 +74,6 @@ module.exports = function (context) {
 //        saveSuggestionFilter,
 
         assignRangeFilter, // work out range markers (from to)
-        removeMarkerFilter,
         reduceIdenticalFilter,
         rangeToSingleValueFilter,
         createPublicQueryParamsFilter
@@ -92,7 +89,6 @@ module.exports = function (context) {
 
     var post = [
         assignRangeFilter,
-        removeMarkerFilter,
         reduceIdenticalFilter,
         rangeToSingleValueFilter,
         createPublicQueryParamsFilter

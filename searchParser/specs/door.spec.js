@@ -40,37 +40,34 @@ describe('Door tests single filter', function () {
         it('and contains from and to, it should parse them as a door ranges', function () {
             var res = parser.parse('von 7 bis 2');
 
-            expect(res.length).toBe(1);
-            expect(res[0].term).toBe('2 - 7');
-            expect(res[0].filter.type).toBe(_filterTypes.door);
-            expect(res[0].filter.valueFrom).toBe(2);
-            expect(res[0].filter.termFrom).toBe('2');
-            expect(res[0].filter.valueTo).toBe(7);
-            expect(res[0].filter.termTo).toBe('7');
+            expect(res[1].term).toBe('2 - 7');
+            expect(res[1].filter.type).toBe(_filterTypes.door);
+            expect(res[1].filter.valueFrom).toBe(2);
+            expect(res[1].filter.termFrom).toBe('2');
+            expect(res[1].filter.valueTo).toBe(7);
+            expect(res[1].filter.termTo).toBe('7');
         });
 
         it('and contains from, it should parse them as from door', function () {
             var res = parser.parse('von 2');
 
-            expect(res.length).toBe(1);
-            expect(res[0].term).toBe('2');
-            expect(res[0].filter.type).toBe(_filterTypes.door);
-            expect(res[0].filter.valueFrom).toBe(2);
-            expect(res[0].filter.termFrom).toBe('2');
-            expect(res[0].filter.valueTo).toBeUndefined();
-            expect(res[0].filter.termTo).toBeUndefined();
+            expect(res[1].term).toBe('2');
+            expect(res[1].filter.type).toBe(_filterTypes.door);
+            expect(res[1].filter.valueFrom).toBe(2);
+            expect(res[1].filter.termFrom).toBe('2');
+            expect(res[1].filter.valueTo).toBeUndefined();
+            expect(res[1].filter.termTo).toBeUndefined();
         });
 
         it('and contains from, it should parse them as to door', function () {
             var res = parser.parse('bis 2');
 
-            expect(res.length).toBe(1);
-            expect(res[0].term).toBe('2');
-            expect(res[0].filter.type).toBe(_filterTypes.door);
-            expect(res[0].filter.valueFrom).toBeUndefined();
-            expect(res[0].filter.termFrom).toBeUndefined();
-            expect(res[0].filter.valueTo).toBe(2);
-            expect(res[0].filter.termTo).toBe('2');
+            expect(res[1].term).toBe('2');
+            expect(res[1].filter.type).toBe(_filterTypes.door);
+            expect(res[1].filter.valueFrom).toBeUndefined();
+            expect(res[1].filter.termFrom).toBeUndefined();
+            expect(res[1].filter.valueTo).toBe(2);
+            expect(res[1].filter.termTo).toBe('2');
         });
 
 
@@ -97,7 +94,6 @@ describe('Door tests all filters', function () {
             var expected = _maxDoors + 10;
             var res = parser.parse('audi ' + expected + ' türer');
 
-            expect(res.length).toBe(2);
             expect(res[1].term).toBe('' + expected);
             expect(res[1].filter.type).toBe(_filterTypes.door);
             expect(res[1].filter.valueFrom).toBe(expected);
@@ -109,13 +105,12 @@ describe('Door tests all filters', function () {
         it('it should be parsed as door range', function () {
             var res = parser.parse('audi 2000 €  2 7 türen');
 
-            expect(res.length).toBe(3);
-            expect(res[2].term).toBe('2 - 7');
-            expect(res[2].filter.type).toBe(_filterTypes.door);
-            expect(res[2].filter.valueFrom).toBe(2);
-            expect(res[2].filter.termFrom).toBe('2');
-            expect(res[2].filter.valueTo).toBe(7);
-            expect(res[2].filter.termTo).toBe('7');
+            expect(res[3].term).toBe('2 - 7');
+            expect(res[3].filter.type).toBe(_filterTypes.door);
+            expect(res[3].filter.valueFrom).toBe(2);
+            expect(res[3].filter.termFrom).toBe('2');
+            expect(res[3].filter.valueTo).toBe(7);
+            expect(res[3].filter.termTo).toBe('7');
         });
     });
 });
