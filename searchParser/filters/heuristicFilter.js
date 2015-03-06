@@ -20,7 +20,6 @@ module.exports = function () {
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
             var context = {
-                hasMarker: true,
                 markerType: searchToken.filter.value
             };
 
