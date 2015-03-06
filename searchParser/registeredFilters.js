@@ -59,9 +59,9 @@ module.exports = function (context) {
         usageStateFilter,
         pictureAndVideoFilter,
         makeFilter,
-        modelFilter,
         cityFilter,
-        geoDistanceFilter, // depends on city and zip filters, therefore must be after both
+        geoDistanceFilter, // depends on city and zip filters, therefore must be after both. But before model due its greedy (e.g 100).
+        modelFilter,
 //        saveSuggestionFilter,
 
         assignRangeFilter, // work out range markers (from to)
