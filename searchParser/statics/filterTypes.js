@@ -26,6 +26,7 @@ filterTypes.pictureAndVideo = 'pictureAndVideo';
 filterTypes.zip = 'zip';
 filterTypes.city = 'city';
 filterTypes.articleType = 'articleType';
+filterTypes.geoDistance = 'geoDistance';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';
@@ -60,6 +61,10 @@ var isUnknownFilter = function (filter) {
     return filter.type === filterTypes.unknown;
 };
 
+var isUnknownSearchToken = function (searchToken) {
+    return searchToken.filter.type === filterTypes.unknown;
+};
+
 var getFiltersByType = function(searchTokens, filterType) {
     return searchTokens.filter(function(searchToken) {
         return (searchToken.filter.type === filterType);
@@ -71,3 +76,4 @@ module.exports.isUnknownFilter = isUnknownFilter;
 module.exports.isMarkerFilter = isMarkerFilter;
 module.exports.isRangeMarker = isRangeMarker;
 module.exports.getFiltersByType = getFiltersByType;
+module.exports.isUnknownSearchToken = isUnknownSearchToken;

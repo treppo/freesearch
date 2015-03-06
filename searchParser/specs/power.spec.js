@@ -13,7 +13,7 @@ describe('Power tests', function () {
 
     describe('When parse a suitable number', function () {
         it('it should find the power in kw (default)', function () {
-            var res = _parser.parse('audi 150');
+            var res = _parser.parse('audi 150 ps');
 
             expect(res[1].term).toBe('150');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -42,15 +42,7 @@ describe('Power tests', function () {
         });
     });
 
-    describe('When parse a number outside of suitable range', function () {
-        it('it should not be parsed as power (due max range)', function () {
-            var res = _parser.parse('audi ' + (maxPowerInPs + 1));
-
-            expect(res[1].filter.type).not.toBe(_filterTypes.power);
-        });
-    });
-
-    describe('When parse a number outside of suitable range but the number contains a power marker', function () {
+    describe('When parse a power', function () {
         it('it should be parsed as power', function () {
             var expectedPower = maxPowerInPs + 10;
             var res = _parser.parse('audi ' + expectedPower + 'KW');
@@ -64,9 +56,9 @@ describe('Power tests', function () {
 
     describe('When parse two power values', function () {
         it('it should parse them as a power range', function () {
-            var res = _parser.parse('audi 200 - 300');
+            var res = _parser.parse('audi 200 - 300 ps');
 
-            expect(res.length).toBe(2);
+            expect(res.length).toBe(3);
             expect(res[1].term).toBe('200 - 300');
             expect(res[1].filter.type).toBe(_filterTypes.power);
             expect(res[1].filter.valueFrom).toBe(kw200);
@@ -76,9 +68,9 @@ describe('Power tests', function () {
         });
 
         it('and power are on the contrary order, it should parse them as a power range', function () {
-            var res = _parser.parse('audi 300 200');
+            var res = _parser.parse('audi 300 200 ps');
 
-            expect(res.length).toBe(2);
+            expect(res.length).toBe(3);
             expect(res[1].term).toBe('200 - 300');
             expect(res[1].filter.type).toBe(_filterTypes.power);
             expect(res[1].filter.valueFrom).toBe(kw200);
@@ -90,7 +82,26 @@ describe('Power tests', function () {
 
     describe('When parse more than two power values', function () {
         it('it should parse them as a power range', function () {
-            var res = _parser.parse('200 300 400 bla blub');
+            var res = _parser.parse('200 300 ps 400 ps bla blub');
+
+            expect(res.length).toBe(6);
+            expect(res[0].term).toBe('200 - 300');
+            expect(res[0].filter.type).toBe(_filterTypes.power);
+            expect(res[0].filter.valueFrom).toBe(kw200);
+            expect(res[0].filter.termFrom).toBe('' + kw200);
+            expect(res[0].filter.valueTo).toBe(kw300);
+            expect(res[0].filter.termTo).toBe('' + kw300);
+
+            expect(res[2].term).toBe('400');
+            expect(res[2].filter.type).toBe(_filterTypes.power);
+            expect(res[2].filter.valueFrom).toBe(kw400);
+            expect(res[2].filter.termFrom).toBe('' + kw400);
+            expect(res[2].filter.valueTo).toBeUndefined();
+            expect(res[2].filter.termTo).toBeUndefined();
+        });
+
+        it('it should parse them as a power range', function () {
+            var res = _parser.parse('200 300 ps 500 400 ps');
 
             expect(res.length).toBe(4);
             expect(res[0].term).toBe('200 - 300');
@@ -100,31 +111,12 @@ describe('Power tests', function () {
             expect(res[0].filter.valueTo).toBe(kw300);
             expect(res[0].filter.termTo).toBe('' + kw300);
 
-            expect(res[1].term).toBe('400');
-            expect(res[1].filter.type).toBe(_filterTypes.power);
-            expect(res[1].filter.valueFrom).toBe(kw400);
-            expect(res[1].filter.termFrom).toBe('' + kw400);
-            expect(res[1].filter.valueTo).toBeUndefined();
-            expect(res[1].filter.termTo).toBeUndefined();
-        });
-
-        it('it should parse them as a power range', function () {
-            var res = _parser.parse('200 300 500 400 ');
-
-            expect(res.length).toBe(2);
-            expect(res[0].term).toBe('200 - 300');
-            expect(res[0].filter.type).toBe(_filterTypes.power);
-            expect(res[0].filter.valueFrom).toBe(kw200);
-            expect(res[0].filter.termFrom).toBe('' + kw200);
-            expect(res[0].filter.valueTo).toBe(kw300);
-            expect(res[0].filter.termTo).toBe('' + kw300);
-
-            expect(res[1].term).toBe('400 - 500');
-            expect(res[1].filter.type).toBe(_filterTypes.power);
-            expect(res[1].filter.valueFrom).toBe(kw400);
-            expect(res[1].filter.termFrom).toBe('' + kw400);
-            expect(res[1].filter.valueTo).toBe(kw500);
-            expect(res[1].filter.termTo).toBe('' + kw500);
+            expect(res[2].term).toBe('400 - 500');
+            expect(res[2].filter.type).toBe(_filterTypes.power);
+            expect(res[2].filter.valueFrom).toBe(kw400);
+            expect(res[2].filter.termFrom).toBe('' + kw400);
+            expect(res[2].filter.valueTo).toBe(kw500);
+            expect(res[2].filter.termTo).toBe('' + kw500);
         });
     });
 
@@ -176,7 +168,7 @@ describe('Power tests', function () {
         });
 
         it('and contains from, it should parse them as from term', function () {
-            var res = _parser.parse('von 200');
+            var res = _parser.parse('von 200 ps');
 
             expect(res[1].term).toBe('200');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -187,7 +179,7 @@ describe('Power tests', function () {
         });
 
         it('and contains from, it should parse them as to term', function () {
-            var res = _parser.parse('bis 200');
+            var res = _parser.parse('bis 200 ps');
 
             expect(res[1].term).toBe('200');
             expect(res[1].filter.type).toBe(_filterTypes.power);

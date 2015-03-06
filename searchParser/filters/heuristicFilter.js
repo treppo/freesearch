@@ -11,11 +11,11 @@ module.exports = function () {
     var _priceFilter = require('../filters/priceFilter')();
     var _powerFilter = require('../filters/powerFilter')();
     var _mileageFilter = require('../filters/mileageFilter')();
-    var _firstRegistration = require('../filters/firstRegistrationFilter')();
-    var _seat = require('../filters/seatFilter')();
-    var _door = require('../filters/doorFilter')();
-    var _prevOwner = require('../filters/previousOwnerFilter')();
-    var _onlineSince = require('../filters/onlineSinceFilter')();
+    var _firstRegistrationFilter = require('../filters/firstRegistrationFilter')();
+    var _seatFilter = require('../filters/seatFilter')();
+    var _doorFilter = require('../filters/doorFilter')();
+    var _prevOwnerFilter = require('../filters/previousOwnerFilter')();
+    var _onlineSinceFilter = require('../filters/onlineSinceFilter')();
 
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
@@ -28,13 +28,13 @@ module.exports = function () {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_priceFilter.processFilter, context));
+                    processFilter(_priceFilter, context));
 
                 if (!context.found) {
                     accumulator = _filterHelper.iterateForward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        processFilter(_priceFilter.processFilter, context));
+                        processFilter(_priceFilter, context));
                 }
             }
 
@@ -42,27 +42,27 @@ module.exports = function () {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_powerFilter.processFilter, context));
+                    processFilter(_powerFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.kmMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_mileageFilter.processFilter, context));
+                    processFilter(_mileageFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.firstRegistrationMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_firstRegistration.processFilter, context));
+                    processFilter(_firstRegistrationFilter, context));
 
                 if (!context.found) {
                     accumulator = _filterHelper.iterateForward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        processFilter(_firstRegistration.processFilter, context));
+                        processFilter(_firstRegistrationFilter, context));
                 }
             }
 
@@ -70,21 +70,21 @@ module.exports = function () {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_seat.processFilter, context));
+                    processFilter(_seatFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.doorMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_door.processFilter, context));
+                    processFilter(_doorFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.prevOwnerMarker) {
                 accumulator = _filterHelper.iterateBackward(
                     accumulator,
                     collectCondition(searchToken.index),
-                    processFilter(_prevOwner.processFilter, context));
+                    processFilter(_prevOwnerFilter, context));
             }
 
             if (searchToken.filter.type === _filterTypes.onlineSinceMarker) {
@@ -92,16 +92,16 @@ module.exports = function () {
                     accumulator = _filterHelper.iterateForward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        processFilter(_onlineSince.processFilter, context));
+                        processFilter(_onlineSinceFilter, context));
                 }
                 else if (searchToken.filter.value === 'yesterday' || searchToken.filter.value === 'daybeforeyesterday') {
-                    _onlineSince.processFilter(searchToken, context);
+                    _onlineSinceFilter(searchToken, context);
                 }
                 else {
                     accumulator = _filterHelper.iterateBackward(
                         accumulator,
                         collectCondition(searchToken.index),
-                        processFilter(_onlineSince.processFilter, context));
+                        processFilter(_onlineSinceFilter, context));
                 }
             }
 

@@ -3,22 +3,6 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _utilHelper = require('../statics/utilHelper')();
-    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
-
-    var _minOnlineSince = 1;
-    var _maxOnlineSince = 14;
-
-    var filter = function (searchTokens) {
-        searchTokens.forEach(function (searchToken) {
-            if (! _isUnknownFilter(searchToken.filter)) {
-                return;
-            }
-
-            processFilter(searchToken, {});
-        });
-
-        return searchTokens;
-    };
 
     var processFilter = function (searchToken, context) {
         var term = searchToken.term;
@@ -39,12 +23,6 @@ module.exports = function () {
             intTerm *= 7;
         }
 
-        if (!context.hasMarker) {
-            if (_utilHelper.isNotInRange(intTerm, _minOnlineSince, _maxOnlineSince)) {
-                return searchToken;
-            }
-        }
-
         searchToken.filter.type = _filterTypes.onlineSince;
         searchToken.filter.termFrom = '' + intTerm;
         searchToken.filter.valueFrom = intTerm;
@@ -52,8 +30,5 @@ module.exports = function () {
         return searchToken;
     };
 
-    return {
-        filter: filter,
-        processFilter: processFilter
-    };
+    return processFilter;
 };

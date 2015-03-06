@@ -12,7 +12,6 @@ module.exports = function (context) {
     var modelFilter = require('./filters/modelFilter')();
     var priceFilter = require('./filters/priceFilter')();
     var powerFilter = require('./filters/powerFilter')();
-    var mileageFilter = require('./filters/mileageFilter')();
     var firstRegistrationFilter = require('./filters/firstRegistrationFilter')();
     var fuelFilter = require('./filters/fuelFilter')();
     var bodyTypeFilter = require('./filters/bodyTypeFilter')();
@@ -24,9 +23,7 @@ module.exports = function (context) {
     var colorEffectFilter = require('./filters/colorEffectFilter')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter')();
     var usageStateFilter = require('./filters/usageStateFilter')();
-    var seatFilter = require('./filters/seatFilter')();
     var doorFilter = require('./filters/doorFilter')();
-    var prevOwnerFilter = require('./filters/previousOwnerFilter')();
     var onlineSinceFilter = require('./filters/onlineSinceFilter')();
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter')();
     var zipFilter = require('./filters/zipFilter')();
@@ -35,8 +32,9 @@ module.exports = function (context) {
     var assignRangeFilter = require('./filters/assignRangeFilter')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter')();
     var rangeToSingleValueFilter = require('./filters/rangeToSingleValueFilter')();
+    var geoDistanceFilter = require('./filters/geoDistanceFilter')();
     //var debugFilter = require('./filters/debugFilter')();
-    var noneFilter = require('./filters/noneFilter')();
+    //var noneFilter = require('./filters/noneFilter')();
 
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
 
@@ -47,12 +45,8 @@ module.exports = function (context) {
         createSearchTermsFilter,
         createMarkerFilter,
 
-        heuristicFilter, // power, price etc. terms with entity markers
-        firstRegistrationFilter.filter,
-        powerFilter.filter,
         zipFilter, // greedy, therefore before price
-        priceFilter.filter,
-        mileageFilter.filter,
+        heuristicFilter, // power, price etc. terms with entity markers
         fuelFilter,
         bodyTypeFilter,
         gearingFilter,
@@ -63,14 +57,11 @@ module.exports = function (context) {
         colorEffectFilter,
         articleOfferTypeFilter,
         usageStateFilter,
-        seatFilter.filter,
-        doorFilter.filter,
-        prevOwnerFilter.filter,
-        onlineSinceFilter.filter,
         pictureAndVideoFilter,
         makeFilter,
         modelFilter,
         cityFilter,
+        geoDistanceFilter, // depends on city and zip filters, therefore must be after both
 //        saveSuggestionFilter,
 
         assignRangeFilter, // work out range markers (from to)

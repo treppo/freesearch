@@ -3,21 +3,8 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _utilHelper = require('../statics/utilHelper')();
-    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
-
+    var _minMileage = 201; // avoid conflict with geo distance filter
     var _maxMileage = 1000000;
-
-    var filter = function (searchTokens) {
-        searchTokens.forEach(function (searchToken) {
-            if (! _isUnknownFilter(searchToken.filter)) {
-                return;
-            }
-
-            processFilter(searchToken, {});
-        });
-
-        return searchTokens;
-    };
 
     var processFilter = function (searchToken, context) {
         if (!_utilHelper.isNumber(searchToken.term)) {
@@ -25,8 +12,12 @@ module.exports = function () {
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
+        if (intTerm < _minMileage) { // avoid conflict with geo distance filter
+            return searchToken;
+        }
+
         if (!context.hasMarker) {
-            if (intTerm < 0 || intTerm > _maxMileage) { // check range
+            if (intTerm > _maxMileage) { // check range
                 return searchToken;
             }
         }
@@ -38,8 +29,5 @@ module.exports = function () {
         return searchToken;
     };
 
-    return {
-        filter: filter,
-        processFilter: processFilter
-    };
+    return processFilter;
 };
