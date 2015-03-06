@@ -5,7 +5,7 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper')();
     var isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
 
-    var _maxDistance = 200;
+    var _maxRadius = 200;
 
     var filter = function (searchTokens) {
         searchTokens.filter(isUnknownSearchToken)
@@ -22,17 +22,17 @@ module.exports = function () {
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
-        if (intTerm < 0 || intTerm > _maxDistance) { // check range
+        if (intTerm < 0 || intTerm > _maxRadius) { // check range
             return searchToken;
         }
 
-        // geoDistance only if have city or zip
+        // geoRadius only if have city or zip
         if (searchTokens.some(function(sToken) {
                 return (sToken.filter.type === _filterTypes.city ||
                         sToken.filter.type === _filterTypes.zip)
 
             })) {
-            searchToken.filter.type = _filterTypes.geoDistance;
+            searchToken.filter.type = _filterTypes.geoRadius;
             searchToken.filter.term = searchToken.term;
             searchToken.filter.value = intTerm;
         }

@@ -32,10 +32,9 @@ module.exports = function (context) {
     var assignRangeFilter = require('./filters/assignRangeFilter')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter')();
     var rangeToSingleValueFilter = require('./filters/rangeToSingleValueFilter')();
-    var geoDistanceFilter = require('./filters/geoDistanceFilter')();
+    var geoRadiusFilter = require('./filters/geoRadiusFilter')();
     //var debugFilter = require('./filters/debugFilter')();
     //var noneFilter = require('./filters/noneFilter')();
-
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
 
     var all = [
@@ -60,7 +59,7 @@ module.exports = function (context) {
         pictureAndVideoFilter,
         makeFilter,
         cityFilter,
-        geoDistanceFilter, // depends on city and zip filters, therefore must be after both. But before model due its greedy (e.g 100).
+        geoRadiusFilter, // depends on city and zip filters, therefore must be after both. But before model due its greedy (e.g 100).
         modelFilter,
 //        saveSuggestionFilter,
 

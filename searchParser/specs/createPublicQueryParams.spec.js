@@ -645,6 +645,24 @@ describe('Test query params for city and zip', function () {
             expect(containOnce(_ctx.publicQueryParams, 'tloc=Erding')).toBeTruthy();
         });
     });
+
+    describe('When plz and radius is available', function () {
+        it('it should generate radius', function () {
+            _parser.parse('audi blub 85435 100 km');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'zipr=100')).toBeTruthy();
+        });
+    });
+
+    describe('When city and radius is available', function () {
+        it('it should generate radius param', function () {
+            _parser.parse('audi blub erding 100 km');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'zipr=100')).toBeTruthy();
+        });
+    });
 });
 
 describe('Test adding default query params', function () {

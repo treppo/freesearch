@@ -67,7 +67,8 @@ module.exports = function (context) {
             return (searchToken.filter.type === _filterTypes.zip)
         });
         if (zips.length > 0) {
-            query += '&zip=' + zips[0].filter.term + '&zipc=D&zipr=200';
+            query += '&zip=' + zips[0].filter.term + '&zipc=D';
+            query += '&zipr=' + (getGeoRadius(searchTokens) || 200);
         }
 
         return query;
@@ -80,7 +81,8 @@ module.exports = function (context) {
             return (searchToken.filter.type === _filterTypes.city)
         });
         if (zips.length > 0) {
-            query += '&zip=' + zips[0].filter.term + '&zipc=D&zipr=200&tloc=Erding';
+            query += '&zip=' + zips[0].filter.term + '&zipc=D&tloc=Erding';
+            query += '&zipr=' + (getGeoRadius(searchTokens) || 200);
             query += '&lat=' + roundTo(zips[0].filter.value.lat, 3);
             query += '&lon=' + roundTo(zips[0].filter.value.lon, 3);
         }
@@ -116,6 +118,15 @@ module.exports = function (context) {
         }
 
         return query;
+    };
+
+    var getGeoRadius = function (searchTokens) {
+        var geoRadius = searchTokens.filter(function(searchToken) {
+            return (searchToken.filter.type === _filterTypes.geoRadius)
+        });
+        if (geoRadius.length > 0) {
+            return geoRadius[0].filter.value;
+        }
     };
 
     var isBike = function(searchTokens) {

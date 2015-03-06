@@ -26,7 +26,7 @@ filterTypes.pictureAndVideo = 'pictureAndVideo';
 filterTypes.zip = 'zip';
 filterTypes.city = 'city';
 filterTypes.articleType = 'articleType';
-filterTypes.geoDistance = 'geoDistance';
+filterTypes.geoRadius = 'geoRadius';
 
 // entity marker = isMarkerFilter
 filterTypes.priceMarker = 'priceMarker';

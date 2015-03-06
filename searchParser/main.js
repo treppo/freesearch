@@ -2,7 +2,7 @@ var _ctx = {};
 var filters = require('./registeredFilters')(_ctx);
 var _parser = require('./parser')(filters);
 
-var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern in erding';
+var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern in erding umkreis 100 km';
 
 var begin = new Date();
 
@@ -50,7 +50,7 @@ complete missed make based on existing model
 +bug - von 200 km blub von 20000 km ergibt 200 to 20000
 create synonyms for equipments
 +heuristic filter. price backwards and then, if nothing found, forward
-bind searchTokens together
+bind searchTokens together ?
 escape HTML content in ela filter
 
 autocomplete

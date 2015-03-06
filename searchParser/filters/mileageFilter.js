@@ -3,7 +3,7 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _utilHelper = require('../statics/utilHelper')();
-    var _minMileage = 201; // avoid conflict with geo distance filter
+    var _minMileage = 201; // avoid conflict with geo radius filter
 
     var processFilter = function (searchToken) {
         if (!_utilHelper.isNumber(searchToken.term)) {
@@ -11,7 +11,7 @@ module.exports = function () {
         }
 
         var intTerm = _utilHelper.convertToInt(searchToken.term);
-        if (intTerm < _minMileage) { // avoid conflict with geo distance filter
+        if (intTerm < _minMileage) { // avoid conflict with geo radius filter
             return searchToken;
         }
 
