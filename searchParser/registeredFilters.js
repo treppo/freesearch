@@ -5,7 +5,7 @@ module.exports = function (context) {
     var createTokensFilter = require('./filters/createTokensFilter')();
     var createSynonymeFilter = require('./filters/createSynonymFilter')();
     var splitMarkerFromTokensFilter = require('./filters/splitMarkerFromTokensFilter')();
-    var createSearchTermsFilter = require('./filters/createSearchTermsFilter')();
+    var createSearchTokensFilter = require('./filters/createSearchTokensFilter')();
     var createMarkerFilter = require('./filters/createMarkerFilter')();
 
     var heuristicFilter = require('./filters/heuristicFilter')();
@@ -42,7 +42,7 @@ module.exports = function (context) {
         cleanUpSearchLineFilter,
         createTokensFilter,
         splitMarkerFromTokensFilter,
-        createSearchTermsFilter,
+        createSearchTokensFilter,
         createSynonymeFilter,
         createMarkerFilter,
 
@@ -75,7 +75,7 @@ module.exports = function (context) {
         cleanUpSearchLineFilter,
         createTokensFilter,
         splitMarkerFromTokensFilter,
-        createSearchTermsFilter,
+        createSearchTokensFilter,
         createSynonymeFilter,
         createMarkerFilter
     ];

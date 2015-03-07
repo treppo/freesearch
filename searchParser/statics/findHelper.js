@@ -1,11 +1,13 @@
-module.exports = function () {
-    'use strict';
+'use strict';
+var _isSynonymFor = require('./../services/synonymService').isSynonymFor;
+var _getSynonymFor = require('./../services/synonymService').isSynonymFor;
+var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
+var _isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
 
-    var isSynonymFor = require('./../services/synonymService').isSynonymFor;
-    var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
+module.exports = function () {
+
 
     //  for each searchTerm from searchTerms ##### example: bla cross golf blub
-    //
     //    for each not done filterTerm from filterTerms ##### example: Cross Golf
     //        get synonyms for the filterTerm
     //
@@ -18,8 +20,14 @@ module.exports = function () {
     //         return original searchTerms back
     //     no, filter match
     //         merge all noticed searchTerms, return the new searchTerms back.
-    var searchTokens = function (searchTokens, filters, filterType) {
-        filters.forEach(function (filter) {
+    var searchTokens = function (searchTokens, filters, filterType, fncCondition) {
+        var f = filters;
+
+        if (fncCondition) {
+            f = filters.filter(fncCondition);
+        }
+
+        f.forEach(function (filter) {
             searchTokens = searchTokenForFilter(searchTokens, filter, filterType, 0);
         });
 
@@ -39,7 +47,7 @@ module.exports = function () {
             }
 
             filterTerms.some(function (filterTerm) {
-                var foundSynonym = isSynonymFor(filterTerm.term, searchToken.term);
+                var foundSynonym = _isSynonymFor(filterTerm.term, searchToken.term);
 
                 if (foundSynonym) {
                     filterTerm.done = true;
@@ -126,7 +134,7 @@ module.exports = function () {
         return function (searchToken) {
 
             filterTerms.some(function (filterTerm) {
-                var foundSynonym = isSynonymFor(filterTerm.term, searchToken.term);
+                var foundSynonym = _isSynonymFor(filterTerm.term, searchToken.term);
                 if (foundSynonym) {
                     res.found = true;
                     res.filterTerm = filterTerm;
@@ -140,8 +148,111 @@ module.exports = function () {
         };
     };
 
+   /////////////////////////////////////////////////////////////////
+
+    var interceptAll = function (serviceTerms, searchTokens, fncConditional) {
+        if (serviceTerms.length > searchTokens.length)
+            return [];
+
+        var intercepts = [];
+        var prev;
+
+        var intercepted = serviceTerms.every(function (serviceTerm) {
+            var foundOne = searchTokens.some(function (searchToken) {
+                // (serviceTerm.term.toLowerCase() === searchToken.synonym.toLowerCase())
+                if (serviceTerm === searchToken.synonym) {
+                    if (fncConditional(prev, searchToken)) {
+                        prev = searchToken;
+                        intercepts.push(searchToken.index);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            return foundOne;
+        });
+
+        if (intercepted)
+            return intercepts.sort(); // asc
+
+        return [];
+    };
+
+    var mergeSearchTokenItem = function (l, r) {
+        l.term += ' ' + r.term;
+    };
+
+    var mergeIntercepted = function (searchTokens, interceptedIndexes) {
+        var mergeIndex = interceptedIndexes[0];
+        var mergeSearchToken;
+
+        return searchTokens.reduce(function (acc, searchToken) {
+            if (interceptedIndexes.indexOf(searchToken.index) > -1) {
+                if (mergeIndex === searchToken.index) { // don't merge with it self
+                    mergeSearchToken = searchToken;
+                    acc.push(searchToken);
+                }
+                else {
+                    mergeSearchTokenItem(mergeSearchToken, searchToken);
+                }
+            }
+            else {
+                acc.push(searchToken);
+            }
+
+            return acc;
+        }, []);
+    };
+
+    var matchTokens = function (searchTokens, service, filterType, distance, fncServiceCondition) {
+        var curUnknownIndex = -1;
+        while (true) {
+            var unknownSearchTokens = searchTokens.filter(_isUnknownSearchToken).filter(function (searchToken) {
+                return (searchToken.index > curUnknownIndex);
+            });
+            if (unknownSearchTokens.length <= 0)
+                break;
+
+            curUnknownIndex = unknownSearchTokens[0].index;
+
+            var unknownSearchToken = unknownSearchTokens[0];
+            var serviceTerms = service;
+            if (fncServiceCondition) {
+                serviceTerms = fncServiceCondition(service, unknownSearchToken, searchTokens);
+            }
+
+            serviceTerms.some(function (serviceTerm) {
+                var serviceTokens = serviceTerm.term.split(' ');
+
+                var interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens, function () { return true; });
+                if (interceptedIndexes.length > 0) {
+
+                    if (interceptedIndexes.length > 1) {
+                        searchTokens = mergeIntercepted(searchTokens, interceptedIndexes);
+                    }
+
+                    searchTokens.map(function (searchToken) {
+                        if (searchToken.index === interceptedIndexes[0]) {
+                            searchToken.filter.type = filterType;
+                            searchToken.filter.value = serviceTerm.value;
+                            searchToken.filter.term = serviceTerm.term;
+                        }
+
+                        return searchToken;
+                    });
+
+                    return true;
+                }
+            });
+        }
+
+        return searchTokens;
+    };
+
     return {
         searchTokens: searchTokens,
-        isSynonymByFilter: isSynonymByFilter
+        isSynonymByFilter: isSynonymByFilter,
+        matchTokens: matchTokens
     }
 };

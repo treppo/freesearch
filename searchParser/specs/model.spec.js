@@ -3,7 +3,7 @@ var _parser = require('../parser')(filters);
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Model tests', function () {
-    describe('when parse search line with single model', function () {
+    describe('when parse single model', function () {
         it('it should parse to expected model', function () {
             var res = _parser.parse('vw golf');
 
@@ -15,7 +15,7 @@ describe('Model tests', function () {
         });
     });
 
-    describe('when parse search line with single model build from two terms', function () {
+    describe('when parse with single model build from two terms', function () {
         it('it should parse to expected model', function () {
             var res = _parser.parse('vw cross golf');
 
@@ -28,7 +28,7 @@ describe('Model tests', function () {
         });
     });
 
-    describe('when parse search line with greedy model', function () {
+    describe('when parse model consisting from several words', function () {
         it('it should parse to expected model', function () {
             var res = _parser.parse('vw golf cross');
 
@@ -41,8 +41,8 @@ describe('Model tests', function () {
         });
     });
 
-    describe('when parse search line with greedy model and effectively two models', function () {
-        it('it should parse to expected models', function () {
+    describe('when parse effectively two models', function () {
+        it('it should parse both', function () {
             var res = _parser.parse('vw golf golf cross');
 
             expect(res.length).toBe(3);
