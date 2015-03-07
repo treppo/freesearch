@@ -3,16 +3,16 @@ module.exports = function () {
 
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _zip = require('../services/zipService')();
+    var isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
 
     var filter = function (searchTokens) {
-        searchTokens.filter(function (searchToken) {
-            return searchToken.filter.type == _filterTypes.unknown;
-        }).forEach(function (searchToken) {
-            if (_zip[searchToken.term]) {
-                searchToken.filter.type = _filterTypes.zip;
-                searchToken.filter.term = searchToken.term;
-                searchToken.filter.value = _zip[searchToken.term];
-            }
+        searchTokens.filter(isUnknownSearchToken)
+            .forEach(function (searchToken) {
+                if (_zip[searchToken.term]) {
+                    searchToken.filter.type = _filterTypes.zip;
+                    searchToken.filter.term = searchToken.term;
+                    searchToken.filter.value = _zip[searchToken.term];
+                }
         });
 
         return searchTokens;

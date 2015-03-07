@@ -3,6 +3,7 @@ module.exports = function (context) {
 
     var cleanUpSearchLineFilter = require('./filters/cleanUpSearchLineFilter')();
     var createTokensFilter = require('./filters/createTokensFilter')();
+    var createSynonymeFilter = require('./filters/createSynonymFilter')();
     var splitMarkerFromTokensFilter = require('./filters/splitMarkerFromTokensFilter')();
     var createSearchTermsFilter = require('./filters/createSearchTermsFilter')();
     var createMarkerFilter = require('./filters/createMarkerFilter')();
@@ -42,6 +43,7 @@ module.exports = function (context) {
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
+        createSynonymeFilter,
         createMarkerFilter,
 
         zipFilter, // greedy, therefore before price
@@ -74,6 +76,7 @@ module.exports = function (context) {
         createTokensFilter,
         splitMarkerFromTokensFilter,
         createSearchTermsFilter,
+        createSynonymeFilter,
         createMarkerFilter
     ];
 

@@ -44,7 +44,10 @@ module.exports = function (file) {
             {"term": "Cross Golf", "value": {"makeId": "74", "modelId": "20315", "articleType": "C"}},
             {"term": "Golf", "value": {"makeId": "74", "modelId": "2084", "articleType": "C"}},
             {"term": "A4", "value": {"makeId": "9", "modelId": "1626", "articleType": "C"}},
-            {"term": "X5", "value": {"makeId": "13", "modelId": "16406", "articleType": "C"}}
+            {"term": "X5", "value": {"makeId": "13", "modelId": "16406", "articleType": "C"}},
+            {"term": "100", "value": {"makeId": "62", "modelId": "15959", "articleType": "C"}},
+            {"term": "100", "value": {"makeId": "9", "modelId": "1619", "articleType": "C"}},
+            {"term": "100", "value": {"makeId": "52", "modelId": "1895", "articleType": "C"}}
         ]);
         return model;
     }

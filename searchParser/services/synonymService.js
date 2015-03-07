@@ -105,6 +105,7 @@ s.DayBeforeYesterday = ['vorgestern'];
 s.Picture = ['bild', 'bilder', 'bildern'];
 s.Video = ['video', 'videos'];
 
+
 var getSynonyms = function (synKey) {
     if (s[synKey]) {
         return s[synKey];
@@ -152,5 +153,153 @@ var splitEndsWithSynonym = function (synKey, term) {
     return res;
 };
 
+
 module.exports.isSynonymFor = isSynonymFor;
 module.exports.splitEndsWithSynonym = splitEndsWithSynonym;
+
+var transformArrToObject = function(arr) {
+    var t = {};
+    arr.forEach(function(elem) {
+        t[elem.toLowerCase()] = 1;
+    });
+
+    return t;
+};
+
+var initSynonyms = function () {
+    var t = {};
+
+    // Marker
+    t.From = transformArrToObject(['von', 'vom', 'ab', 'seit']);
+    t.To = transformArrToObject(['bis']);
+    t.Kw = transformArrToObject(['kw']);
+    t.Ps = transformArrToObject(['ps']);
+    t.Euro = transformArrToObject(['€', 'euro', 'eur']);
+    t.Km = transformArrToObject(['km', 'kilometer']);
+
+    // Make
+    t.Mercedes = transformArrToObject(['mercedes', 'mers', 'merc', 'benz', 'benc']);
+    t.Volkswagen = transformArrToObject(['volkswagen', 'vw']);
+
+    // Model
+    //s.Golf = transformArrToObject(['golf']);
+    t.Cross = transformArrToObject(['cross']);
+
+    // First Registration
+    t.FirstRegistration = transformArrToObject(['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung']);
+
+    // Fuel
+    t.Diesel = transformArrToObject(['diesel', 'diesl']);
+    t.Benzin = transformArrToObject(['benzin', 'benziner']);
+
+    // Body Type
+    t.Compact = transformArrToObject(['kleinwagen']);
+    t.Cabrio = transformArrToObject(['cabrio', 'kabrio']);
+    t.Coupe = transformArrToObject(['coupe', 'cupe', 'kupe', 'koupe']);
+    t.SUV = transformArrToObject(['suv', 'geländewagen']);
+    t.Sedan = transformArrToObject(['sedan', 'limousine']);
+    t.Van = transformArrToObject(['van']);
+    t.Transporter = transformArrToObject(['transporter']);
+
+    // Gearing Type
+    t.ManualTransmission = transformArrToObject(['schaltgetriebe']);
+    t.Automatic = transformArrToObject(['automatik']);
+    t.Semiautomatic = transformArrToObject(['halbautomatik']);
+
+    // Equipment
+    t.ABS = transformArrToObject(['abs']);
+    t.Radio = transformArrToObject(['radio']);
+    t.CdPlayer = transformArrToObject(['cd']);
+    t.AirConditioning = transformArrToObject(['klima', 'klimaanlage']);
+    t.AlloyWheels = transformArrToObject(['alu', 'alufelgen']);
+
+    // Customer Type
+    t.Private = transformArrToObject(['private', 'privat']);
+    t.Dealer = transformArrToObject(['händler', 'haendler', 'dealer']);
+
+    // Article Type
+    t.Car = transformArrToObject(['wagen', 'fahrzeug']);
+    t.Bike = transformArrToObject(['motorrad', 'bike']);
+
+    // Body Colora
+    t.Beige = transformArrToObject(['beige']);
+    t.Blue = transformArrToObject(['blau']);
+    t.Brown = transformArrToObject(['braun']);
+    t.Bronze = transformArrToObject(['bronze']);
+    t.Yellow = transformArrToObject(['gelb']);
+    t.Grey = transformArrToObject(['grau']);
+    t.Green = transformArrToObject(['grün', 'gruen']);
+    t.Red = transformArrToObject(['rot']);
+    t.Black = transformArrToObject(['schwarz']);
+    t.Silver = transformArrToObject(['silber']);
+    t.Violet = transformArrToObject(['violett', 'violet']);
+    t.White = transformArrToObject(['weiß', 'weiss']);
+    t.Orange = transformArrToObject(['orange']);
+    t.Gold = transformArrToObject(['gold']);
+
+    // Color effects
+    t.Metallic = transformArrToObject(['metallic', 'metalic']);
+
+    // Article Offer Type
+    t.Jahreswagen = transformArrToObject(['jahreswagen']);
+    t.Demonstration = transformArrToObject(['demo', 'demonstration']);
+    t.Oldtimer = transformArrToObject(['oldtimer']);
+    t.UsedCar = transformArrToObject(['gebraucht']);
+    t.NewCar = transformArrToObject(['neu']);
+    t.SingleDay = transformArrToObject(['tageszulassung', 'tageszulaßung']);
+
+    // Usage state
+    t.AccidentedCar = transformArrToObject(['unfallfahrzeug', 'unfall']);
+    t.WreckCar = transformArrToObject(['wrack']);
+
+    // Seat
+    t.Seat = transformArrToObject(['sitze', 'sitz', 'sitzer']);
+
+    // Door
+    t.Door = transformArrToObject(['türe', 'tuere', 'türen', 'tueren', 'türer', 'tuerer']);
+
+    // Previous Owner
+    t.PrevOwner = transformArrToObject(['hand', 'vorbesizter', 'halter', 'fahrzeughalter']);
+
+    // Online since
+    t.OnlineSince = transformArrToObject(['online', 'eingestellt', 'aktive']);
+    t.Day = transformArrToObject(['tag', 'tagen']);
+    t.Week = transformArrToObject(['woche', 'wochen']);
+    t.Yesterday = transformArrToObject(['gestern']);
+    t.DayBeforeYesterday = transformArrToObject(['vorgestern']);
+
+    // Picture / Video
+    t.Picture = transformArrToObject(['bild', 'bilder', 'bildern']);
+    t.Video = transformArrToObject(['video', 'videos']);
+
+    return t;
+};
+
+var syn;
+var keys;
+
+if (! syn) {
+    syn = initSynonyms();
+    keys = Object.keys(syn);
+}
+
+var getSynonym = function (val) {
+    var s;
+    val = val.toLowerCase();
+    keys.some(function(key) {
+        var synObj = syn[key];
+
+        if (synObj[val]) {
+            s = key;
+            return true;
+        }
+    });
+
+    if (s) return s;
+
+    // nothing found, val to lower, first char to upper case
+    s = val.toLowerCase();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+module.exports.getSynonym = getSynonym;

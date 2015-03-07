@@ -58,4 +58,32 @@ describe('Model tests', function () {
             expect(res[2].filter.value.modelId).toBe('2084');
         });
     });
+
+
+    describe('when parse not unique model with a make', function () {
+        it('it should parse to model of this make', function () {
+            var res = _parser.parse('audi 100');
+
+            expect(res[1].term).toBe('100');
+            expect(res[1].filter.type).toBe(_filterTypes.model);
+            expect(res[1].filter.term).toBe('100');
+            expect(res[1].filter.value.modelId).toBe('1619');
+        });
+    });
+
+    describe('when parse not unique model with a make', function () {
+        it('it should parse to model of this make', function () {
+            var res = _parser.parse('audi 100 bmw x5');
+
+            expect(res[1].term).toBe('100');
+            expect(res[1].filter.type).toBe(_filterTypes.model);
+            expect(res[1].filter.term).toBe('100');
+            expect(res[1].filter.value.modelId).toBe('1619');
+
+            expect(res[3].term).toBe('x5');
+            expect(res[3].filter.type).toBe(_filterTypes.model);
+            expect(res[3].filter.term).toBe('X5');
+            expect(res[3].filter.value.modelId).toBe('16406');
+        });
+    });
 });
