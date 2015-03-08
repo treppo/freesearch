@@ -25,10 +25,10 @@ module.exports = function () {
      */
 
     var equals = function(serviceTerm, searchToken) {
-        return (serviceTerm.toLowerCase() === searchToken.synonym.toLowerCase());
+        return (serviceTerm.toLowerCase() === searchToken.synonym);
     };
 
-    var interceptAll = function (serviceTerms, searchTokens, fncConditional) {
+    var interceptAll = function (serviceTerms, searchTokens) {
         // its all weird, i'm not happy :(
         if (serviceTerms.length === 1 && equals(serviceTerms[0], searchTokens[0]))
             return [searchTokens[0].index];
@@ -42,17 +42,11 @@ module.exports = function () {
             return [];
 
         var intercepts = [];
-        var prev;
-
         var intercepted = serviceTerms.every(function (serviceTerm) {
             var foundOne = searchTokens.some(function (searchToken) {
                 if (equals(serviceTerm, searchToken)) {
-                    if (fncConditional(prev, searchToken)) {
-                        prev = searchToken;
-                        intercepts.push(searchToken.index);
-                        return true;
-                    }
-                    return false;
+                    intercepts.push(searchToken.index);
+                    return true;
                 }
             });
 
@@ -91,7 +85,7 @@ module.exports = function () {
         }, []);
     };
 
-    var matchTokens = function (searchTokens, service, filterType, distance, fncServiceCondition) {
+    var matchTokens = function (searchTokens, service, filterType, ctx) {
         var curUnknownIndex = -1;
         while (true) {
             var unknownSearchTokens = searchTokens.filter(_isUnknownSearchToken).filter(function (searchToken) {
@@ -104,14 +98,14 @@ module.exports = function () {
 
             var unknownSearchToken = unknownSearchTokens[0];
             var serviceTerms = service;
-            if (fncServiceCondition) {
-                serviceTerms = fncServiceCondition(service, unknownSearchToken, searchTokens);
+            if (ctx && ctx.fncServiceCondition) {
+                serviceTerms = ctx.fncServiceCondition(service, unknownSearchToken, searchTokens);
             }
 
             serviceTerms.some(function (serviceTerm) {
                 var serviceTokens = serviceTerm.term.split(' ');
 
-                var interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens, function () { return true; });
+                var interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens);
                 if (interceptedIndexes.length > 0) {
 
                     if (interceptedIndexes.length > 1) {

@@ -6,8 +6,9 @@ module.exports = function () {
     var _models = require('../services/modelService')();
 
     var filter = function (searchTokens) {
-        var res = _findHelper.matchTokens(searchTokens, _models, _filterTypes.model, 0, filterModelBasedOnMake);
-        return res;
+        return _findHelper.matchTokens(searchTokens, _models, _filterTypes.model, {
+            fncServiceCondition: filterModelBasedOnMake
+        });
     };
 
     var filterModelBasedOnMake = function (service, unknownSearchToken, searchTokens) {

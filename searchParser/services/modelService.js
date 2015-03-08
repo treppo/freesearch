@@ -47,7 +47,8 @@ module.exports = function (file) {
             {"term": "X5", "value": {"makeId": "13", "modelId": "16406", "articleType": "C"}},
             {"term": "100", "value": {"makeId": "62", "modelId": "15959", "articleType": "C"}},
             {"term": "100", "value": {"makeId": "9", "modelId": "1619", "articleType": "C"}},
-            {"term": "100", "value": {"makeId": "52", "modelId": "1895", "articleType": "C"}}
+            {"term": "100", "value": {"makeId": "52", "modelId": "1895", "articleType": "C"}},
+            {"term": "Electra", "value": {"makeId": "16", "modelId": "1669", "articleType": "C"}}
         ]);
         return model;
     }

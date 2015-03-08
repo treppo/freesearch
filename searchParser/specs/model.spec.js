@@ -86,4 +86,15 @@ describe('Model tests', function () {
             expect(res[3].filter.value.modelId).toBe('16406');
         });
     });
+
+    describe('when parse model without make', function () {
+        it('it should find the model', function () {
+            var res = _parser.parse('electra');
+
+            expect(res[0].term).toBe('electra');
+            expect(res[0].filter.type).toBe(_filterTypes.model);
+            expect(res[0].filter.term).toBe('Electra');
+            expect(res[0].filter.value.modelId).toBe('1669');
+        });
+    });
 });
