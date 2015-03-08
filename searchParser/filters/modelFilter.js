@@ -6,9 +6,15 @@ module.exports = function () {
     var _models = require('../services/modelService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.matchTokens(searchTokens, _models, _filterTypes.model, {
+        var ctx = {
             fncServiceCondition: filterModelBasedOnMake
-        });
+        };
+
+        var res = _findHelper.matchTokens(searchTokens, _models, _filterTypes.model, ctx); // find model with an existing make
+        if (! ctx.found)
+            res = _findHelper.matchTokens(searchTokens, _models, _filterTypes.model); // find just model
+
+        return res;
     };
 
     var filterModelBasedOnMake = function (service, unknownSearchToken, searchTokens) {
@@ -28,7 +34,7 @@ module.exports = function () {
                 return (serviceToken.value.makeId == makeId);
             });
         }
-        return service;
+        return [];
     };
 
     return filter;

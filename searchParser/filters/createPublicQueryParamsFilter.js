@@ -9,9 +9,11 @@ module.exports = function (context) {
             return searchTokens;
         }
 
+        var missingMakes = getMissingMakes(searchTokens);
+
         var query = '';
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', function(searchToken) { return searchToken.filter.value.modelId; });
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make', { defValue: missingMakes });
+        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', { fncGetValue: function(searchToken) { return searchToken.filter.value.modelId; } });
         query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
         query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
@@ -32,6 +34,8 @@ module.exports = function (context) {
         query += processZip(searchTokens);
         query += processCity(searchTokens);
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleType, 'atype');
+
+
 
         query += processDefaultParameters(searchTokens);
 
@@ -90,6 +94,38 @@ module.exports = function (context) {
         return query;
     };
 
+    var getMissingMakes = function(searchTokens) {
+        var makes = searchTokens.filter(function (searchToken) {
+            return (searchToken.filter.type === _filterTypes.make);
+        }).map(function (searchToken) {
+            return searchToken.filter.value;
+        });
+
+        var qp = searchTokens.filter(function (searchToken) {
+            return (searchToken.filter.type === _filterTypes.model);
+        }).map(function (searchToken) {
+            return searchToken.filter.value.makeId;
+        }).reduce(function (acc, makeId) { // remove duplicates
+            if (acc.indexOf(makeId) < 0) {
+                acc.push(makeId);
+            }
+            return acc;
+        }, []).reduce(function (acc, makeId) { // find missed makes
+            if (makes.indexOf(makeId) < 0) {
+                acc.push(makeId);
+            }
+            return acc;
+        }, []).reduce(function (query, missedMakeId) { // generete query params
+            query += missedMakeId + ',';
+            return query;
+        }, '');
+
+        if (qp)
+            return qp;
+
+        return '';
+    };
+
     var processDefaultParameters = function (searchTokens) {
         //atype=C&pricefrom=1000&ustate=N%2CU
         var query = '';
@@ -142,12 +178,15 @@ module.exports = function (context) {
         return +(Math.round(value + 'e+' + places)  + 'e-' + places);
     };
 
-    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp, fncGetValue) {
-        var query = '';
+    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp, ctx) {
+        var query = '' ;
+        if (ctx && ctx.defValue)
+            query = ctx.defValue;
+
         _getFiltersByType(searchTokens, filterType)
             .forEach(function (searchToken) {
-                if (fncGetValue) {
-                    query += fncGetValue(searchToken) + ',';
+                if (ctx && ctx.fncGetValue) {
+                    query += ctx.fncGetValue(searchToken) + ',';
                 }
                 else {
                     query += searchToken.filter.value + ',';

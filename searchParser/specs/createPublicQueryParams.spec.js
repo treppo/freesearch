@@ -73,6 +73,26 @@ describe('Test query params for model', function () {
             expect(containOnce(_ctx.publicQueryParams, 'model=1626,16406')).toBeTruthy();
         });
     });
+
+    describe('when model without make is available', function () {
+        it('it should generate make query parameter as well', function () {
+            _parser.parse('blub a4');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'make=9')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'model=1626')).toBeTruthy();
+        });
+    });
+
+    describe('when model without make is available and other make is parsed', function () {
+        it('it should compelte make query parameter', function () {
+            _parser.parse('blub bmw a4');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'make=9,13')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'model=1626')).toBeTruthy();
+        });
+    });
 });
 
 describe('Test query params for mileage', function () {

@@ -25,7 +25,7 @@ module.exports = function () {
      */
 
     var equals = function(serviceTerm, searchToken) {
-        return (serviceTerm.toLowerCase() === searchToken.synonym);
+        return (serviceTerm.toLowerCase() === searchToken.synonym.toLowerCase());
     };
 
     var interceptAll = function (serviceTerms, searchTokens) {
@@ -42,11 +42,16 @@ module.exports = function () {
             return [];
 
         var intercepts = [];
+
+
         var intercepted = serviceTerms.every(function (serviceTerm) {
             var foundOne = searchTokens.some(function (searchToken) {
                 if (equals(serviceTerm, searchToken)) {
-                    intercepts.push(searchToken.index);
-                    return true;
+
+
+                        intercepts.push(searchToken.index);
+                        return true;
+
                 }
             });
 
@@ -121,6 +126,9 @@ module.exports = function () {
                             return true;
                         }
                     });
+
+                    if (ctx)
+                        ctx.found = true;
 
                     return true;
                 }

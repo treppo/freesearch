@@ -96,5 +96,14 @@ describe('Model tests', function () {
             expect(res[0].filter.term).toBe('Electra');
             expect(res[0].filter.value.modelId).toBe('1669');
         });
+
+        it('it should compelte make query parameter', function () {
+            var res = _parser.parse('blub bmw a4');
+
+            expect(res[2].term).toBe('a4');
+            expect(res[2].filter.type).toBe(_filterTypes.model);
+            expect(res[2].filter.term).toBe('A4');
+            expect(res[2].filter.value.modelId).toBe('1626');
+        });
     });
 });

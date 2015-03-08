@@ -5,7 +5,7 @@ describe('Creating search tokens', function () {
     var config = require('../config/appConfig');
 
     describe('When parse search line', function () {
-        it('the count of created tokens should not be bigger than defined in config', function () {
+        it('the count of created tokens should not be bigger than defined in app config', function () {
             var cnt = config.maxAllowedSearchTokens + 1;
 
             var searchLine = '';
