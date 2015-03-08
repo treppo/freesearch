@@ -52,7 +52,7 @@ create synonyms for equipments
 +heuristic filter. price backwards and then, if nothing found, forward
 bind searchTokens together ?
 escape HTML content in ela filter
-cut more then x tokens
++cut more then x tokens
 
 autocomplete
 */

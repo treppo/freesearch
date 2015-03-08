@@ -1,10 +1,11 @@
 module.exports = function () {
     'use strict';
 
+    var _config = require('../config/appConfig');
     var _filterTypes = require('../statics/filterTypes').filterTypes;
 
     var filter = function (tokens) {
-        return tokens.map(function (token, index) {
+        var searchTokens = tokens.map(function (token, index) {
             return {
                 term: token,
                 index: index,
@@ -13,6 +14,10 @@ module.exports = function () {
                 }
             }
         });
+
+        if (searchTokens.length > _config.maxAllowedSearchTokens)
+            return searchTokens.slice(0, _config.maxAllowedSearchTokens);
+        return searchTokens;
     };
 
     return filter;

@@ -18,7 +18,7 @@ describe('City tests single filter', function () {
     });
 });
 
-describe('Zip tests all filters', function () {
+describe('City tests all filters', function () {
     var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
