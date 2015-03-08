@@ -1,4 +1,4 @@
-var filters = require('../registeredFilters')({'pre': 1});
+var filters = require('../registerFilters')({'pre': 1});
 var _parser = require('../parser')(filters);
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 

@@ -1,4 +1,4 @@
-var filters = require('../registeredFilters')();
+var filters = require('../registerFilters')();
 var _parser = require('../parser')(filters);
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
@@ -7,7 +7,7 @@ describe('Synonym tests', function () {
         it('it should create synonym property filled with founded synonym', function () {
             var res = _parser.parse('bildern');
 
-            expect(res[0].synonym).toBe('Picture');
+            expect(res[0].synonym).toBe('picture');
         });
     });
 
@@ -15,7 +15,7 @@ describe('Synonym tests', function () {
         it('it should create synonym property filled original value', function () {
             var res = _parser.parse('notExistingWord');
 
-            expect(res[0].synonym).toBe('Notexistingword');
+            expect(res[0].synonym).toBe('notexistingword');
         });
     });
 });

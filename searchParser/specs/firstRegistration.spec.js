@@ -1,7 +1,7 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('First registration tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a number inside of suitable range and the number is followed by a first registration marker', function () {

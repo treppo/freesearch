@@ -6,7 +6,7 @@ module.exports = function () {
     var _fuel = require('../services/fuelService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _fuel, _filterTypes.fuel);
+        return _findHelper.matchTokens(searchTokens, _fuel, _filterTypes.fuel);
     };
 
     return filter;

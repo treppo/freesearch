@@ -1,12 +1,12 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Price tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a number with a price marker', function () {
         it('it should find the price', function () {
-            var res = parser.parse('audi 2000€');
+            var res = parser.parse('audi 2000 €');
 
             expect(res[1].term).toBe('2000');
             expect(res[1].filter.type).toBe(_filterTypes.price);

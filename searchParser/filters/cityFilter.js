@@ -6,7 +6,7 @@ module.exports = function () {
     var _city = require('../services/cityService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _city, _filterTypes.city);
+        return _findHelper.matchTokens(searchTokens, _city, _filterTypes.city);
     };
 
     return filter;

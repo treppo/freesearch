@@ -6,15 +6,15 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper')();
 
     var filter = function (searchTokens) {
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.price, _filterTypes.priceMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.power, _filterTypes.powerMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.range, _filterTypes.rangeMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.km, _filterTypes.kmMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.firstRegistration, _filterTypes.firstRegistrationMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.seat, _filterTypes.seatMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.door, _filterTypes.doorMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.prevOwner, _filterTypes.prevOwnerMarker);
-        searchTokens = _findHelper.searchTokens(searchTokens, _markers.onlineSince, _filterTypes.onlineSinceMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.price, _filterTypes.priceMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.power, _filterTypes.powerMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.range, _filterTypes.rangeMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.km, _filterTypes.kmMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.firstRegistration, _filterTypes.firstRegistrationMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.seat, _filterTypes.seatMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.door, _filterTypes.doorMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.prevOwner, _filterTypes.prevOwnerMarker);
+        searchTokens = _findHelper.matchTokens(searchTokens, _markers.onlineSince, _filterTypes.onlineSinceMarker);
 
         return searchTokens;
     };

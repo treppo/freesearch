@@ -1,4 +1,4 @@
-var filters = require('../registeredFilters')();
+var filters = require('../registerFilters')();
 var _parser = require('../parser')(filters);
 
 describe('when parse garbage symbols in the search line', function () {

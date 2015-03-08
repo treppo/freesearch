@@ -6,7 +6,7 @@ module.exports = function () {
     var _gearing = require('../services/gearingService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _gearing, _filterTypes.gearing);
+        return _findHelper.matchTokens(searchTokens, _gearing, _filterTypes.gearing);
     };
 
     return filter;

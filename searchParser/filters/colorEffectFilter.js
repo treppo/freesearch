@@ -6,7 +6,7 @@ module.exports = function () {
     var _colorEffect  = require('../services/colorEffectService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _colorEffect, _filterTypes.colorEffect);
+        return _findHelper.matchTokens(searchTokens, _colorEffect, _filterTypes.colorEffect);
     };
 
     return filter;

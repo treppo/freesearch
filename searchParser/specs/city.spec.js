@@ -19,7 +19,7 @@ describe('City tests single filter', function () {
 });
 
 describe('Zip tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a city', function () {

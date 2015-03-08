@@ -6,7 +6,7 @@ module.exports = function () {
     var _bodyType = require('../services/bodyTypeService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _bodyType, _filterTypes.bodyType);
+        return _findHelper.matchTokens(searchTokens, _bodyType, _filterTypes.bodyType);
     };
 
     return filter;

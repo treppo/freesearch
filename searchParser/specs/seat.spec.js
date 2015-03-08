@@ -1,7 +1,7 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Seat tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a seat', function () {

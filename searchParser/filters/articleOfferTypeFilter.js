@@ -6,7 +6,7 @@ module.exports = function () {
     var _articleOfferType = require('../services/articleOfferTypeService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _articleOfferType, _filterTypes.articleOfferType);
+        return _findHelper.matchTokens(searchTokens, _articleOfferType, _filterTypes.articleOfferType);
     };
 
     return filter;

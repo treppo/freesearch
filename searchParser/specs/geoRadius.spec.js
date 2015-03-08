@@ -1,7 +1,7 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Geo Radius tests', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a number and city or zip info is missing', function () {

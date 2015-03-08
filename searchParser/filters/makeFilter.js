@@ -6,7 +6,7 @@ module.exports = function () {
     var _makes = require('../services/makeService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _makes, _filterTypes.make);
+        return _findHelper.matchTokens(searchTokens, _makes, _filterTypes.make);
     };
 
     return filter;

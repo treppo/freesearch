@@ -6,7 +6,7 @@ module.exports = function () {
     var _customerType = require('../services/customerTypeService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _customerType, _filterTypes.customerType);
+        return _findHelper.matchTokens(searchTokens, _customerType, _filterTypes.customerType);
     };
 
     return filter;

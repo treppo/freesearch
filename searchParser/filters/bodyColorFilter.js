@@ -6,7 +6,7 @@ module.exports = function () {
     var _bodyColor  = require('../services/bodyColorService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _bodyColor, _filterTypes.bodyColor);
+        return _findHelper.matchTokens(searchTokens, _bodyColor, _filterTypes.bodyColor);
     };
 
     return filter;

@@ -6,7 +6,7 @@ module.exports = function () {
     var _equipment = require('../services/equipmentService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _equipment, _filterTypes.equipment);
+        return _findHelper.matchTokens(searchTokens, _equipment, _filterTypes.equipment);
     };
 
     return filter;

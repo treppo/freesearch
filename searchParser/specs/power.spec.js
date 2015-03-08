@@ -1,4 +1,4 @@
-var filters = require('../registeredFilters')();
+var filters = require('../registerFilters')();
 var _parser = require('../parser')(filters);
 var _utilHelper = require('../statics/utilHelper')();
 var _filterTypes = require('../statics/filterTypes').filterTypes;
@@ -24,7 +24,7 @@ describe('Power tests', function () {
 
     describe('When parse power with a power marker as part of token', function () {
         it('it should find the power', function () {
-            var res = _parser.parse('audi 150KW');
+            var res = _parser.parse('audi 150 KW');
 
             expect(res[1].term).toBe('150');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -33,7 +33,7 @@ describe('Power tests', function () {
         });
 
         it('it should find the power in ps (default)', function () {
-            var res = _parser.parse('audi 150PS');
+            var res = _parser.parse('audi 150 PS');
 
             expect(res[1].term).toBe('150');
             expect(res[1].filter.type).toBe(_filterTypes.power);
@@ -45,7 +45,7 @@ describe('Power tests', function () {
     describe('When parse a power', function () {
         it('it should be parsed as power', function () {
             var expectedPower = maxPowerInPs + 10;
-            var res = _parser.parse('audi ' + expectedPower + 'KW');
+            var res = _parser.parse('audi ' + expectedPower + ' KW');
 
             expect(res[1].term).toBe('' + expectedPower);
             expect(res[1].filter.type).toBe(_filterTypes.power);

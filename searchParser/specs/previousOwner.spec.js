@@ -3,7 +3,7 @@ var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 
 describe('Previous owner tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a number outside of suitable range but the number is followed by a previous owner marker', function () {

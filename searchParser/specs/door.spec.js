@@ -1,7 +1,7 @@
 var _filterTypes = require('../statics/filterTypes').filterTypes;
 
 describe('Door tests all filters', function () {
-    var filters = require('../registeredFilters')();
+    var filters = require('../registerFilters')();
     var parser = require('../parser')(filters);
 
     describe('When parse a door', function () {

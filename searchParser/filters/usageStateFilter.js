@@ -6,7 +6,7 @@ module.exports = function () {
     var _usageStateService = require('../services/usageStateService')();
 
     var filter = function (searchTokens) {
-        return _findHelper.searchTokens(searchTokens, _usageStateService, _filterTypes.usageState);
+        return _findHelper.matchTokens(searchTokens, _usageStateService, _filterTypes.usageState);
     };
 
     return filter;
