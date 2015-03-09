@@ -37,7 +37,7 @@ Filters:
     +Seats (def. from and to)
     +ArticleType
 
-    von advanced search
+ von advanced search
     +Door (def. from and to)
     +Usagestate
     +mit Bild/Video
@@ -53,6 +53,12 @@ create synonyms for equipments
 bind searchTokens together ?
 escape HTML content in ela filter
 +cut more then x tokens
+ModellineId (bmw 1er reihe)
+    MakeId	13	int
+    ModelId	0	int
+    ModellineId	37	int
 
-autocomplete
+    mmvmd0=-37 [mmvmd1=-98]
+
+ autocomplete
 */
