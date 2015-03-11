@@ -2,7 +2,7 @@ var _ctx = {};
 var filters = require('./registerFilters')(_ctx);
 var _parser = require('./parser')(filters);
 
-var searchLine = 'audi a4 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern in erding umkreis 100 km';
+var searchLine = 'audi a4 allroad 1000 2000 € bis 200 KW blub ab 100000 km erstzulassung ab 2004 eingestellt seit vorgestern in erding umkreis 100 km';
 
 var begin = new Date();
 

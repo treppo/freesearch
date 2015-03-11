@@ -1,0 +1,24 @@
+{
+  "name": "freesearchUI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^0.18.1",
+    "koa-json": "^1.1.1",
+    "koa-router": "^4.2.0",
+    "koa-static": "^1.4.9",
+    "marko": "^2.0.12"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
