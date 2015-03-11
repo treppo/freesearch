@@ -8,5 +8,5 @@
     };
 
     require('./autocomplete')(document.querySelector('[id=search]'), document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
-    require('./parser')(document.querySelector('[id=search]'));
+    require('./parse')(document.querySelector('[id=search]'));
 }());

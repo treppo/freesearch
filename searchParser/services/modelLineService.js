@@ -1,59 +1,70 @@
-/*
- Alpine
- <option value="-107">B-Klasse (alle)</option>
- <option value="-108">D-Klasse (alle)</option>
- <option value="-109">Roadster (alle)</option>
+'use strict';
+var t;
 
- BMW
- <option value="-37">1er (alle)</option>
- <option value="-98">2er (alle)</option>
- <option value="-38">3er (alle)</option>
- <option value="-97">4er (alle)</option>
- <option value="-39">5er (alle)</option>
- <option value="-40">6er (alle)</option>
- <option value="-41">7er (alle)</option>
- <option value="-42">8er (alle)</option>
- <option value="-43">M-Reihe (alle)</option>
- <option value="-44">X-Reihe (alle)</option>
- <option value="-45">Z-Reihe (alle)</option>
+module.exports = function () {
+    if (t) {
+        return t;
+    }
 
- Lexus
- <option value="-47">GS-Serie (alle)</option>
- <option value="-48">GX-Serie (alle)</option>
- <option value="-49">IS-Serie (alle)</option>
- <option value="-50">LS-Serie (alle)</option>
- <option value="-51">LX-Serie (alle)</option>
- <option value="-52">RX-Serie (alle)</option>
- <option value="-53">SC-Serie (alle)</option>
+    t = [
+        // Alpina
+        {term: 'B-Klasse', value: {makeId: '14', modelLineId: '107'}},
+        {term: 'D-Klasse', value: {makeId: '14', modelLineId: '108'}},
+        {term: 'Roadster', value: {makeId: '14', modelLineId: '109'}},
 
- Mercedes
- <option value="-54">A-Klasse (alle)</option>
- <option value="-55">B-Klasse (alle)</option>
- <option value="-57">CE-Klasse (alle)</option>
- <option value="-56">C-Klasse (alle)</option>
- <option value="-96">CLA-Klasse (alle)</option>
- <option value="-59">CLK-Klasse (alle)</option>
- <option value="-58">CL-Klasse (alle)</option>
- <option value="-60">CLS-Klasse (alle)</option>
- <option value="-61">E-Klasse (alle)</option>
- <option value="-62">G-Klasse (alle)</option>
- <option value="-102">GLA-Klasse (alle)</option>
- <option value="-83">GLK-Klasse (alle)</option>
- <option value="-63">GL-Klasse (alle)</option>
- <option value="-64">ML-Klasse (alle)</option>
- <option value="-65">R-Klasse (alle)</option>
- <option value="-66">S-Klasse (alle)</option>
- <option value="-68">SLK-Klasse (alle)</option>
- <option value="-67">SL-Klasse (alle)</option>
+        // BMW
+        {term: '1er', value: {makeId: '13', modelLineId: '37'}},
+        {term: '2er', value: {makeId: '13', modelLineId: '98'}},
+        {term: '3er', value: {makeId: '13', modelLineId: '38'}},
+        {term: '4er', value: {makeId: '13', modelLineId: '97'}},
+        {term: '5er', value: {makeId: '13', modelLineId: '39'}},
+        {term: '6er', value: {makeId: '13', modelLineId: '40'}},
+        {term: '7er', value: {makeId: '13', modelLineId: '41'}},
+        {term: '8er', value: {makeId: '13', modelLineId: '42'}},
+        {term: 'M-Reihe', value: {makeId: '13', modelLineId: '43'}},
+        {term: 'X-Reihe', value: {makeId: '13', modelLineId: '44'}},
+        {term: 'Z-Reihe', value: {makeId: '13', modelLineId: '45'}},
 
- Porsche
- <option value="-70">911er (alle)</option>
+        // Lexus
+        {term: 'GS-Serie', value: {makeId: '43', modelLineId: '47'}},
+        {term: 'GX-Serie', value: {makeId: '43', modelLineId: '48'}},
+        {term: 'IS-Serie', value: {makeId: '43', modelLineId: '49'}},
+        {term: 'LS-Serie', value: {makeId: '43', modelLineId: '50'}},
+        {term: 'LX-Serie', value: {makeId: '43', modelLineId: '51'}},
+        {term: 'RX-Serie', value: {makeId: '43', modelLineId: '52'}},
+        {term: 'SC-Serie', value: {makeId: '43', modelLineId: '53'}},
 
- VW
- <option value="-101">Golf (alle)</option>
- <option value="-100">Passat (alle)</option>
- <option value="-99">Polo (alle)</option>
- <option value="-104">T3 (alle)</option>
- <option value="-105">T4 (alle)</option>
- <option value="-106">T5 (alle)</option>
- */
+        // Mercedes
+        {term: 'A-Klasse', value: {makeId: '47', modelLineId: '54'}},
+        {term: 'B-Klasse', value: {makeId: '47', modelLineId: '55'}},
+        {term: 'CE-Klasse', value: {makeId: '47', modelLineId: '57'}},
+        {term: 'C-Klasse', value: {makeId: '47', modelLineId: '56'}},
+        {term: 'CLA-Klasse', value: {makeId: '47', modelLineId: '96'}},
+        {term: 'CLK-Klasse', value: {makeId: '47', modelLineId: '59'}},
+        {term: 'CL-Klasse', value: {makeId: '47', modelLineId: '58'}},
+        {term: 'CLS-Klasse', value: {makeId: '47', modelLineId: '60'}},
+        {term: 'E-Klasse', value: {makeId: '47', modelLineId: '61'}},
+        {term: 'G-Klasse', value: {makeId: '47', modelLineId: '62'}},
+        {term: 'GLA-Klasse', value: {makeId: '47', modelLineId: '102'}},
+        {term: 'GLK-Klasse', value: {makeId: '47', modelLineId: '83'}},
+        {term: 'GL-Klasse', value: {makeId: '47', modelLineId: '63'}},
+        {term: 'ML-Klasse', value: {makeId: '47', modelLineId: '64'}},
+        {term: 'R-Klasse', value: {makeId: '47', modelLineId: '65'}},
+        {term: 'S-Klasse', value: {makeId: '47', modelLineId: '66'}},
+        {term: 'SLK-Klasse', value: {makeId: '47', modelLineId: '68'}},
+        {term: 'SL-Klasse', value: {makeId: '47', modelLineId: '67'}},
+
+        // Porsche
+        {term: '911er', value: {makeId: '57', modelLineId: '67'}},
+
+        // VW
+        {term: 'Golf', value: {makeId: '74', modelLineId: '101'}},
+        {term: 'Passat', value: {makeId: '74', modelLineId: '100'}},
+        {term: 'Polo', value: {makeId: '74', modelLineId: '99'}},
+        {term: 'T3', value: {makeId: '74', modelLineId: '104'}},
+        {term: 'T4', value: {makeId: '74', modelLineId: '105'}},
+        {term: 'T5', value: {makeId: '74', modelLineId: '106'}}
+    ];
+
+    return t;
+};

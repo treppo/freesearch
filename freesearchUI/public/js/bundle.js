@@ -9,9 +9,9 @@
     };
 
     require('./autocomplete')(document.querySelector('[id=search]'), document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
-    require('./parser')(document.querySelector('[id=search]'));
+    require('./parse')(document.querySelector('[id=search]'));
 }());
-},{"./autocomplete":2,"./parser":3}],2:[function(require,module,exports){
+},{"./autocomplete":2,"./parse":3}],2:[function(require,module,exports){
 'use strict';
 module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCallBack) {
     var _isSelected = false;
