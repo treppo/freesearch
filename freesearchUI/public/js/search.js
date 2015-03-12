@@ -8,7 +8,7 @@
 //        console.log('notFoundAutoCompletion');
     };
 
-    var printSearchTokenFilter = function (f) {
+    var printSearchTokenFilterValue = function (f) {
         var value = '';
         if (f.value) {
             value += ' ' + JSON.stringify(f.value);
@@ -47,12 +47,12 @@
             li = document.createElement('li');
             li.setAttribute('class', 'list-group-item');
 
-            li.innerHTML = '<b> element: </b>' + knowns[i].term;
-            li.innerHTML += '<b> type: </b>' + knowns[i].filter.type;
+            li.innerHTML = ' element:' + '<b>' + knowns[i].term + '</b>';
+            li.innerHTML += ' type:' + '<b>' + knowns[i].filter.type + '</b>';
             if (knowns[i].filter.term) {
-                li.innerHTML += '<b> term: </b>' + knowns[i].filter.term;
+                li.innerHTML += ' term:' + '<b>' + knowns[i].filter.term + '</b>';
             }
-            li.innerHTML += '<b> value: </b>' + printSearchTokenFilter(knowns[i].filter);
+            li.innerHTML += ' value:' + printSearchTokenFilterValue(knowns[i].filter);
             ulKnown.appendChild(li);
         }
 
@@ -62,7 +62,7 @@
             li = document.createElement('li');
             li.setAttribute('class', 'list-group-item');
 
-            li.innerHTML = '<b>element: </b>' + unknowns[i].term;
+            li.innerHTML = 'element:' + '<b>' + unknowns[i].term + '</b>';
             ulUnknown.appendChild(li);
         }
 
