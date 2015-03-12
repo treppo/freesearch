@@ -48,10 +48,18 @@ let isRangeMarker =  require('../searchParser/statics/filterTypes').isRangeMarke
 var getParserResults = function(searchLine) {
     let searchTokens = _parser.parse(searchLine);
 
-    return searchTokens.filter(function(searchToken) {
+    searchTokens = searchTokens.filter(function(searchToken) {
         if (isMarkerFilter(searchToken.filter) || isRangeMarker(searchToken.filter) ) {
             return false;
         }
         return true;
     });
+
+    var listQuery = 'http://fahrzeuge.autoscout24.de/?' + _ctx.publicQueryParams;
+
+    return {
+        searchTokens: searchTokens,
+        listQuery: listQuery,
+        counter: 1300
+    };
 };

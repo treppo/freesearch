@@ -8,7 +8,7 @@
 //        console.log('notFoundAutoCompletion');
     };
 
-    var printSearchTokenFilterValue = function (f) {
+    var prepareSearchTokenFilterValue = function (f) {
         var value = '';
         if (f.value) {
             value += ' ' + JSON.stringify(f.value);
@@ -23,13 +23,14 @@
         return value;
     };
 
-    var parseResult = function(r) {
-        var res = JSON.parse(r);
+    var printSearchTokens = function(searchTokens) {
+        var knownPlaceHolder = document.getElementById("glaskugel");
+        var unknownPlaceHolder = document.getElementById("nixverstehen");
 
-        var unknowns = res.filter(function(r) {
+        var unknowns = searchTokens.filter(function(r) {
             return (r.filter.type === 'unknown');
         });
-        var knowns = res.filter(function(r) {
+        var knowns = searchTokens.filter(function(r) {
             return (r.filter.type !== 'unknown');
         });
 
@@ -45,14 +46,14 @@
         ulKnown.setAttribute('class', 'list-group');
         for (i = 0; i < knowns.length; i++) {
             li = document.createElement('li');
-            li.setAttribute('class', 'list-group-item');
+            li.setAttribute('class', 'list-group-item list-group-item-success');
 
             li.innerHTML = ' element:' + '<b>' + knowns[i].term + '</b>';
             li.innerHTML += ' type:' + '<b>' + knowns[i].filter.type + '</b>';
             if (knowns[i].filter.term) {
                 li.innerHTML += ' term:' + '<b>' + knowns[i].filter.term + '</b>';
             }
-            li.innerHTML += ' value:' + printSearchTokenFilterValue(knowns[i].filter);
+            li.innerHTML += ' value:' + prepareSearchTokenFilterValue(knowns[i].filter);
             ulKnown.appendChild(li);
         }
 
@@ -60,21 +61,40 @@
         ulKnown.setAttribute('class', 'list-group');
         for (i = 0; i < unknowns.length; i++) {
             li = document.createElement('li');
-            li.setAttribute('class', 'list-group-item');
+            li.setAttribute('class', 'list-group-item list-group-item-info');
 
             li.innerHTML = 'element:' + '<b>' + unknowns[i].term + '</b>';
             ulUnknown.appendChild(li);
         }
 
-        knownPlaceHolder.appendChild(ulKnown);
-        unknownPlaceHolder.appendChild(ulUnknown);
+        if (knowns.length > 0) {
+            knownPlaceHolder.appendChild(document.createTextNode("Glaskugel glaubt:"));
+            knownPlaceHolder.appendChild(ulKnown);
+        }
+
+        if (unknowns.length > 0) {
+            unknownPlaceHolder.appendChild(document.createTextNode("Nicht erkannt:"));
+            unknownPlaceHolder.appendChild(ulUnknown);
+        }
     };
 
-    var knownPlaceHolder = document.getElementById("glaskugel");
-    var unknownPlaceHolder = document.getElementById("nixverstehen");
+    var adjustSearchBtn = function(counter, listQuery) {
+        var btnSearch = document.getElementById("btnsearch");
+        btnSearch.innerHTML  = counter.toLocaleString() + ' Fahrzeuge';
+
+        btnSearch.onclick = function () {
+            window.open(listQuery);
+        };
+    };
+
+    var populateResult = function(r) {
+        var res = JSON.parse(r);
+
+        adjustSearchBtn(res.counter, res.listQuery);
+        printSearchTokens(res.searchTokens);
+    };
 
     var searchLine = document.getElementById("search");
     //require('./autocomplete')(searchLine, document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
-    require('./parse')(searchLine, parseResult);
-
+    require('./parse')(searchLine, populateResult);
 }());
