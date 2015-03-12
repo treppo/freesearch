@@ -12,7 +12,6 @@ module.exports = function () {
         door: [{term: 'Door', value: ''}],
         prevOwner: [{term: 'PrevOwner', value: ''}],
         onlineSince: [
-            {term: 'OnlineSince', value: 'onlinesince'},
             {term: 'Day', value: 'day'},
             {term: 'Week', value: 'week'},
             {term: 'Yesterday', value: 'yesterday'},

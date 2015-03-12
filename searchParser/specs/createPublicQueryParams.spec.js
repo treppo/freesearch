@@ -455,7 +455,7 @@ describe('Test query params for online since', function () {
 
     describe('when multiple online sinces are available', function () {
         it('it should generate online since query params', function () {
-            _parser.parse('audi online seit 2 oder 3 Tagen blub');
+            _parser.parse('audi eingstellt seit 2 Tagen oder 3 Tagen blub');
 
             expect(_ctx.publicQueryParams).toBeDefined();
             expect(containOnce(_ctx.publicQueryParams, 'adage=2,3')).toBeTruthy();

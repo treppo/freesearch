@@ -108,7 +108,6 @@ var initSynonyms = function () {
     s.PrevOwner = transformArrToObject(['hand', 'vorbesizter', 'halter', 'fahrzeughalter']);
 
     // Online since
-    s.OnlineSince = transformArrToObject(['online', 'eingestellt', 'aktive']);
     s.Day = transformArrToObject(['tag', 'tagen']);
     s.Week = transformArrToObject(['woche', 'wochen']);
     s.Yesterday = transformArrToObject(['gestern']);

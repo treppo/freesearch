@@ -6,7 +6,7 @@ describe('Onlin since tests all filters', function () {
 
     describe('When parse a OnlineSince synonyms', function () {
         it('it should parse it as OnlineSince', function () {
-            var res = parser.parse('audi online seit 2');
+            var res = parser.parse('audi online seit 2 Tagen');
 
             expect(res[3].term).toBe('2');
             expect(res[3].filter.type).toBe(_filterTypes.onlineSince);
