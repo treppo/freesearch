@@ -48,6 +48,7 @@ Filters:
 
 create synonyms for equipments
 global counter
+write log file for queries
 escape HTML content in ela filter
 
 ModellineId (bmw 1er reihe)
