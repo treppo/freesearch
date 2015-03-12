@@ -45,14 +45,11 @@ Filters:
     Feinstaubplakette
     Geprüfte Qualität
 
-+serialize to URL for Search API
-+complete missed make based on existing model
-+bug - von 200 km blub von 20000 km ergibt 200 to 20000
+
 create synonyms for equipments
-+heuristic filter. price backwards and then, if nothing found, forward
-bind searchTokens together ?
+global counter
 escape HTML content in ela filter
-+cut more then x tokens
+
 ModellineId (bmw 1er reihe)
     MakeId	13	int
     ModelId	0	int

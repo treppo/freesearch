@@ -6,10 +6,6 @@ let router = require('koa-router');
 let json = require('koa-json');
 let querystring = require('querystring');
 
-let _ctx = {};
-let filters = require('../searchParser/registerFilters')(_ctx);
-let parser = require('../searchParser/parser')(filters);
-
 let app = koa();
 
 app.use(serve(__dirname + '/public'));
@@ -32,13 +28,30 @@ app.get('/api/parse', function *() {
 
     this.type = 'application/json';
     if (q.s) {
-        let res = parser.parse(q.s);
+        this.body = getParserResults(q.s);
         this.status = 200;
-        this.body = res;
     } else {
+        this.body = 'an error occurred';
         this.status = 500;
-        this.body = 'nothing found';
     }
 });
 
 app.listen(3000);
+
+
+let _ctx = { infra : true };
+let _filters = require('../searchParser/registerFilters')(_ctx);
+let _parser = require('../searchParser/parser')(_filters);
+let isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;
+let isRangeMarker =  require('../searchParser/statics/filterTypes').isRangeMarker;
+
+var getParserResults = function(searchLine) {
+    let searchTokens = _parser.parse(searchLine);
+
+    return searchTokens.filter(function(searchToken) {
+        if (isMarkerFilter(searchToken.filter) || isRangeMarker(searchToken.filter) ) {
+            return false;
+        }
+        return true;
+    });
+};

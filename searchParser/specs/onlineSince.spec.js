@@ -80,4 +80,15 @@ describe('Onlin since tests all filters', function () {
             expect(res[2].filter.termFrom).toBe('10');
         });
     });
+
+    describe('When parse a OnlineSince synonyms', function () {
+        it('it should parse it as OnlineSince', function () {
+            var res = parser.parse('audi eingestellt seit 4 Wochen');
+
+            expect(res[3].term).toBe('4');
+            expect(res[3].filter.type).toBe(_filterTypes.onlineSince);
+            expect(res[3].filter.valueFrom).toBe(28);
+            expect(res[3].filter.termFrom).toBe('28');
+        });
+    });
 });

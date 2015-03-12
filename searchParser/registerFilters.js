@@ -37,13 +37,7 @@ module.exports = function (context) {
     //var noneFilter = require('./filters/noneFilter')();
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
 
-    var all = [
-        cleanUpSearchLineFilter,
-        createTokensFilter,
-        createSearchTokensFilter,
-        createSynonymFilter,
-        createMarkerFilter,
-
+    var main = [
         zipFilter, // greedy, therefore before price
         heuristicFilter, // power, price etc. terms with entity markers
         fuelFilter,
@@ -60,13 +54,11 @@ module.exports = function (context) {
         makeFilter,
         cityFilter,
         geoRadiusFilter, // depends on city and zip filters, therefore must be after both. But before model due its greedy (e.g 100).
-        modelFilter,
-//        saveSuggestionFilter,
+        modelFilter
+    ];
 
-        assignRangeFilter, // work out range markers (from to)
-        reduceIdenticalFilter,
-        rangeToSingleValueFilter,
-        createPublicQueryParamsFilter
+    var infrastructure = [
+        //saveSuggestionFilter
     ];
 
     var pre = [
@@ -78,7 +70,7 @@ module.exports = function (context) {
     ];
 
     var post = [
-        assignRangeFilter,
+        assignRangeFilter, // work out range markers (from to)
         reduceIdenticalFilter,
         rangeToSingleValueFilter,
         createPublicQueryParamsFilter
@@ -92,5 +84,9 @@ module.exports = function (context) {
         return post;
     }
 
-    return all;
+    if (context && context.infra) {
+        return  pre.concat(main).concat(infrastructure).concat(post);
+    }
+
+    return pre.concat(main).concat(post);
 };

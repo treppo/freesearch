@@ -1,8 +1,7 @@
 'use strict';
-module.exports = function(source) {
+module.exports = function(source, parseResult) {
     var _path = '/api/parse/?s=';
     var _cntKeyDown = 0;
-
 
     var listenEvent = function(obj, event, callback) {
         if (obj.addEventListener) {
@@ -27,10 +26,6 @@ module.exports = function(source) {
         request.send();
     };
 
-    var parseResult = function(res) {
-        console.log('res ' + res);
-    };
-
     var callParser = function(cnt) {
         if (cnt != _cntKeyDown) {
             return;
@@ -47,7 +42,7 @@ module.exports = function(source) {
     var onKeyDown = function() {
         _cntKeyDown++;
         var f = _cntKeyDown;
-        setTimeout(function() { callParser(f) }, 2000);
+        setTimeout(function() { callParser(f) }, 300);
     };
 
     listenEvent(source, 'keydown', onKeyDown);
