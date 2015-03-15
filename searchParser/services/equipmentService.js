@@ -1,12 +1,23 @@
 'use strict';
 var t;
 
+
+var simplifyKey = function(arr) {
+
+    return arr.map(function(elem) {
+        return {
+            term: elem.term.split(' ').join('_'), // 'Electronic stability control' => 'electronic_stability_control'
+            value: elem.value
+        };
+    });
+};
+
 module.exports = function () {
     if (t) {
         return t;
     }
 
-    t = [
+    t = simplifyKey([
         {term: 'ABS', value: '1'},
         {term: 'DriverSideAirbag', value: '2'},
         {term: 'PassengerSideAirbag', value: '3'},
@@ -68,7 +79,7 @@ module.exports = function () {
         {term: 'Sport package', value: '112'},
         {term: 'Start-stop system', value: '113'},
         {term: 'Multi-function steering wheel', value: '114'},
-        {term: 'Daytime running lights	', value: '115'},
+        {term: 'Daytime running lights', value: '115'},
         {term: 'Sport suspension', value: '116'},
         {term: 'Sport seats', value: '117'},
         {term: 'Adaptive headlights', value: '118'},
@@ -85,8 +96,8 @@ module.exports = function () {
         {term: 'Parking assist system sensors rear', value: '129'},
         {term: 'Parking assist system camera', value: '130'},
         {term: 'Parking assist system self-steering', value: '131'},
-        {term: 'CdPlayer', value: '132'},
-    ];
+        {term: 'CdPlayer', value: '132'}
+    ]);
 
     return t;
 };

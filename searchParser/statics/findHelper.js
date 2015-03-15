@@ -74,7 +74,7 @@ module.exports = function () {
 
         return searchTokens.reduce(function (acc, searchToken) {
             if (interceptedIndexes.indexOf(searchToken.index) > -1) {
-                if (mergeIndex === searchToken.index) { // don't merge with it self
+                if (mergeIndex === searchToken.index) { // don't merge with itself
                     mergeSearchToken = searchToken;
                     acc.push(searchToken);
                 }
