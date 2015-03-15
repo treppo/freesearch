@@ -46,8 +46,7 @@ Filters:
     Geprüfte Qualität
 
 
-create synonyms for equipments
-global counter
+global counter filter
 write log file for queries
 escape HTML content in ela filter
 
