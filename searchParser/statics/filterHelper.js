@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var compareTermFilter = function (tokenLeft, tokenRight) {
         return tokenLeft.filter.type === tokenRight.filter.type &&
             (tokenLeft.filter.value) &&

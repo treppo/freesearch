@@ -1,5 +1,5 @@
+'use strict';
 module.exports = function (filters) {
-    'use strict';
 
     var parse = function (searchLine) {
         return filters.reduce(function (accumulator, filter) {

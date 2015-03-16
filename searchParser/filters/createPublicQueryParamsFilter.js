@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function (context) {
-    'use strict';
-
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _getFiltersByType = require('../statics/filterTypes').getFiltersByType;
 

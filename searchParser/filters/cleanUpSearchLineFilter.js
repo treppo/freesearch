@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var _symbolsToRemove = ['-', '+', ';'];
 
     var filter = function (searchLine) {

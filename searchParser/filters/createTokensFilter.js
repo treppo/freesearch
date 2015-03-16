@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var filter = function (searchLine) {
         var tokens = [];
 

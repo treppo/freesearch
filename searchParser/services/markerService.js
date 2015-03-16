@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     // term is a reference to synonym object property, which contains all possible values
     return {
         price: [{term: 'Euro', value: 'euro'}],

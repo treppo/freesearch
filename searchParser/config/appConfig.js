@@ -1,3 +1,5 @@
+'use strict';
+
 var config = {
     maxAllowedSearchTokens: 30
 };

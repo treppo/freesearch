@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var getSynonym = require('../services/synonymService').getSynonym;
 
     var filter = function (searchTokens) {

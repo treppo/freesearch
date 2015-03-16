@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var _filterHelper = require('../statics/filterHelper')();
     var _isMarkerFilter = require('../statics/filterTypes').isMarkerFilter;
     var _isRangeMarker = require('../statics/filterTypes').isRangeMarker;

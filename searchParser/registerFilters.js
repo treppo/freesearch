@@ -1,5 +1,5 @@
+'use strict';
 module.exports = function (context) {
-    'use strict';
 
     var cleanUpSearchLineFilter = require('./filters/cleanUpSearchLineFilter')();
     var createTokensFilter = require('./filters/createTokensFilter')();

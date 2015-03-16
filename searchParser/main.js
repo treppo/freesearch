@@ -1,3 +1,5 @@
+'use strict';
+
 var _ctx = {};
 var filters = require('./registerFilters')(_ctx);
 var _parser = require('./parser')(filters);

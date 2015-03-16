@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _zip = require('../services/zipService')();
     var isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;

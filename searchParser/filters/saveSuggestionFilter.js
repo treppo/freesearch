@@ -1,6 +1,5 @@
+'use strict';
 module.exports = function () {
-    'use strict';
-
     var config = require('../config/indexConfig');
     var _suggester = require('suggester')(config).suggester;
 

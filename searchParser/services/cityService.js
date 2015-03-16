@@ -1,3 +1,4 @@
+'use strict';
 var city;
 
 module.exports = function (file) {
