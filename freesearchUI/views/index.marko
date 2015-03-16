@@ -5,20 +5,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body>
-<div style="width: 50%; margin-left: auto; margin-right: auto; padding-top: 50px">
+<body style="width: 50%; margin-left: auto; margin-right: auto; padding-top: 50px;">
+    <div class="input-group">
+        <input type="text" class="form-control" id="search"
+               placeholder="audi a4 allroad baujahr ab 2004 eingestellt seit vorgestern für 18.000 20.000 € in Erding"
+               spellcheck="false" autocomplete="off">
+          <span class="input-group-btn">
+            <button  id="btnsearch" class="btn btn-default" type="button">Search</button>
+          </span>
+    </div>
 
-        <div class="form-group">
-            <input type="text" class="form-control" id="search"
-                   placeholder="audi a4 allroad baujahr ab 2004 eingestellt seit vorgestern für 18.000 20.000 € in Erding"
-                   spellcheck="false" autocomplete="off">
-        </div>
-        <button id="btnsearch" type="submit" class="btn btn-default" style="float: right">Search</button>
-        <div id="glaskugel"></div>
-        <div id="nixverstehen"></div>
+    <div id="glaskugel"></div>
+    <div id="nixverstehen"></div>
 
-</div>
-
-<script src="/js/bundle.js"></script>
+    <script src="/js/bundle.js"></script>
 </body>
 </html>
