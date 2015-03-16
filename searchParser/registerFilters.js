@@ -28,7 +28,6 @@ module.exports = function (context) {
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter')();
     var zipFilter = require('./filters/zipFilter')();
     var cityFilter = require('./filters/cityFilter')();
-    var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
     var assignRangeFilter = require('./filters/assignRangeFilter')();
     var reduceIdenticalFilter = require('./filters/reduceIdenticalFilter')();
     var rangeToSingleValueFilter = require('./filters/rangeToSingleValueFilter')();
@@ -36,6 +35,12 @@ module.exports = function (context) {
     //var debugFilter = require('./filters/debugFilter')();
     //var noneFilter = require('./filters/noneFilter')();
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
+    //var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
+
+    var pathToFile;
+    if (context && context.saveSearchLineToFile)
+        pathToFile = context.saveSearchLineToFile;
+    var saveSearchLineFilter = require('./filters/saveSearchLineFilter')(pathToFile);
 
     var main = [
         zipFilter, // greedy, therefore before price
@@ -59,6 +64,7 @@ module.exports = function (context) {
 
     var infrastructure = [
         //saveSuggestionFilter
+        saveSearchLineFilter
     ];
 
     var pre = [

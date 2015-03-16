@@ -38,8 +38,11 @@ app.get('/api/parse', function *() {
 
 app.listen(3000);
 
+let _ctx = {
+    infra: true,
+    saveSearchLineToFile: __dirname + '/logs/searchLine.log'
+};
 
-let _ctx = { infra : true };
 let _filters = require('../searchParser/registerFilters')(_ctx);
 let _parser = require('../searchParser/parser')(_filters);
 let isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;
