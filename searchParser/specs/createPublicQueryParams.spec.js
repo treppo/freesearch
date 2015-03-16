@@ -686,7 +686,24 @@ describe('Test query params for city and zip', function () {
 });
 
 describe('Test adding default query params', function () {
-    //atype=C&pricefrom=1000&ustate=N%2CU
+
+    describe('when no other params are available', function () {
+        it('it should not generate default country for de', function () {
+            _parser.parse('blub');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'cy=D')).toBeFalsy();
+        });
+    });
+
+    describe('when no other params are available', function () {
+        it('it should generate default country for de', function () {
+            _parser.parse('audi blub');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'cy=D')).toBeTruthy();
+        });
+    });
+
+
     describe('when no article usage state is available', function () {
         it('it should generate default article usage state param', function () {
             _parser.parse('blub');

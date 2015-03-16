@@ -81,7 +81,10 @@
 
     var adjustSearchBtn = function(counter, listQuery) {
         var btnSearch = document.getElementById("btnsearch");
-        btnSearch.innerHTML  = counter.toLocaleString() + ' Fahrzeuge';
+        if (counter)
+            btnSearch.innerHTML  = counter.toLocaleString() + ' Fahrzeuge';
+        else
+            btnSearch.innerHTML  = 'Search';
 
         btnSearch.onclick = function () {
             window.open(listQuery);

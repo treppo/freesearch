@@ -2,6 +2,10 @@
 module.exports = function (context) {
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _getFiltersByType = require('../statics/filterTypes').getFiltersByType;
+    var _isMarkerFilter =  require('../statics/filterTypes').isMarkerFilter;
+    var _isRangeMarker =  require('../statics/filterTypes').isRangeMarker;
+    var _isUnknownFilter =  require('../statics/filterTypes').isUnknownFilter;
+
 
     var filter = function (searchTokens) {
         if (! context) {
@@ -124,8 +128,20 @@ module.exports = function (context) {
     };
 
     var processDefaultParameters = function (searchTokens) {
-        //atype=C&pricefrom=1000&ustate=N%2CU
         var query = '';
+
+        var knownTokens = searchTokens.filter(function(searchToken) {
+            if (_isMarkerFilter(searchToken.filter) ||
+                _isRangeMarker(searchToken.filter) ||
+                _isUnknownFilter(searchToken.filter)) {
+                return false;
+            }
+            return true;
+        });
+
+        if (knownTokens.length > 0) {
+            query = '&cy=D';
+        }
 
         if (! searchTokens.some(function(searchToken) {
                 return (searchToken.filter.type === _filterTypes.articleType);

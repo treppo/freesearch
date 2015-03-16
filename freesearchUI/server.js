@@ -5,10 +5,11 @@ let marko = require('marko');
 let router = require('koa-router');
 let json = require('koa-json');
 let querystring = require('querystring');
+let path  = require('path');
 
 let app = koa();
 
-app.use(serve(__dirname + '/public'));
+app.use(serve(path.join(__dirname, 'public')));
 app.use(router(app));
 app.use(json());
 
@@ -40,7 +41,7 @@ app.listen(3000);
 
 let _ctx = {
     infra: true,
-    saveSearchLineToFile: __dirname + '/logs/searchLine.log'
+    saveSearchLineToFile: path.join(__dirname,'logs', 'searchLine.log')
 };
 
 let _filters = require('../searchParser/registerFilters')(_ctx);

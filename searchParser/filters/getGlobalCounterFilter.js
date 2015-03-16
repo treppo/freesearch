@@ -4,7 +4,8 @@ module.exports = function (context) {
     var http = require('http');
     var _path =  '/GN/CountV1.ashx?tab=location';
     var options = {
-        host: 'www.autoscout24.de'
+        host: 'www.autoscout24.de',
+        keepAlive: true
     };
 
     var callback = function(response) {
@@ -24,13 +25,15 @@ module.exports = function (context) {
     };
 
     var filter = function (searchTokens) {
-        if (context && context.publicQueryParams){
+        console.log('hhh');
+
+        if (context && context.publicQueryParams) {
             options.path = _path + context.publicQueryParams;
-            console.log(options.path);
             http.request(options, callback).end();
         }
-
-        return searchTokens;
+        else {
+            return searchTokens;
+        }
     };
 
     return filter;
