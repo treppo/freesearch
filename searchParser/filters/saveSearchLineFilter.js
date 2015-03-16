@@ -2,6 +2,10 @@
 module.exports = function (pathToFile) {
     var fs = require('fs');
 
+    var formatDate = function(d) {
+        return d.getUTCFullYear() +'/'+ (d.getUTCMonth()+1) +'/'+ d.getUTCDate() + ' ' + d.getUTCHours() + ':' + d.getUTCMinutes() + ':' + d.getUTCSeconds();
+    };
+
     var filter = function (searchTokens) {
         if (! pathToFile)
             return searchTokens;
@@ -13,7 +17,7 @@ module.exports = function (pathToFile) {
         line = line.trim();
 
         if (line) {
-            fs.appendFile(pathToFile, new Date().toUTCString() + '\t' +  line + '\r\n', function(err) {
+            fs.appendFile(pathToFile, formatDate(new Date()) + '\t' +  line + '\r\n', function(err) {
                 if (err)
                     throw err;
             });
