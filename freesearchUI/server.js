@@ -63,6 +63,6 @@ var getParserResults = function(searchLine) {
     return {
         searchTokens: searchTokens,
         listQuery: listQuery,
-        counter: 1300
+        counter: _ctx.counter
     };
 };

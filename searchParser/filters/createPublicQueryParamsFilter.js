@@ -34,8 +34,6 @@ module.exports = function (context) {
         query += processCity(searchTokens);
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleType, 'atype');
 
-
-
         query += processDefaultParameters(searchTokens);
 
         context.publicQueryParams = query;
