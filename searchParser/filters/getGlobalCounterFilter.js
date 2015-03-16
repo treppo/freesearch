@@ -25,11 +25,11 @@ module.exports = function (context) {
     };
 
     var filter = function (searchTokens) {
-        console.log('hhh');
-
         if (context && context.publicQueryParams) {
             options.path = _path + context.publicQueryParams;
-            http.request(options, callback).end();
+            var request = http.request(options, callback);
+            request.end();
+            return searchTokens;
         }
         else {
             return searchTokens;
