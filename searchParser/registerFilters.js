@@ -80,8 +80,8 @@ module.exports = function (context) {
 
     var infrastructure = [
         //saveSuggestionFilter
-        saveSearchLineFilter,
-        getGlobalCounterFilter
+        saveSearchLineFilter
+        //getGlobalCounterFilter
     ];
 
     if (context && context.pre) {

@@ -1,8 +1,5 @@
 'use strict';
 module.exports = function (context) {
-
-    var Promise = require("bluebird");
-
     var http = require('http');
     var _path =  '/GN/CountV1.ashx?tab=location';
     var _options = {
@@ -32,41 +29,41 @@ module.exports = function (context) {
         request.end();
     };
 
-    function readCounterPromise() {
-        return new Promise(function(fulfill, reject) {
-            console.log('in promise');
-            _options.path = _path + context.publicQueryParams;
-
-            var request = http.request(_options, function (response) {
-                var data = '';
-
-                response.on('data', function (chunk) {
-                    data += chunk;
-                });
-
-                response.on('end', function () {
-                    var json = JSON.parse(data);
-                    console.log('callback');
-                    fulfill(json);
-                });
-            });
-
-            request.end();
-            console.log('out promise');
-        })
-    }
+    //function readCounterPromise() {
+    //    return new Promise(function(fulfill, reject) {
+    //        console.log('in promise');
+    //        _options.path = _path + context.publicQueryParams;
+    //
+    //        var request = http.request(_options, function (response) {
+    //            var data = '';
+    //
+    //            response.on('data', function (chunk) {
+    //                data += chunk;
+    //            });
+    //
+    //            response.on('end', function () {
+    //                var json = JSON.parse(data);
+    //                console.log('callback');
+    //                fulfill(json);
+    //            });
+    //        });
+    //
+    //        request.end();
+    //        console.log('out promise');
+    //    })
+    //}
 
     var filter = function (searchTokens) {
         console.log('hi');
         if (context && context.publicQueryParams) {
             console.log('promise entering');
-            readCounterPromise().then(function(json) {
-                console.log('fullfiled');
-                if (json && json.tc)
-                    context.counter = json.tc;
-
-                return searchTokens;
-            });
+            //readCounterPromise().then(function(json) {
+            //    console.log('fullfiled');
+            //    if (json && json.tc)
+            //        context.counter = json.tc;
+            //
+            //    return searchTokens;
+            //});
             console.log('exit');
         }
         else {

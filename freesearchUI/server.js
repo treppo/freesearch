@@ -6,6 +6,7 @@ let router = require('koa-router');
 let json = require('koa-json');
 let querystring = require('querystring');
 let path  = require('path');
+let Promise = require("bluebird");
 
 let app = koa();
 
@@ -61,9 +62,52 @@ var getParserResults = function(searchLine) {
 
     var listQuery = 'http://fahrzeuge.autoscout24.de/?' + _ctx.publicQueryParams;
 
+    if (_ctx && _ctx.publicQueryParams) {
+        //console.log('promise entering');
+        readCounterPromise().then(function(json) {
+            console.log('fullfiled');
+            if (json && json.tc)
+                _ctx.counter = json.tc;
+
+            return searchTokens;
+        });
+        //console.log('exit');
+    }
+
     return {
         searchTokens: searchTokens,
         listQuery: listQuery,
         counter: _ctx.counter
     };
 };
+
+function readCounterPromise() {
+    var http = require('http');
+    var _path =  '/GN/CountV1.ashx?tab=location';
+    var _options = {
+        host: 'www.autoscout24.de',
+        keepAlive: true
+    };
+
+    return new Promise(function(fulfill, reject) {
+        //console.log('in promise');
+        _options.path = _path + _ctx.publicQueryParams;
+
+        var request = http.request(_options, function (response) {
+            var data = '';
+
+            response.on('data', function (chunk) {
+                data += chunk;
+            });
+
+            response.on('end', function () {
+                var json = JSON.parse(data);
+                //console.log('callback');
+                fulfill(json);
+            });
+        });
+
+        request.end();
+        //console.log('out promise');
+    })
+}
