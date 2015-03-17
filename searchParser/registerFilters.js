@@ -63,12 +63,6 @@ module.exports = function (context) {
         modelFilter
     ];
 
-    var infrastructure = [
-        //saveSuggestionFilter
-        saveSearchLineFilter,
-        getGlobalCounterFilter
-    ];
-
     var pre = [
         cleanUpSearchLineFilter,
         createTokensFilter,
@@ -84,6 +78,12 @@ module.exports = function (context) {
         createPublicQueryParamsFilter
     ];
 
+    var infrastructure = [
+        //saveSuggestionFilter
+        saveSearchLineFilter,
+        getGlobalCounterFilter
+    ];
+
     if (context && context.pre) {
         return pre;
     }
@@ -93,7 +93,7 @@ module.exports = function (context) {
     }
 
     if (context && context.infra) {
-        return  pre.concat(main).concat(infrastructure).concat(post);
+        return  pre.concat(main).concat(post).concat(infrastructure);
     }
 
     return pre.concat(main).concat(post);

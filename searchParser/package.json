@@ -4,6 +4,7 @@
   "description": "desc",
   "main": "main.js",
   "dependencies": {
+    "bluebird": "^2.9.14",
     "suggester": "0.0.2"
   },
   "devDependencies": {
