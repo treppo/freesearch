@@ -25,6 +25,9 @@
     };
 
     var printSearchTokens = function(searchTokens) {
+        if (! searchTokens)
+            return;
+
         var knownPlaceHolder = document.getElementById("glaskugel");
         var unknownPlaceHolder = document.getElementById("nixverstehen");
 
@@ -137,10 +140,6 @@ module.exports = function(source, parseResult) {
         }
 
         var val = encodeURI(source.value);
-        if (!val) {
-            return;
-        }
-
         ajaxCall(_path + val, parseResult);
     };
 

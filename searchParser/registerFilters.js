@@ -35,7 +35,6 @@ module.exports = function (context) {
     //var debugFilter = require('./filters/debugFilter')();
     //var noneFilter = require('./filters/noneFilter')();
     var createPublicQueryParamsFilter = require('./filters/createPublicQueryParamsFilter')(context);
-    var getGlobalCounterFilter = require('./filters/getGlobalCounterFilter')(context);
     //var saveSuggestionFilter = require('./filters/saveSuggestionFilter')();
 
     var pathToFile;
@@ -81,7 +80,6 @@ module.exports = function (context) {
     var infrastructure = [
         //saveSuggestionFilter
         saveSearchLineFilter
-        //getGlobalCounterFilter
     ];
 
     if (context && context.pre) {

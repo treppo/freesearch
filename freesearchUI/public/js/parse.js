@@ -32,10 +32,6 @@ module.exports = function(source, parseResult) {
         }
 
         var val = encodeURI(source.value);
-        if (!val) {
-            return;
-        }
-
         ajaxCall(_path + val, parseResult);
     };
 

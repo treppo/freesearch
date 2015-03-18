@@ -153,10 +153,10 @@ module.exports = function (context) {
                 return (searchToken.filter.type === _filterTypes.price);
             })) {
             if (isBike(searchTokens)) {
-                query += '&price=500';
+                query += '&pricefrom=500';
             }
             else {
-                query += '&price=1000';
+                query += '&pricefrom=1000';
             }
         }
 

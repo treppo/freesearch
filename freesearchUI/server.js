@@ -1,15 +1,15 @@
-//'use strict';
+'use strict';
 
-var koa = require('koa');
-var serve = require('koa-static')
-var marko = require('marko');
-var router = require('koa-router');
-var json = require('koa-json');
-var querystring = require('querystring');
-var path  = require('path');
-var Promise = require("bluebird");
+let koa = require('koa');
+let serve = require('koa-static')
+let marko = require('marko');
+let router = require('koa-router');
+let json = require('koa-json');
+let querystring = require('querystring');
+let path  = require('path');
+let request = require('co-request');
 
-var app = koa();
+let app = koa();
 
 app.use(serve(path.join(__dirname, 'public')));
 app.use(router(app));
@@ -26,14 +26,13 @@ app.get('/api/autocomplete', function *() {
     this.body = [{ label: 'bar' }, { label: 'bbb' }];
 });
 
-
 app.get('/api/parse', function *(next) {
-        var ctx = {
+        let ctx = {
             infra: true,
-            saveSearchLineToFile: path.join(__dirname,'logs', 'searchLine.log')
+            saveSearchLineToFile: path.join(__dirname, 'logs', 'searchLine.log')
         };
 
-        var q = querystring.parse(this.request.querystring);
+        let q = querystring.parse(this.request.querystring);
         if (q.s) {
             this.parseResult = getParserResults(q.s, ctx);
             this.parseCtx = ctx;
@@ -43,88 +42,62 @@ app.get('/api/parse', function *(next) {
     },
 
     function *(next) {
-        console.log('aaa ' + this.parseCtx.publicQueryParams);
-        var that = this;
+        let callOptions = {
+            uri: 'http://www.autoscout24.de/GN/CountV1.ashx?tab=location',
+            timeout: 5000
+        };
 
         if (this.parseCtx && this.parseCtx.publicQueryParams) {
-            console.log('aaba');
-            readCounterPromise(this.parseCtx.publicQueryParams).then(function(json) {
-                console.log('fullfiled' + JSON.stringify(json));
-                if (json && json.tc) {
-                    that.parseResult.counter = json.tc;
-                }
-            });
-            yield next;
+            callOptions.uri= 'http://www.autoscout24.de/GN/CountV1.ashx?tab=location' + this.parseCtx.publicQueryParams;
         }
-        else {
-            yield  next;
+
+        let result = yield request(callOptions);
+        if (result.statusCode == 200) {
+            let json = JSON.parse(result.body);
+            if (json && json.tc) {
+                if (this.parseResult)
+                    this.parseResult.counter = json.tc;
+                else
+                    this.parseResult = { counter : json.tc };
+            }
         }
+
+        yield next;
     },
 
-    function *() {
+    function *(next) {
         this.type = 'application/json';
 
-        if (this.parseResult && this.parseResult.searchTokens) {
+        if (this.parseResult) {
             this.body = this.parseResult;
             this.status = 200;
         } else {
             this.body = 'an error occurred';
             this.status = 500;
         }
-        //yield next;
+        yield next;
     }
 );
 
 app.listen(3000);
 
 
-var getParserResults = function(searchLine, ctx) {
-    console.log('getparser');
-    var isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;
-    var isRangeMarker =  require('../searchParser/statics/filterTypes').isRangeMarker;
-    var filters = require('../searchParser/registerFilters')(ctx);
-    var parser = require('../searchParser/parser')(filters);
+let getParserResults = function(searchLine, ctx) {
+    let isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;
+    let isRangeMarker =  require('../searchParser/statics/filterTypes').isRangeMarker;
+    let filters = require('../searchParser/registerFilters')(ctx);
+    let parser = require('../searchParser/parser')(filters);
 
-    var searchTokens = parser.parse(searchLine);
+    let searchTokens = parser.parse(searchLine);
 
     searchTokens = searchTokens.filter(function(searchToken) {
         return !(isMarkerFilter(searchToken.filter) || isRangeMarker(searchToken.filter));
     });
 
-    var listQuery = 'http://fahrzeuge.autoscout24.de/?' + ctx.publicQueryParams;
+    let listQuery = 'http://fahrzeuge.autoscout24.de/?' + ctx.publicQueryParams;
 
     return {
         searchTokens: searchTokens,
         listQuery: listQuery
-//        counter: ctx.counter
     };
 };
-
-function readCounterPromise(countQueryParams) {
-    var http = require('http');
-    var path = '/GN/CountV1.ashx?tab=location';
-    var options = {
-        host: 'www.autoscout24.de',
-        keepAlive: true
-    };
-
-    return new Promise(function (fulfill, reject) {
-        options.path = path + countQueryParams;
-        var request = http.request(options, function (response) {
-            var data = '';
-
-            response.on('data', function (chunk) {
-                data += chunk;
-            });
-            console.log('callback ' + options.path);
-            response.on('end', function () {
-                var json = JSON.parse(data);
-
-                fulfill(json);
-            });
-        });
-
-        request.end();
-        //console.log('out promise');
-    })
-}

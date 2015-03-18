@@ -724,13 +724,13 @@ describe('Test adding default query params', function () {
         it('it should generate default price param', function () {
             _parser.parse('blub');
             expect(_ctx.publicQueryParams).toBeDefined();
-            expect(containOnce(_ctx.publicQueryParams, 'price=1000')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'pricefrom=1000')).toBeTruthy();
         });
 
         it('it should generate default price param for bike', function () {
             _parser.parse('blub bike');
             expect(_ctx.publicQueryParams).toBeDefined();
-            expect(containOnce(_ctx.publicQueryParams, 'price=500')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'pricefrom=500')).toBeTruthy();
         });
     });
 

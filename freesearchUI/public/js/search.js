@@ -24,6 +24,9 @@
     };
 
     var printSearchTokens = function(searchTokens) {
+        if (! searchTokens)
+            return;
+
         var knownPlaceHolder = document.getElementById("glaskugel");
         var unknownPlaceHolder = document.getElementById("nixverstehen");
 
