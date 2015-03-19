@@ -23,7 +23,17 @@ app.get('/', function *() {
 app.get('/api/autocomplete', function *() {
     this.status = 200;
     this.type = 'application/json';
-    this.body = [{ label: 'bar' }, { label: 'bbb' }];
+
+    let q = querystring.parse(this.request.querystring);
+    if (q.s) {
+        let requestOptions = {
+            uri: 'http://google.de/complete/search?output=toolbar&hl=de&q=' + q.s,
+            timeout: 5000
+        };
+        //this.body = [{ label: 'bar' }, { label: 'bbb' }];
+    }
+
+
 });
 
 app.get('/api/parse', function *(next) {
@@ -42,16 +52,16 @@ app.get('/api/parse', function *(next) {
     },
 
     function *(next) {
-        let callOptions = {
+        let requestOptions = {
             uri: 'http://www.autoscout24.de/GN/CountV1.ashx?tab=location',
             timeout: 5000
         };
 
         if (this.parseCtx && this.parseCtx.publicQueryParams) {
-            callOptions.uri= 'http://www.autoscout24.de/GN/CountV1.ashx?tab=location' + this.parseCtx.publicQueryParams;
+            requestOptions.uri= 'http://www.autoscout24.de/GN/CountV1.ashx?tab=location' + this.parseCtx.publicQueryParams;
         }
 
-        let result = yield request(callOptions);
+        let result = yield request(requestOptions);
         if (result.statusCode == 200) {
             let json = JSON.parse(result.body);
             if (json && json.tc) {
@@ -80,7 +90,6 @@ app.get('/api/parse', function *(next) {
 );
 
 app.listen(3000);
-
 
 let getParserResults = function(searchLine, ctx) {
     let isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;

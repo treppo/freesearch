@@ -48,8 +48,6 @@ Filters:
     Geprüfte Qualität
 
 
-global counter filter
-write log file for queries
 escape HTML content in ela filter
 
 ModellineId (bmw 1er reihe)
