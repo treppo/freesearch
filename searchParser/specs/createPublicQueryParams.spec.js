@@ -84,13 +84,62 @@ describe('Test query params for model', function () {
         });
     });
 
-    describe('when model without make is available and other make is parsed', function () {
+    describe('when model without make is available and other make is available', function () {
         it('it should compelte make query parameter', function () {
             _parser.parse('blub bmw a4');
 
             expect(_ctx.publicQueryParams).toBeDefined();
             expect(containOnce(_ctx.publicQueryParams, 'make=9,13')).toBeTruthy();
             expect(containOnce(_ctx.publicQueryParams, 'model=1626')).toBeTruthy();
+        });
+    });
+});
+
+describe('Test query params for modelLine', function () {
+    describe('when no modelLine is available', function () {
+        it('it should not generate query param', function () {
+            _parser.parse('blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('modelLine');
+        });
+    });
+
+    describe('when single modelline is available', function () {
+        it('it should generate model query param', function () {
+            _parser.parse('bmw 1er blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'model=-37')).toBeTruthy();
+        });
+    });
+
+    describe('when multiple modelLines are available', function () {
+        it('it should generate model query params', function () {
+            _parser.parse('bmw 1er und Golf alle blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'model=-37,-101')).toBeTruthy();
+        });
+    });
+
+    describe('when modelLine without make is available', function () {
+        it('it should generate make query parameter as well', function () {
+            _parser.parse('blub 2er');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'make=13')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'model=-98')).toBeTruthy();
+        });
+    });
+
+    describe('when model without make is available and other make is available', function () {
+        it('it should compelte make query parameter', function () {
+            _parser.parse('blub audi 2er');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'make=9,13')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'model=-98')).toBeTruthy();
         });
     });
 });

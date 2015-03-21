@@ -15,8 +15,20 @@ module.exports = function (context) {
         var missingMakes = getMissingMakes(searchTokens);
 
         var query = '';
+
+        var model = createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', { fncGetValue: function(searchToken) { return searchToken.filter.value.modelId; } });
+        var modelLine = createCommaSeparatedQueryParam(searchTokens, _filterTypes.modelLine, 'model', { fncGetValue: function(searchToken) { return 0 - parseInt(searchToken.filter.value.modelLineId); } });
+        if (modelLine && model) {
+            model.split('=');
+            modelLine += ',' + model[1];
+            query += modelLine;
+        }
+        else {
+            query += modelLine;
+            query += model;
+        }
+
         query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make', { defValue: missingMakes });
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', { fncGetValue: function(searchToken) { return searchToken.filter.value.modelId; } });
         query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
         query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
@@ -102,11 +114,19 @@ module.exports = function (context) {
             return searchToken.filter.value;
         });
 
-        var qp = searchTokens.filter(function (searchToken) {
+        var makeModels = searchTokens.filter(function (searchToken) {
             return (searchToken.filter.type === _filterTypes.model);
         }).map(function (searchToken) {
             return searchToken.filter.value.makeId;
-        }).reduce(function (acc, makeId) { // remove duplicates
+        });
+
+        var makeModelLines = searchTokens.filter(function (searchToken) {
+            return (searchToken.filter.type === _filterTypes.modelLine);
+        }).map(function (searchToken) {
+            return searchToken.filter.value.modelLineId;
+        });
+
+        var qp = makeModels.reduce(function (acc, makeId) { // remove duplicates
             if (acc.indexOf(makeId) < 0) {
                 acc.push(makeId);
             }

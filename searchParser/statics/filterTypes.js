@@ -5,6 +5,7 @@ var filterTypes = {};
 filterTypes.unknown = 'unknown';
 filterTypes.make = 'make';
 filterTypes.model = 'model';
+filterTypes.modelLine = 'modelLine';
 filterTypes.price = 'price';
 filterTypes.power = 'power';
 filterTypes.mileage = 'mileage';
