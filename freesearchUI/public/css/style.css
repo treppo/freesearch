@@ -10,3 +10,8 @@ body {
 #glaskugel {
     padding-top: 50px;
 }
+
+.searchLabel {
+    float: right;
+    padding-bottom: 5px;
+}
