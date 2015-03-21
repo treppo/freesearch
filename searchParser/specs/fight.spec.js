@@ -49,3 +49,14 @@ describe('Recognize real search string', function () {
         expect(res[5].filter.termTo).toBe('2014');
     });
 });
+
+describe('Parse mercedes models without space', function () {
+    it('it should recognize the model ce220 as "ce 220"', function () {
+        var res = _parser.parse('merc ce220');
+
+        expect(res[1].term).toBe('ce220');
+        expect(res[1].filter.type).toBe(_filterTypes.model);
+        expect(res[1].filter.term).toBe('CE 220');
+        expect(res[1].filter.value.modelId).toBe('20240');
+    });
+});

@@ -30,6 +30,7 @@ var initSynonyms = function () {
     // Model
     //s.Golf = transformArrToObject(['golf']);
     s.Cross = transformArrToObject(['cross']);
+    // s['CE 220'] = transformArrToObject(['ce220']);
 
     // First Registration
     s.FirstRegistration = transformArrToObject(['erstzulassung', 'zulassung', 'erstzulaßung', 'zulaßung']);
@@ -194,8 +195,39 @@ var initSynonyms = function () {
     return s;
 };
 
+var decorateKeysWithModels = function (syn, models) {
+    function hasNumbers(t) {
+        return /\d/.test(t);
+    }
+    function hasAlphabetical(t)  {
+        return (t.match(/[a-z]/));
+    }
+
+    models.forEach(function(model) {
+        var words = model.term.split(' ');
+        // take ony words contains only two words
+        // if both words are not longer then 4 chars
+        // if both contains letters and integers
+        // merge the words to one: e.g. SLK 320 => slk320
+
+        if (words.length == 2) {
+            var maxWordLength = 4;
+
+            if (words[0].length <= maxWordLength && words[1].length <= maxWordLength)
+            {
+                var w = (words[0] + words[1]).toLowerCase();
+                if (hasNumbers(w) && hasAlphabetical(w)) {
+                    syn[model.term] = transformArrToObject([words[0] + words[1]]);
+                }
+            }
+        }
+    });
+};
+
 if (! _syn) {
+    var models = require('../services/modelService')();
     _syn = initSynonyms();
+    decorateKeysWithModels(_syn, models);
     _keys = Object.keys(_syn);
 }
 
@@ -219,3 +251,4 @@ var getSynonym = function (val) {
 };
 
 module.exports.getSynonym = getSynonym;
+module.exports.decorateKeysWithModels = decorateKeysWithModels; // exposed only for test purposes

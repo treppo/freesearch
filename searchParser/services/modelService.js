@@ -41,6 +41,7 @@ module.exports = function (file) {
     var utilHelper = require('../statics/utilHelper')();
     if (utilHelper.isQuickTestMode()) {
         model = sortByGenericNameCount([
+            {"term": "KS 100 Typ 514", "value": {"makeId": "50109", "modelId": "71127", "articleType": "B"}},
             {"term": "Cross Golf", "value": {"makeId": "74", "modelId": "20315", "articleType": "C"}},
             {"term": "Golf", "value": {"makeId": "74", "modelId": "2084", "articleType": "C"}},
             {"term": "A4", "value": {"makeId": "9", "modelId": "1626", "articleType": "C"}},
@@ -48,7 +49,8 @@ module.exports = function (file) {
             {"term": "100", "value": {"makeId": "62", "modelId": "15959", "articleType": "C"}},
             {"term": "100", "value": {"makeId": "9", "modelId": "1619", "articleType": "C"}},
             {"term": "100", "value": {"makeId": "52", "modelId": "1895", "articleType": "C"}},
-            {"term": "Electra", "value": {"makeId": "16", "modelId": "1669", "articleType": "C"}}
+            {"term": "Electra", "value": {"makeId": "16", "modelId": "1669", "articleType": "C"}},
+            {"term": "CE 220", "value": {"makeId": "47", "modelId": "20240", "articleType": "C"}}
         ]);
         return model;
     }

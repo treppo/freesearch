@@ -108,9 +108,16 @@ module.exports = function () {
             }
 
             serviceTerms.some(function (serviceTerm) {
-                var serviceTokens = serviceTerm.term.split(' ');
+                // first try a sample match
+                var interceptedIndexes = interceptAll([serviceTerm.term], unknownSearchTokens);
 
-                var interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens);
+                // then with splitting
+                if (interceptedIndexes.length === 0)
+                {
+                    var serviceTokens = serviceTerm.term.split(' ');
+                    interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens);
+                }
+
                 if (interceptedIndexes.length > 0) {
 
                     if (interceptedIndexes.length > 1) {
