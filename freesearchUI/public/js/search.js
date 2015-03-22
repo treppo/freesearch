@@ -101,6 +101,6 @@
     };
 
     var searchLine = document.getElementById("search");
-    //require('./autocomplete')(searchLine, document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
+    require('./autocomplete')(searchLine, document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
     require('./parse')(searchLine, populateResult);
 }());

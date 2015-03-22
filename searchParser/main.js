@@ -38,6 +38,7 @@ Filters:
     +Farbeffekte (Metallic)
     +Seats (def. from and to)
     +ArticleType
+    +Modelline
 
  von advanced search
     +Door (def. from and to)
@@ -47,15 +48,7 @@ Filters:
     Feinstaubplakette
     Geprüfte Qualität
 
-
 escape HTML content in ela filter
-
-ModellineId (bmw 1er reihe)
-    MakeId	13	int
-    ModelId	0	int
-    ModellineId	37	int
-
-    mmvmd0=-37 [mmvmd1=-98]
 
  autocomplete
 */

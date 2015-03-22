@@ -15,7 +15,8 @@
     "koa-json": "^1.1.1",
     "koa-router": "^4.2.0",
     "koa-static": "^1.4.9",
-    "marko": "^2.0.12"
+    "marko": "^2.0.12",
+    "xml2js": "^0.4.6"
   },
   "devDependencies": {
     "browserify": "^9.0.3",

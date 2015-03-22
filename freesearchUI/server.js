@@ -21,6 +21,8 @@ app.get('/', function *() {
 });
 
 app.get('/api/autocomplete', function *() {
+    var maxSuggestions = 6;
+
     this.status = 200;
     this.type = 'application/json';
 
@@ -31,9 +33,31 @@ app.get('/api/autocomplete', function *() {
             timeout: 5000
         };
         //this.body = [{ label: 'bar' }, { label: 'bbb' }];
+        //console.log('request ' + requestOptions.url);
+
+        let result = yield request(requestOptions);
+        if (result.statusCode == 200) {
+            var parseString = require('xml2js').parseString;
+            this.body = [];
+            var xml = result.body;
+            var that = this;
+            parseString(xml, function (err, result) {
+                //console.log(JSON.stringify(result));
+                if (result && result.toplevel && result.toplevel.CompleteSuggestion) {
+                    var sugs = result.toplevel.CompleteSuggestion; // []
+                    that.body = sugs.map(function(sug) {
+                        var t = sug.suggestion[0];//['$'].data;
+                        var f = t['$'];
+                        var h = f.data;
+                        return {
+                            label: h
+                        };
+                    }).slice(0, maxSuggestions);
+                }
+            });
+        }
+        //yield next;
     }
-
-
 });
 
 app.get('/api/parse', function *(next) {
