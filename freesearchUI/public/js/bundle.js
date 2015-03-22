@@ -1,12 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 (function() {
-    var selectSuggestion = function(searchVal, values) {
-        console.log('searchVal: ' + searchVal);
+    var selectSuggestion = function(searchVal) {
+        document.getElementById('search').value = searchVal.label;
+        //console.log('searchVal: ' + JSON.stringify(searchVal));
     };
 
     var notFoundSuggestion = function() {
-        console.log('notFoundAutoCompletion');
+        //console.log('notFoundAutoCompletion');
     };
 
     var prepareSearchTokenFilterValue = function (f) {
@@ -188,6 +189,7 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
 
     var showCompletion = function(complContainer) {
         target.appendChild(complContainer);
+        target.style.display = 'block';
     };
 
     var hideCompletion = function () {
@@ -195,11 +197,12 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
         if (child) {
             target.removeChild(child);
         }
+        target.style.display = 'none';
     };
 
     var setActiveItemAttr = function (el) {
         var itemAttr = document.createAttribute('data-acitve');
-        itemAttr.value = 1;
+        itemAttr.value = '1';
         el.setAttributeNode(itemAttr);
     };
 

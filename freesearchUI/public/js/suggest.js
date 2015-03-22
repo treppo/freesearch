@@ -33,6 +33,7 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
 
     var showCompletion = function(complContainer) {
         target.appendChild(complContainer);
+        target.style.display = 'block';
     };
 
     var hideCompletion = function () {
@@ -40,11 +41,12 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
         if (child) {
             target.removeChild(child);
         }
+        target.style.display = 'none';
     };
 
     var setActiveItemAttr = function (el) {
         var itemAttr = document.createAttribute('data-acitve');
-        itemAttr.value = 1;
+        itemAttr.value = '1';
         el.setAttributeNode(itemAttr);
     };
 

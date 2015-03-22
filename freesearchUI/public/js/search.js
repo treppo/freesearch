@@ -1,11 +1,12 @@
 'use strict';
 (function() {
-    var selectSuggestion = function(searchVal, values) {
-        console.log('searchVal: ' + searchVal);
+    var selectSuggestion = function(searchVal) {
+        document.getElementById('search').value = searchVal.label;
+        //console.log('searchVal: ' + JSON.stringify(searchVal));
     };
 
     var notFoundSuggestion = function() {
-        console.log('notFoundAutoCompletion');
+        //console.log('notFoundAutoCompletion');
     };
 
     var prepareSearchTokenFilterValue = function (f) {

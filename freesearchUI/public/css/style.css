@@ -8,10 +8,38 @@ body {
 }
 
 #glaskugel {
-    padding-top: 50px;
+    padding-top: 190px;
 }
 
 .searchLabel {
     float: right;
     padding-bottom: 5px;
+}
+
+.shadowed-flying-box {
+    position: absolute;
+    background: #FFF;
+    border: 1px solid #ccc;
+    -moz-box-shadow: 0 1px 5px 1px rgba(170, 170, 170, .75);
+    -webkit-box-shadow: 0 1px 5px 1px rgba(170, 170, 170, .75);
+    -o-box-shadow: 0 1px 5px 1px rgba(170, 170, 170, .75);
+    box-shadow: 0 1px 5px 1px rgba(170, 170, 170, .75);
+    z-index: 501;
+    /*padding: 3px 0;*/
+    /*min-width: 200px;*/
+    width: 43%;
+    display: none;
+}
+
+.shadowed-flying-box ul {
+    list-style-type: none;
+    padding: 10px 5px;
+}
+
+.shadowed-flying-box li {
+    padding: 3px 3px;
+}
+
+.shadowed-flying-box li[data-acitve='1'] {
+    background-color: lightgrey;
 }
