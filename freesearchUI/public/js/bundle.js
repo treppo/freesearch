@@ -1,12 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 (function() {
-    var selectAutoCompletion = function(searchVal, values) {
+    var selectSuggestion = function(searchVal, values) {
         console.log('searchVal: ' + searchVal);
     };
 
-    var notFoundAutoCompletion = function() {
-//        console.log('notFoundAutoCompletion');
+    var notFoundSuggestion = function() {
+        console.log('notFoundAutoCompletion');
     };
 
     var prepareSearchTokenFilterValue = function (f) {
@@ -102,10 +102,57 @@
     };
 
     var searchLine = document.getElementById("search");
-    require('./autocomplete')(searchLine, document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
+    require('./suggest')(searchLine, document.getElementById('suggestions'), selectSuggestion, notFoundSuggestion);
     require('./parse')(searchLine, populateResult);
 }());
-},{"./autocomplete":2,"./parse":3}],2:[function(require,module,exports){
+},{"./parse":2,"./suggest":3}],2:[function(require,module,exports){
+'use strict';
+module.exports = function(source, parseResult) {
+    var _path = '/api/parse/?s=';
+    var _cntKeyDown = 0;
+
+    var listenEvent = function(obj, event, callback) {
+        if (obj.addEventListener) {
+            obj.addEventListener(event, callback);
+        } else {
+            obj.attachEvent('on' + event, callback);
+        }
+    };
+
+    var ajaxCall = function(url, callback) {
+        var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+        request.onreadystatechange = function() {
+            if (request.readyState == 4) {
+                if (request.status == 200) {
+                    callback(request.responseText);
+                }
+            }
+        };
+
+        request.open('GET', url, true);
+        request.send();
+    };
+
+    var callParser = function(cnt) {
+        if (cnt != _cntKeyDown) {
+            return;
+        }
+
+        var val = encodeURI(source.value);
+        ajaxCall(_path + val, parseResult);
+    };
+
+    var onKeyDown = function() {
+        _cntKeyDown++;
+        var f = _cntKeyDown;
+        setTimeout(function() { callParser(f) }, 300);
+    };
+
+    listenEvent(source, 'keydown', onKeyDown);
+};
+
+},{}],3:[function(require,module,exports){
 'use strict';
 module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCallBack) {
     var _isSelected = false;
@@ -228,7 +275,7 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
     var getAutocomplete = function(searchVal, callBack) {
         _isSelected = false;
 
-        ajaxCall('/api/autocomplete/?s=' + encodeURI(searchVal), function(response) {
+        ajaxCall('/api/suggest/?s=' + encodeURI(searchVal), function(response) {
             var values = JSON.parse(response);
             callBack(searchVal, values);
         });
@@ -317,51 +364,4 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
 
     init();
 };
-},{}],3:[function(require,module,exports){
-'use strict';
-module.exports = function(source, parseResult) {
-    var _path = '/api/parse/?s=';
-    var _cntKeyDown = 0;
-
-    var listenEvent = function(obj, event, callback) {
-        if (obj.addEventListener) {
-            obj.addEventListener(event, callback);
-        } else {
-            obj.attachEvent('on' + event, callback);
-        }
-    };
-
-    var ajaxCall = function(url, callback) {
-        var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-
-        request.onreadystatechange = function() {
-            if (request.readyState == 4) {
-                if (request.status == 200) {
-                    callback(request.responseText);
-                }
-            }
-        };
-
-        request.open('GET', url, true);
-        request.send();
-    };
-
-    var callParser = function(cnt) {
-        if (cnt != _cntKeyDown) {
-            return;
-        }
-
-        var val = encodeURI(source.value);
-        ajaxCall(_path + val, parseResult);
-    };
-
-    var onKeyDown = function() {
-        _cntKeyDown++;
-        var f = _cntKeyDown;
-        setTimeout(function() { callParser(f) }, 300);
-    };
-
-    listenEvent(source, 'keydown', onKeyDown);
-};
-
 },{}]},{},[1]);

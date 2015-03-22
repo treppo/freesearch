@@ -20,7 +20,7 @@ app.get('/', function *() {
     this.type = 'text/html';
 });
 
-app.get('/api/autocomplete', function *() {
+app.get('/api/suggest', function *() {
     var maxSuggestions = 6;
 
     this.status = 200;

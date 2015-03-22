@@ -1,11 +1,11 @@
 'use strict';
 (function() {
-    var selectAutoCompletion = function(searchVal, values) {
+    var selectSuggestion = function(searchVal, values) {
         console.log('searchVal: ' + searchVal);
     };
 
-    var notFoundAutoCompletion = function() {
-//        console.log('notFoundAutoCompletion');
+    var notFoundSuggestion = function() {
+        console.log('notFoundAutoCompletion');
     };
 
     var prepareSearchTokenFilterValue = function (f) {
@@ -101,6 +101,6 @@
     };
 
     var searchLine = document.getElementById("search");
-    require('./autocomplete')(searchLine, document.querySelector('label[for=search]'), selectAutoCompletion, notFoundAutoCompletion);
+    require('./suggest')(searchLine, document.getElementById('suggestions'), selectSuggestion, notFoundSuggestion);
     require('./parse')(searchLine, populateResult);
 }());

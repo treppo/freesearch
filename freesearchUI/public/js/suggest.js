@@ -120,7 +120,7 @@ module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCa
     var getAutocomplete = function(searchVal, callBack) {
         _isSelected = false;
 
-        ajaxCall('/api/autocomplete/?s=' + encodeURI(searchVal), function(response) {
+        ajaxCall('/api/suggest/?s=' + encodeURI(searchVal), function(response) {
             var values = JSON.parse(response);
             callBack(searchVal, values);
         });
