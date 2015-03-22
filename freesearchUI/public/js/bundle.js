@@ -73,12 +73,12 @@
         }
 
         if (knowns.length > 0) {
-            knownPlaceHolder.appendChild(document.createTextNode("Glaskugel glaubt:"));
+            knownPlaceHolder.appendChild(document.createTextNode("Recognized:"));
             knownPlaceHolder.appendChild(ulKnown);
         }
 
         if (unknowns.length > 0) {
-            unknownPlaceHolder.appendChild(document.createTextNode("Nicht erkannt:"));
+            unknownPlaceHolder.appendChild(document.createTextNode("Not recognized:"));
             unknownPlaceHolder.appendChild(ulUnknown);
         }
     };
