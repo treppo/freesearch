@@ -153,7 +153,6 @@ module.exports = function(source, parseResult) {
     listenEvent(source, 'keydown', onKeyDown);
     listenEvent(source, 'change', onKeyDown);
 };
-
 },{}],3:[function(require,module,exports){
 'use strict';
 module.exports = function(source, target, selectedEntryCallBack, notFoundEntryCallBack) {
