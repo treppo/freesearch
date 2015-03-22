@@ -50,8 +50,5 @@ Filters:
 
 escape HTML content in ela filter
 
-bug, after select a suggestion, the parse should be triggered
-bug, delete content, should parse
-
  autocomplete
 */

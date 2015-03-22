@@ -42,4 +42,5 @@ module.exports = function(source, parseResult) {
     };
 
     listenEvent(source, 'keydown', onKeyDown);
+    listenEvent(source, 'change', onKeyDown);
 };

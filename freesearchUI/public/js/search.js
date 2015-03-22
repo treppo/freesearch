@@ -25,18 +25,8 @@
     };
 
     var printSearchTokens = function(searchTokens) {
-        if (! searchTokens)
-            return;
-
         var knownPlaceHolder = document.getElementById("glaskugel");
         var unknownPlaceHolder = document.getElementById("nixverstehen");
-
-        var unknowns = searchTokens.filter(function(r) {
-            return (r.filter.type === 'unknown');
-        });
-        var knowns = searchTokens.filter(function(r) {
-            return (r.filter.type !== 'unknown');
-        });
 
         while (knownPlaceHolder.firstChild) {
             knownPlaceHolder.removeChild(knownPlaceHolder.firstChild);
@@ -44,6 +34,16 @@
         while (unknownPlaceHolder.firstChild) {
             unknownPlaceHolder.removeChild(unknownPlaceHolder.firstChild);
         }
+
+        if (! searchTokens)
+            return;
+
+        var unknowns = searchTokens.filter(function(r) {
+            return (r.filter.type === 'unknown');
+        });
+        var knowns = searchTokens.filter(function(r) {
+            return (r.filter.type !== 'unknown');
+        });
 
         var i, li;
         var ulKnown = document.createElement('ul');
