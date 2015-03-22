@@ -42,16 +42,11 @@ module.exports = function () {
             return [];
 
         var intercepts = [];
-
-
         var intercepted = serviceTerms.every(function (serviceTerm) {
             var foundOne = searchTokens.some(function (searchToken) {
                 if (equals(serviceTerm, searchToken)) {
-
-
-                        intercepts.push(searchToken.index);
-                        return true;
-
+                    intercepts.push(searchToken.index);
+                    return true;
                 }
             });
 

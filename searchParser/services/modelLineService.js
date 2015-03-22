@@ -8,6 +8,8 @@ module.exports = function () {
 // replaced '-' with ' '
 // for all VW added 'alle' and for Roadster
     t = [
+        {term: 'Golf alle', value: {makeId: '74', modelLineId: '101'}},
+
         // Alpina
         {term: 'B Klasse', value: {makeId: '14', modelLineId: '107'}},
         {term: 'D Klasse', value: {makeId: '14', modelLineId: '108'}},
@@ -59,7 +61,7 @@ module.exports = function () {
         {term: '911er', value: {makeId: '57', modelLineId: '67'}},
 
         // VW
-        {term: 'Golf alle', value: {makeId: '74', modelLineId: '101'}},
+        //{term: 'Golf alle', value: {makeId: '74', modelLineId: '101'}},
         {term: 'Passat alle', value: {makeId: '74', modelLineId: '100'}},
         {term: 'Polo alle', value: {makeId: '74', modelLineId: '99'}},
         {term: 'T3 alle', value: {makeId: '74', modelLineId: '104'}},

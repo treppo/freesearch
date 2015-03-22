@@ -37,4 +37,20 @@ describe('Modelline tests', function () {
             expect(res[1].filter.value.modelLineId).toBe('37');
         });
     });
+
+    describe('when parse two modelLines', function () {
+        it('it should parse to 1er modelline and golf modelline', function () {
+            var res = _parser.parse('bmw 1er und Golf alle blub');
+
+            expect(res[1].term).toBe('1er');
+            expect(res[1].filter.type).toBe(_filterTypes.modelLine);
+            expect(res[1].filter.term).toBe('1er');
+            expect(res[1].filter.value.modelLineId).toBe('37');
+
+            expect(res[3].term).toBe('Golf alle');
+            expect(res[3].filter.type).toBe(_filterTypes.modelLine);
+            expect(res[3].filter.term).toBe('Golf alle');
+            expect(res[3].filter.value.modelLineId).toBe('101');
+        });
+    });
 });

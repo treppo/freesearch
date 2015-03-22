@@ -114,19 +114,21 @@ module.exports = function (context) {
             return searchToken.filter.value;
         });
 
-        var makeModels = searchTokens.filter(function (searchToken) {
+        var makesFromModels = searchTokens.filter(function (searchToken) {
             return (searchToken.filter.type === _filterTypes.model);
         }).map(function (searchToken) {
             return searchToken.filter.value.makeId;
         });
 
-        var makeModelLines = searchTokens.filter(function (searchToken) {
+        var makesFromModelLines = searchTokens.filter(function (searchToken) {
             return (searchToken.filter.type === _filterTypes.modelLine);
         }).map(function (searchToken) {
-            return searchToken.filter.value.modelLineId;
+            return searchToken.filter.value.makeId;
         });
 
-        var qp = makeModels.reduce(function (acc, makeId) { // remove duplicates
+        var allMakes = makesFromModels.concat(makesFromModelLines);
+
+        var qp = allMakes.reduce(function (acc, makeId) { // remove duplicates
             if (acc.indexOf(makeId) < 0) {
                 acc.push(makeId);
             }

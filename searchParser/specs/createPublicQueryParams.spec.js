@@ -138,7 +138,7 @@ describe('Test query params for modelLine', function () {
             _parser.parse('blub audi 2er');
 
             expect(_ctx.publicQueryParams).toBeDefined();
-            expect(containOnce(_ctx.publicQueryParams, 'make=9,13')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'make=13,9')).toBeTruthy();
             expect(containOnce(_ctx.publicQueryParams, 'model=-98')).toBeTruthy();
         });
     });
