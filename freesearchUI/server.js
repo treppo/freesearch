@@ -8,6 +8,7 @@ let json = require('koa-json');
 let querystring = require('querystring');
 let path  = require('path');
 let request = require('co-request');
+var iconv = require('iconv-lite');
 
 let app = koa();
 
@@ -25,28 +26,27 @@ app.get('/api/suggest', function *() {
 
     this.status = 200;
     this.type = 'application/json';
-
     let q = querystring.parse(this.request.querystring);
     if (q.s) {
         let requestOptions = {
             uri: 'http://google.de/complete/search?output=toolbar&hl=de&q=' + q.s,
-            timeout: 5000
+            timeout: 5000,
+            encoding: null
         };
         //this.body = [{ label: 'bar' }, { label: 'bbb' }];
-        //console.log('request ' + requestOptions.url);
 
         let result = yield request(requestOptions);
         if (result.statusCode == 200) {
             var parseString = require('xml2js').parseString;
             this.body = [];
-            var xml = result.body;
+            var xml = iconv.decode(result.body, 'iso-8859-1');
+
             var that = this;
             parseString(xml, function (err, result) {
-                //console.log(JSON.stringify(result));
                 if (result && result.toplevel && result.toplevel.CompleteSuggestion) {
-                    var sugs = result.toplevel.CompleteSuggestion; // []
+                    var sugs = result.toplevel.CompleteSuggestion;
                     that.body = sugs.map(function(sug) {
-                        var t = sug.suggestion[0];//['$'].data;
+                        var t = sug.suggestion[0];
                         var f = t['$'];
                         var h = f.data;
                         return {
