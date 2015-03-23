@@ -165,7 +165,7 @@ var initSynonyms = function () {
     s.Jahreswagen = transformArrToObject(['jahreswagen']);
     s.Demonstration = transformArrToObject(['demo', 'demonstration']);
     s.Oldtimer = transformArrToObject(['oldtimer']);
-    s.UsedCar = transformArrToObject(['gebraucht']);
+    s.UsedCar = transformArrToObject(['gebraucht', 'gebrauchtwagen']);
     s.NewCar = transformArrToObject(['neu']);
     s.SingleDay = transformArrToObject(['tageszulassung', 'tageszulaßung']);
 
