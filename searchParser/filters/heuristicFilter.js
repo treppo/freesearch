@@ -10,7 +10,7 @@ module.exports = function () {
     var _priceFilter = require('../filters/priceFilter')();
     var _powerFilter = require('../filters/powerFilter')();
     var _mileageFilter = require('../filters/mileageFilter')();
-    var _firstRegistrationFilter = require('../filters/firstRegistrationFilter')();
+    var _firstRegistrationFilter = require('../filters/firstRegistrationFilter')().processFilter;
     var _seatFilter = require('../filters/seatFilter')();
     var _doorFilter = require('../filters/doorFilter')();
     var _prevOwnerFilter = require('../filters/previousOwnerFilter')();
@@ -19,7 +19,8 @@ module.exports = function () {
     var filter = function (searchTokens) {
         return searchTokens.reduce(function (accumulator, searchToken) {
             var context = {
-                markerType: searchToken.filter.value
+                markerType: searchToken.filter.value,
+                hasMarker: true
             };
 
             if (searchToken.filter.type === _filterTypes.priceMarker) {

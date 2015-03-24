@@ -12,7 +12,7 @@ module.exports = function (context) {
     var modelFilter = require('./filters/modelFilter')();
     var modelLineFilter = require('./filters/modelLineFilter')();
 
-    var firstRegistrationFilter = require('./filters/firstRegistrationFilter')();
+    var firstRegistrationFilter = require('./filters/firstRegistrationFilter')().filter;
     var fuelFilter = require('./filters/fuelFilter')();
     var bodyTypeFilter = require('./filters/bodyTypeFilter')();
     var gearingFilter = require('./filters/gearingFilter')();
@@ -41,9 +41,9 @@ module.exports = function (context) {
     var saveSearchLineFilter = require('./filters/saveSearchLineFilter')(pathToFile);
 
     var main = [
-        firstRegistrationFilter,
         zipFilter,
         heuristicFilter, // power, price etc. terms with entity markers
+        firstRegistrationFilter,
         fuelFilter,
         bodyTypeFilter,
         gearingFilter,

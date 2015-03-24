@@ -28,7 +28,7 @@ describe('First registration tests all filters', function () {
         });
     });
 
-    xdescribe('When parse a number inside of suitable range and the number is not followed by a first registration marker', function () {
+    describe('When parse a number inside of suitable range and the number is not followed by a first registration marker', function () {
         it('it should be parsed as first registration', function () {
             var res = parser.parse('audi 2009');
 
