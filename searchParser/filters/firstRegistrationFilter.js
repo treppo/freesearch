@@ -8,6 +8,9 @@ module.exports = function () {
             return searchToken;
         }
 
+        var maxYear = new Date().getFullYear();
+        var minYear = 2000;
+
         var intTerm = _utilHelper.convertToInt(searchToken.term);
 
         context.found = true;

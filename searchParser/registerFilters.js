@@ -11,8 +11,7 @@ module.exports = function (context) {
     var makeFilter = require('./filters/makeFilter')();
     var modelFilter = require('./filters/modelFilter')();
     var modelLineFilter = require('./filters/modelLineFilter')();
-    var priceFilter = require('./filters/priceFilter')();
-    var powerFilter = require('./filters/powerFilter')();
+
     var firstRegistrationFilter = require('./filters/firstRegistrationFilter')();
     var fuelFilter = require('./filters/fuelFilter')();
     var bodyTypeFilter = require('./filters/bodyTypeFilter')();
@@ -24,8 +23,6 @@ module.exports = function (context) {
     var colorEffectFilter = require('./filters/colorEffectFilter')();
     var articleOfferTypeFilter = require('./filters/articleOfferTypeFilter')();
     var usageStateFilter = require('./filters/usageStateFilter')();
-    var doorFilter = require('./filters/doorFilter')();
-    var onlineSinceFilter = require('./filters/onlineSinceFilter')();
     var pictureAndVideoFilter = require('./filters/pictureAndVideoFilter')();
     var zipFilter = require('./filters/zipFilter')();
     var cityFilter = require('./filters/cityFilter')();
@@ -44,7 +41,8 @@ module.exports = function (context) {
     var saveSearchLineFilter = require('./filters/saveSearchLineFilter')(pathToFile);
 
     var main = [
-        zipFilter, // greedy, therefore before price
+        firstRegistrationFilter,
+        zipFilter,
         heuristicFilter, // power, price etc. terms with entity markers
         fuelFilter,
         bodyTypeFilter,

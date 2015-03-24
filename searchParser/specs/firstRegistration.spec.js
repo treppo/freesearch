@@ -27,4 +27,15 @@ describe('First registration tests all filters', function () {
             expect(res[3].filter.termTo).toBe('2014');
         });
     });
+
+    xdescribe('When parse a number inside of suitable range and the number is not followed by a first registration marker', function () {
+        it('it should be parsed as first registration', function () {
+            var res = parser.parse('audi 2009');
+
+            expect(res[1].term).toBe('2009');
+            expect(res[1].filter.type).toBe(_filterTypes.firstRegistration);
+            expect(res[1].filter.valueFrom).toBe(2009);
+            expect(res[1].filter.termFrom).toBe('2009');
+        });
+    });
 });
