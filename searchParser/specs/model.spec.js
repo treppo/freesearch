@@ -59,7 +59,6 @@ describe('Model tests', function () {
         });
     });
 
-
     describe('when parse not unique model with a make', function () {
         it('it should parse to model of this make', function () {
             var res = _parser.parse('audi 100');
@@ -68,6 +67,17 @@ describe('Model tests', function () {
             expect(res[1].filter.type).toBe(_filterTypes.model);
             expect(res[1].filter.term).toBe('100');
             expect(res[1].filter.value.modelId).toBe('1619');
+        });
+    });
+
+    describe('when parse not unique model with a make', function () {
+        it('it should parse to model of this make', function () {
+            var res = _parser.parse('audi a3');
+
+            expect(res[1].term).toBe('a3');
+            expect(res[1].filter.type).toBe(_filterTypes.model);
+            expect(res[1].filter.term).toBe('A3');
+            expect(res[1].filter.value.modelId).toBe('1624');
         });
     });
 

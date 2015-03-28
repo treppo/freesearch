@@ -203,6 +203,12 @@ var decorateKeysWithModels = function (syn, models) {
         return (t.match(/[a-z]/));
     }
 
+    function existModel(m) {
+        return models.some(function(model) {
+            return (model.term.toLowerCase() === m);
+        });
+    }
+
     models.forEach(function(model) {
         var words = model.term.split(' ');
         // take ony words contains only two words
@@ -215,13 +221,19 @@ var decorateKeysWithModels = function (syn, models) {
 
             if (words[0].length <= maxWordLength && words[1].length <= maxWordLength)
             {
-                var w = (words[0] + words[1]).toLowerCase();
+                var m = words[0] + words[1];
+                var w = m.toLowerCase();
                 if (hasNumbers(w) && hasAlphabetical(w)) {
-                    syn[model.term] = transformArrToObject([words[0] + words[1]]);
+                    // don't hide a probably existing of other original model : "A 3" vs. "A3"
+                    if (! existModel(w)) {
+                        syn[model.term] = transformArrToObject([m]); // potential bug, override an existing value
+                    }
                 }
             }
         }
     });
+
+
 };
 
 if (! _syn) {
@@ -246,7 +258,7 @@ var getSynonym = function (val) {
     if (s)
         return s;
 
-    // nothing found, return original value in lower case
+    // nothing found, return the original value in lower case
     return val;
 };
 
