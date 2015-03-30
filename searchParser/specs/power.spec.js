@@ -58,7 +58,6 @@ describe('Power tests', function () {
         it('it should parse them as a power range', function () {
             var res = _parser.parse('audi 200 - 300 ps');
 
-            expect(res.length).toBe(3);
             expect(res[1].term).toBe('200 - 300');
             expect(res[1].filter.type).toBe(_filterTypes.power);
             expect(res[1].filter.valueFrom).toBe(kw200);

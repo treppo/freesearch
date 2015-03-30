@@ -1,7 +1,6 @@
 'use strict';
 module.exports = function (context) {
 
-    var cleanUpSearchLineFilter = require('./filters/cleanUpSearchLineFilter')();
     var createTokensFilter = require('./filters/createTokensFilter')();
     var createSynonymFilter = require('./filters/createSynonymFilter')();
     var createSearchTokensFilter = require('./filters/createSearchTokensFilter')();
@@ -63,7 +62,6 @@ module.exports = function (context) {
     ];
 
     var pre = [
-        cleanUpSearchLineFilter,
         createTokensFilter,
         createSearchTokensFilter,
         createSynonymFilter,

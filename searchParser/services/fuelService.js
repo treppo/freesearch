@@ -6,6 +6,7 @@ module.exports = function () {
         return t;
     }
 
+    var utilHelper = require('../statics/utilHelper')();
     t = [
         {term: 'Benzin', value: 'B'},
         {term: 'Diesel', value: 'D'},
@@ -19,6 +20,7 @@ module.exports = function () {
         {term: 'Electric', value: 'E'}, // Elektro
         {term: 'Hydrogen', value: 'H'} // Wasserstoff
     ];
+    t = utilHelper.createServiceTerms(t);
 
     return t;
 

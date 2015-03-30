@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Log Parser 2.2\LogParser.exe" -headerRow:OFF "SELECT DISTINCT TRIM(field1) AS MODELLINE_ID, TRIM(field2) AS MAKE_ID, TRIM(field3) AS GENERIC_NAME INTO modelLine.json FROM .\modelLine.csv" -i:CSV -o:TPL -tpl:modelLine.tpl

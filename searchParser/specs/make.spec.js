@@ -18,8 +18,18 @@ describe('Make tests', function () {
             var res = _parser.parse('Mercedes-Benz');
 
             expect(res.length).toBe(1);
+            expect(res[0].term).toBe('Mercedes-Benz');
+            expect(res[0].filter.term).toBe('Mercedes-Benz');
+            expect(res[0].filter.type).toBe(_filterTypes.make);
+            expect(res[0].filter.value).toBe('47');
+        });
+
+        it('it should parse to expected make', function () {
+            var res = _parser.parse('Mercedes Benz');
+
+            expect(res.length).toBe(1);
             expect(res[0].term).toBe('Mercedes Benz');
-            expect(res[0].filter.term).toBe('Mercedes');
+            expect(res[0].filter.term).toBe('Mercedes-Benz');
             expect(res[0].filter.type).toBe(_filterTypes.make);
             expect(res[0].filter.value).toBe('47');
         });
@@ -37,7 +47,7 @@ describe('Make tests', function () {
             expect(res[0].filter.value).toBe('74');
 
             expect(res[1].term).toBe('mers');
-            expect(res[1].filter.term).toBe('Mercedes');
+            expect(res[1].filter.term).toBe('Mercedes-Benz');
             expect(res[1].filter.type).toBe(_filterTypes.make);
             expect(res[1].filter.value).toBe('47');
 

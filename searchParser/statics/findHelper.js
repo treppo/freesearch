@@ -108,10 +108,7 @@ module.exports = function () {
 
                 // then with splitting
                 if (interceptedIndexes.length === 0)
-                {
-                    var serviceTokens = serviceTerm.term.split(' ');
-                    interceptedIndexes = interceptAll(serviceTokens, unknownSearchTokens);
-                }
+                    interceptedIndexes = interceptAll(serviceTerm.tokens, unknownSearchTokens);
 
                 if (interceptedIndexes.length > 0) {
 

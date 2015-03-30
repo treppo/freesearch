@@ -22,7 +22,7 @@ describe('Filter identical terms tests', function () {
             expect(res.length).toBe(3);
 
             expect(res[0].term).toBe('merc mercedes benz');
-            expect(res[0].filter.term).toBe('Mercedes');
+            expect(res[0].filter.term).toBe('Mercedes-Benz');
             expect(res[0].filter.type).toBe(_filterTypes.make);
             expect(res[0].filter.value).toBe('47');
 

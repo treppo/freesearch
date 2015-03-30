@@ -6,6 +6,7 @@ module.exports = function () {
         return t;
     }
 
+    var utilHelper = require('../statics/utilHelper')();
     t = [
         {term: 'Beige', value: '1'},
         {term: 'Blue', value: '2'},
@@ -22,6 +23,7 @@ module.exports = function () {
         {term: 'Orange', value: '15'},
         {term: 'Gold', value: '16'}
     ];
+    t = utilHelper.createServiceTerms(t);
 
     return t;
 };

@@ -42,6 +42,25 @@ module.exports = function () {
         });
     };
 
+    var tokenize = function (input) {
+        var tokens = [];
+        if (input) {
+            tokens = input.split(/[\s,]+/);
+        }
+
+        return tokens;
+    };
+
+    var createServiceTerms = function (arr) {
+        return arr.map(function(elem) {
+            return {
+                term: elem.term,
+                value: elem.value,
+                tokens: tokenize(elem.term)
+            };
+        });
+    };
+
     return {
         isNumber: isNumber,
         convertToInt: convertToInt,
@@ -49,6 +68,8 @@ module.exports = function () {
         convertFromKwToPs: convertFromKwToPs,
         isNotInRange: isNotInRange,
         transformToObject: transformToObject,
-        isQuickTestMode: isQuickTestMode
+        isQuickTestMode: isQuickTestMode,
+        tokenize: tokenize,
+        createServiceTerms: createServiceTerms
     };
 };

@@ -6,6 +6,7 @@ module.exports = function () {
         return t;
     }
 
+    var utilHelper = require('../statics/utilHelper')();
     t = [
         {term: 'UsedCar', value: 'U'},
         {term: 'NewCar', value: 'N'},
@@ -14,6 +15,7 @@ module.exports = function () {
         {term: 'Jahreswagen', value: 'J'},
         {term: 'SingleDay', value: 'S'}
     ];
+    t = utilHelper.createServiceTerms(t);
 
     return t;
 };

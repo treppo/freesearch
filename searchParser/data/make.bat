@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Log Parser 2.2\LogParser.exe" -headerRow:OFF "SELECT DISTINCT TRIM(field1) AS GENERIC_NAME, TRIM(field2) AS MAKE_ID INTO make.json FROM .\make.csv" -i:CSV -o:TPL -tpl:make.tpl

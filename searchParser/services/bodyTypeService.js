@@ -6,6 +6,7 @@ module.exports = function () {
         return t;
     }
 
+    var utilHelper = require('../statics/utilHelper')();
     t = [
         {term: 'Compact', value: '1'}, // Kleinwagen
         {term: 'Cabrio', value: '2'},
@@ -16,6 +17,7 @@ module.exports = function () {
         {term: 'Van', value: '12'}, // Van / Kleinbus
         {term: 'Transporter', value: '13'} // Transporter
     ];
+    t = utilHelper.createServiceTerms(t);
 
     return t;
 

@@ -17,6 +17,7 @@ module.exports = function () {
         return t;
     }
 
+    var utilHelper = require('../statics/utilHelper')();
     t = simplifyKey([
         {term: 'ABS', value: '1'},
         {term: 'DriverSideAirbag', value: '2'},
@@ -98,6 +99,7 @@ module.exports = function () {
         {term: 'Parking assist system self-steering', value: '131'},
         {term: 'CdPlayer', value: '132'}
     ]);
+    t = utilHelper.createServiceTerms(t);
 
     return t;
 };

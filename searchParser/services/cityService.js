@@ -2,7 +2,6 @@
 var city;
 
 module.exports = function (file) {
-    'use strict';
     if (city) {
         return city;
     }
@@ -13,6 +12,8 @@ module.exports = function (file) {
             {"term": "Erdhausen", "value": {"lat": "50.75", "lon": "8.5666667"}},
             {"term": "Erding", "value": {"lat": "48.2980807692307692", "lon": "11.9857346153846154"}}
         ];
+        city = utilHelper.createServiceTerms(city);
+
         return city;
     }
 
@@ -23,6 +24,7 @@ module.exports = function (file) {
     try {
         var t = fs.readFileSync(f, 'utf8');
         city = JSON.parse(t);
+        city = utilHelper.createServiceTerms(city);
 
         return city;
     }

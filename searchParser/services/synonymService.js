@@ -17,14 +17,14 @@ var initSynonyms = function () {
 
     // Marker
     s.From = transformArrToObject(['von', 'vom', 'ab', 'seit']);
-    s.To = transformArrToObject(['bis']);
+    s.To = transformArrToObject(['bis', '-']);
     s.Kw = transformArrToObject(['kw']);
     s.Ps = transformArrToObject(['ps']);
     s.Euro = transformArrToObject(['€', 'euro', 'eur']);
     s.Km = transformArrToObject(['km', 'kilometer']);
 
     // Make
-    s.Mercedes = transformArrToObject(['mercedes', 'mers', 'merc', 'benz', 'benc']);
+    s['Mercedes-Benz'] = transformArrToObject(['mercedes', 'mers', 'merc', 'benz', 'benc']);
     s.Volkswagen = transformArrToObject(['volkswagen', 'vw']);
 
     // Model
@@ -232,8 +232,6 @@ var decorateKeysWithModels = function (syn, models) {
             }
         }
     });
-
-
 };
 
 if (! _syn) {

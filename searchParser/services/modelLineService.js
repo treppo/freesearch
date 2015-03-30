@@ -1,16 +1,34 @@
 'use strict';
-var t;
+var modelLine;
 
-module.exports = function () {
-    if (t) {
-        return t;
+module.exports = function (file) {
+    if (modelLine) {
+        return modelLine;
     }
-// replaced '-' with ' '
-// for all VW added 'alle' and for Roadster
-    t = [
+
+    //var utilHelper = require('../statics/utilHelper')();
+    //var path = require('path');
+    //var fs = require('fs');
+    //var f = file || path.join(__dirname, '../data/modelLine.json');
+    //
+    //try {
+    //    var t = fs.readFileSync(f, 'utf8');
+    //    modelLine = JSON.parse(t);
+    //    modelLine = utilHelper.createServiceTerms(modelLine);
+    //
+    //    return modelLine;
+    //}
+    //catch (e) {
+    //    console.log(e);
+    //    throw e;
+    //}
+
+    var utilHelper = require('../statics/utilHelper')();
+//  for all VW added 'alle' and for Roadster
+    modelLine = [
         // Alpina
-        {term: 'B Klasse', value: {makeId: '14', modelLineId: '107'}},
-        {term: 'D Klasse', value: {makeId: '14', modelLineId: '108'}},
+        {term: 'B-Klasse', value: {makeId: '14', modelLineId: '107'}},
+        {term: 'D-Klasse', value: {makeId: '14', modelLineId: '108'}},
         {term: 'Roadster alle', value: {makeId: '14', modelLineId: '109'}},
 
         // BMW
@@ -22,9 +40,9 @@ module.exports = function () {
         {term: '6er', value: {makeId: '13', modelLineId: '40'}},
         {term: '7er', value: {makeId: '13', modelLineId: '41'}},
         {term: '8er', value: {makeId: '13', modelLineId: '42'}},
-        {term: 'M Reihe', value: {makeId: '13', modelLineId: '43'}},
-        {term: 'X Reihe', value: {makeId: '13', modelLineId: '44'}},
-        {term: 'Z Reihe', value: {makeId: '13', modelLineId: '45'}},
+        {term: 'M-Reihe', value: {makeId: '13', modelLineId: '43'}},
+        {term: 'X-Reihe', value: {makeId: '13', modelLineId: '44'}},
+        {term: 'Z-Reihe', value: {makeId: '13', modelLineId: '45'}},
 
         // Lexus
         {term: 'GS Serie', value: {makeId: '43', modelLineId: '47'}},
@@ -36,7 +54,7 @@ module.exports = function () {
         {term: 'SC Serie', value: {makeId: '43', modelLineId: '53'}},
 
         // Mercedes
-        {term: 'A Klasse', value: {makeId: '47', modelLineId: '54'}},
+        {term: 'A-Klasse', value: {makeId: '47', modelLineId: '54'}},
         {term: 'B Klasse', value: {makeId: '47', modelLineId: '55'}},
         {term: 'CE Klasse', value: {makeId: '47', modelLineId: '57'}},
         {term: 'C Klasse', value: {makeId: '47', modelLineId: '56'}},
@@ -67,5 +85,7 @@ module.exports = function () {
         {term: 'T5 alle', value: {makeId: '74', modelLineId: '106'}}
     ];
 
-    return t;
+    modelLine = utilHelper.createServiceTerms(modelLine);
+
+    return modelLine;
 };

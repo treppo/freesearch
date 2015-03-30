@@ -54,6 +54,8 @@ module.exports = function (file) {
             {"term": "A 3", "value": {"makeId": "50103", "modelId": "52130", "articleType": "B"}},
             {"term": "A3", "value": {"makeId": "9", "modelId": "1624", "articleType": "C"}},
         ]);
+        model = utilHelper.createServiceTerms(model);
+
         return model;
     }
 
@@ -64,6 +66,7 @@ module.exports = function (file) {
     try {
         var t = fs.readFileSync(f, 'utf8');
         model = sortByGenericNameCount(JSON.parse(t));
+        model = utilHelper.createServiceTerms(model);
 
         return model;
     }
