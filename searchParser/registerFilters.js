@@ -3,6 +3,9 @@ module.exports = function (context) {
 
     var createTokensFilter = require('./filters/createTokensFilter')();
     var createSynonymFilter = require('./filters/createSynonymFilter')();
+
+//    var extendDefinitions = require('./filters/extendDefinitions')();
+
     var createSearchTokensFilter = require('./filters/createSearchTokensFilter')();
     var createMarkerFilter = require('./filters/createMarkerFilter')();
 

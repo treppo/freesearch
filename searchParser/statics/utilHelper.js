@@ -1,5 +1,7 @@
 'use strict';
 module.exports = function () {
+    var _unknownFilter = require('./filterTypes').filterTypes.unknown;
+
     var isNumber = function (n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     };
@@ -61,6 +63,16 @@ module.exports = function () {
         });
     };
 
+    var createDefaultSearchToken  = function (token, index) {
+        return {
+            term: token,
+            index: index,
+            filter: {
+                type: _unknownFilter
+            }
+        }
+    };
+
     return {
         isNumber: isNumber,
         convertToInt: convertToInt,
@@ -70,6 +82,7 @@ module.exports = function () {
         transformToObject: transformToObject,
         isQuickTestMode: isQuickTestMode,
         tokenize: tokenize,
-        createServiceTerms: createServiceTerms
+        createServiceTerms: createServiceTerms,
+        createDefaultSearchToken: createDefaultSearchToken
     };
 };
