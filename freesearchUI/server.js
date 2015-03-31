@@ -1,7 +1,7 @@
 'use strict';
 
 let koa = require('koa');
-let serve = require('koa-static')
+let serve = require('koa-static');
 let marko = require('marko');
 let router = require('koa-router');
 let json = require('koa-json');
@@ -116,16 +116,13 @@ app.get('/api/parse', function *(next) {
 app.listen(3000);
 
 let getParserResults = function(searchLine, ctx) {
-    let isMarkerFilter =  require('../searchParser/statics/filterTypes').isMarkerFilter;
-    let isRangeMarker =  require('../searchParser/statics/filterTypes').isRangeMarker;
+    let isPayloadFilter =  require('../searchParser/statics/filterTypes').isPayloadFilter;
     let filters = require('../searchParser/registerFilters')(ctx);
     let parser = require('../searchParser/parser')(filters);
 
     let searchTokens = parser.parse(searchLine);
 
-    searchTokens = searchTokens.filter(function(searchToken) {
-        return !(isMarkerFilter(searchToken.filter) || isRangeMarker(searchToken.filter));
-    });
+    searchTokens = searchTokens.filter(isPayloadFilter);
 
     let listQuery = 'http://fahrzeuge.autoscout24.de/?' + ctx.publicQueryParams;
 

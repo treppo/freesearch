@@ -1,6 +1,6 @@
 'use strict';
 
-var _isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
+var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 module.exports = function () {
 
     /*
@@ -43,14 +43,12 @@ module.exports = function () {
 
         var intercepts = [];
         var intercepted = serviceTerms.every(function (serviceTerm) {
-            var foundOne = searchTokens.some(function (searchToken) {
+            return searchTokens.some(function (searchToken) {
                 if (equals(serviceTerm, searchToken)) {
                     intercepts.push(searchToken.index);
                     return true;
                 }
             });
-
-            return foundOne;
         });
 
         if (intercepted)
@@ -88,7 +86,7 @@ module.exports = function () {
     var matchTokens = function (searchTokens, service, filterType, ctx) {
         var curUnknownIndex = -1;
         while (true) {
-            var unknownSearchTokens = searchTokens.filter(_isUnknownSearchToken).filter(function (searchToken) {
+            var unknownSearchTokens = searchTokens.filter(_isUnknownFilter).filter(function (searchToken) {
                 return (searchToken.index > curUnknownIndex);
             });
             if (unknownSearchTokens.length === 0)

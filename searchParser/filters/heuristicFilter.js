@@ -131,15 +131,15 @@ module.exports = function () {
                 return false;
             }
 
-            if (_isMarkerFilter(searchToken.filter)) {
+            if (_isMarkerFilter(searchToken)) {
                 return false;
             }
 
-            if (_isRangeMarker(searchToken.filter)) {
+            if (_isRangeMarker(searchToken)) {
                 return false;
             }
 
-            if (! _isUnknownFilter(searchToken.filter)) {
+            if (! _isUnknownFilter(searchToken)) {
                 return false;
             }
 

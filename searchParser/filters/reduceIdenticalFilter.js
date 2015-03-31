@@ -11,11 +11,10 @@ module.exports = function () {
         return searchTokens;
     };
 
-
     var fncCompareWithoutMarkerFilter = function (fncCompare) {
 
         return function (tokenLeft, tokenRight) {
-            if (_isRangeMarker(tokenLeft.filter) || _isMarkerFilter(tokenLeft.filter)) {
+            if (_isRangeMarker(tokenLeft) || _isMarkerFilter(tokenLeft)) {
                 return false;
             }
             return fncCompare(tokenLeft, tokenRight);

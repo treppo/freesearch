@@ -2,12 +2,12 @@
 module.exports = function () {
     var _filterTypes = require('../statics/filterTypes').filterTypes;
     var _utilHelper = require('../statics/utilHelper')();
-    var isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
+    var isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     var _maxRadius = 200;
 
     var filter = function (searchTokens) {
-        searchTokens.filter(isUnknownSearchToken)
+        searchTokens.filter(isUnknownFilter)
             .forEach(function (searchToken) {
                 processFilter(searchTokens, searchToken);
             });

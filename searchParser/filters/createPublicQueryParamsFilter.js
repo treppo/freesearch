@@ -153,9 +153,9 @@ module.exports = function (context) {
         var query = '';
 
         var knownTokens = searchTokens.filter(function(searchToken) {
-            if (_isMarkerFilter(searchToken.filter) ||
-                _isRangeMarker(searchToken.filter) ||
-                _isUnknownFilter(searchToken.filter)) {
+            if (_isMarkerFilter(searchToken) ||
+                _isRangeMarker(searchToken) ||
+                _isUnknownFilter(searchToken)) {
                 return false;
             }
             return true;

@@ -2,12 +2,12 @@
 module.exports = function () {
     var getSynonym = require('../services/synonymService').getSynonym;
 
-    var filter = function (searchTokens) {
-        return searchTokens.map(function(searchToken) {
-            searchToken.synonym = getSynonym(searchToken.term);
+    return function (searchTokens) {
+        return searchTokens.map(function (searchToken) {
+            if (!searchToken.synonym)
+                searchToken.synonym = getSynonym(searchToken.term);
+
             return searchToken;
         });
     };
-
-    return filter;
 };

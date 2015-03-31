@@ -5,14 +5,9 @@ module.exports = function () {
     var _isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     var filter = function (searchTokens) {
-        searchTokens.forEach(function (searchToken) {
-            if (! _isUnknownFilter(searchToken.filter)) {
-                return;
-            }
-
+        searchTokens.filter(_isUnknownFilter).forEach(function (searchToken) {
             processFilter(searchToken, {});
         });
-
         return searchTokens;
     };
 

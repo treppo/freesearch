@@ -25,7 +25,7 @@ module.exports = function () {
 
     var assignRange = function (context) {
         return function (searchToken) {
-            if (_isUnknownFilter(searchToken.filter)) {
+            if (_isUnknownFilter(searchToken)) {
                 return searchToken;
             }
 
@@ -59,26 +59,26 @@ module.exports = function () {
         };
     };
 
-    var collectConditionTTT = function (fromIndex) {
-        var maxDeep = 1;
-
-        // iterate from fromIndex up to maxDeep
-        return function(searchToken) {
-            var bb = searchToken;
-
-           return _filterHelper.iterateToMaxDeep(maxDeep, fromIndex, function(searchToken) {
-               if (_isMarkerFilter(searchToken.filter)) {
-                   return false;
-               }
-
-               if (_isRangeMarker(searchToken.filter)) {
-                   return false;
-               }
-
-               return true;
-           })(searchToken);
-        };
-    };
+    //var collectConditionTTT = function (fromIndex) {
+    //    var maxDeep = 1;
+    //
+    //    // iterate from fromIndex up to maxDeep
+    //    return function(searchToken) {
+    //        var bb = searchToken;
+    //
+    //       return _filterHelper.iterateToMaxDeep(maxDeep, fromIndex, function(searchToken) {
+    //           if (_isMarkerFilter(searchToken)) {
+    //               return false;
+    //           }
+    //
+    //           if (_isRangeMarker(searchToken)) {
+    //               return false;
+    //           }
+    //
+    //           return true;
+    //       })(searchToken);
+    //    };
+    //};
 
     var collectCondition = function (fromIndex) {
         var curDeep = 0;
@@ -96,11 +96,11 @@ module.exports = function () {
                 return false;
             }
 
-            if (_isMarkerFilter(searchToken.filter)) {
+            if (_isMarkerFilter(searchToken)) {
                 return false;
             }
 
-            if (_isRangeMarker(searchToken.filter)) {
+            if (_isRangeMarker(searchToken)) {
                 return false;
             }
 

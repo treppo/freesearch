@@ -1,28 +1,28 @@
 'use strict';
 module.exports = function (pathToFile) {
     var fs = require('fs');
-    var isUnknownSearchToken = require('../statics/filterTypes').isUnknownSearchToken;
+    var isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
 
     var formatLine = function (searchTokens, line) {
         var d = new Date();
         var fd = d.getUTCFullYear() + '/' + (d.getUTCMonth() + 1) + '/' + d.getUTCDate() + ' ' + d.getUTCHours() + ':' + d.getUTCMinutes() + ':' + d.getUTCSeconds();
-        var difCnt = searchTokens.length - (searchTokens.length - searchTokens.filter(isUnknownSearchToken).length);
+        var difCnt = searchTokens.length - (searchTokens.length - searchTokens.filter(isUnknownFilter).length);
 
         return fd + '\t' + line + '\t' + difCnt + '\r\n';
     };
 
-    var filter = function (searchTokens) {
-        if (! pathToFile)
+    return function (searchTokens) {
+        if (!pathToFile)
             return searchTokens;
 
         var line = '';
-        searchTokens.forEach(function(searchTocken) {
+        searchTokens.forEach(function (searchTocken) {
             line += searchTocken.term + ' ';
         });
         line = line.trim();
 
         if (line) {
-            fs.appendFile(pathToFile, formatLine(searchTokens, line), function(err) {
+            fs.appendFile(pathToFile, formatLine(searchTokens, line), function (err) {
                 if (err)
                     throw err;
             });
@@ -30,6 +30,4 @@ module.exports = function (pathToFile) {
 
         return searchTokens;
     };
-
-    return filter;
 };

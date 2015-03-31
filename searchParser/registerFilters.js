@@ -2,11 +2,9 @@
 module.exports = function (context) {
 
     var createTokensFilter = require('./filters/createTokensFilter')();
-    var createSynonymFilter = require('./filters/createSynonymFilter')();
-
-//    var extendDefinitions = require('./filters/extendDefinitions')();
-
     var createSearchTokensFilter = require('./filters/createSearchTokensFilter')();
+    var createSynonymFilter = require('./filters/createSynonymFilter')();
+    var extendDefinitions = require('./filters/extendDefinitions')();
     var createMarkerFilter = require('./filters/createMarkerFilter')();
 
     var heuristicFilter = require('./filters/heuristicFilter')();
@@ -68,6 +66,8 @@ module.exports = function (context) {
         createTokensFilter,
         createSearchTokensFilter,
         createSynonymFilter,
+        extendDefinitions,
+        createSynonymFilter, // 2 times create syns. its ok
         createMarkerFilter
     ];
 

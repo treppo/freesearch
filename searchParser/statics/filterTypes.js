@@ -42,28 +42,42 @@ filterTypes.onlineSinceMarker = 'onlineSinceMarker';
 // range marker
 filterTypes.rangeMarker = 'rangerMarker';
 
-var isMarkerFilter = function (filter) {
-    return filter.type === filterTypes.priceMarker ||
-        filter.type === filterTypes.powerMarker ||
-        filter.type === filterTypes.kmMarker ||
-        filter.type === filterTypes.firstRegistrationMarker ||
-        filter.type === filterTypes.seatMarker ||
-        filter.type === filterTypes.doorMarker ||
-        filter.type === filterTypes.prevOwnerMarker ||
-        filter.type === filterTypes.onlineSinceMarker
+// definition marker
+filterTypes.sportCarDefinition = 'sportCarDefinition';
+filterTypes.familyCarDefinition = 'familyCarDefinition';
+
+var isDefinitionFilter = function(searchToken) {
+    return searchToken.filter.type === filterTypes.sportCarDefinition ||
+        searchToken.filter.type === filterTypes.familyCarDefinition
         ;
 };
 
-var isRangeMarker = function (filter) {
-    return filter.type === filterTypes.rangeMarker;
+var isMarkerFilter = function (searchToken) {
+    return searchToken.filter.type === filterTypes.priceMarker ||
+        searchToken.filter.type === filterTypes.powerMarker ||
+        searchToken.filter.type === filterTypes.kmMarker ||
+        searchToken.filter.type === filterTypes.firstRegistrationMarker ||
+        searchToken.filter.type === filterTypes.seatMarker ||
+        searchToken.filter.type === filterTypes.doorMarker ||
+        searchToken.filter.type === filterTypes.prevOwnerMarker ||
+        searchToken.filter.type === filterTypes.onlineSinceMarker
+        ;
 };
 
-var isUnknownFilter = function (filter) {
-    return filter.type === filterTypes.unknown;
+var isRangeMarker = function (searchToken) {
+    return searchToken.filter.type === filterTypes.rangeMarker;
 };
 
-var isUnknownSearchToken = function (searchToken) {
+var isUnknownFilter = function (searchToken) {
     return searchToken.filter.type === filterTypes.unknown;
+};
+
+var isPayloadFilter = function (searchToken) {
+    return !(
+            isMarkerFilter(searchToken) ||
+            isRangeMarker(searchToken) ||
+            isDefinitionFilter(searchToken)
+    );
 };
 
 var getFiltersByType = function(searchTokens, filterType) {
@@ -77,4 +91,5 @@ module.exports.isUnknownFilter = isUnknownFilter;
 module.exports.isMarkerFilter = isMarkerFilter;
 module.exports.isRangeMarker = isRangeMarker;
 module.exports.getFiltersByType = getFiltersByType;
-module.exports.isUnknownSearchToken = isUnknownSearchToken;
+module.exports.isDefinitionFilter = isDefinitionFilter;
+module.exports.isPayloadFilter = isPayloadFilter;
