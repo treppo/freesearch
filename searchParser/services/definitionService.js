@@ -10,23 +10,8 @@ module.exports = function () {
 
     // term is a reference to synonym object property, which contains all possible values
     t = {
-        sportCar: utilHelper.createServiceTerms([{term: 'SportCar', value: '2 sitzer '}]),
-        familyCar: utilHelper.createServiceTerms([{term: 'FamilyCar', value: 'ab 5 sitzer'}])
-        //familyCar:
-        //price: utilHelper.createServiceTerms([{term: 'Euro', value: 'euro'}]),
-        //range: utilHelper.createServiceTerms([{term: 'From', value: 'from'}, {term: 'To', value: 'to'}]),
-        //power: utilHelper.createServiceTerms([{term: 'Kw', value: 'kw'}, {term: 'Ps', value: 'ps'}]),
-        //km: utilHelper.createServiceTerms([{term: 'Km', value: ''}]),
-        //firstRegistration: utilHelper.createServiceTerms([{term: 'FirstRegistration', value: ''}]),
-        //seat: utilHelper.createServiceTerms([{term: 'Seat', value: ''}]),
-        //door: utilHelper.createServiceTerms([{term: 'Door', value: ''}]),
-        //prevOwner: utilHelper.createServiceTerms([{term: 'PrevOwner', value: ''}]),
-        //onlineSince: utilHelper.createServiceTerms([
-        //    {term: 'Day', value: 'day'},
-        //    {term: 'Week', value: 'week'},
-        //    {term: 'Yesterday', value: 'yesterday'},
-        //    {term: 'DayBeforeYesterday', value: 'daybeforeyesterday'}
-        //])
+        sportCar: utilHelper.createServiceTerms([{term: 'SportCar', value: 'bis 2 sitze'}]),
+        familyCar: utilHelper.createServiceTerms([{term: 'FamilyCar', value: 'ab 5 sitze'}])
     };
 
     return t;

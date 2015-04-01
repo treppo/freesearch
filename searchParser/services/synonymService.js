@@ -192,6 +192,10 @@ var initSynonyms = function () {
     s.Picture = transformArrToObject(['bild', 'bilder', 'bildern']);
     s.Video = transformArrToObject(['video', 'videos']);
 
+    // Definitions
+    s.SportCar = transformArrToObject(['sportwagen']);
+    s.FamilyCar = transformArrToObject(['familienwagen']);
+
     return s;
 };
 
