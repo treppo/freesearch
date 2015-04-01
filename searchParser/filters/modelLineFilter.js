@@ -4,10 +4,7 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper')();
     var _modelLines = require('../services/modelLineService')();
 
-    var filter = function (searchTokens) {
-        var  res = _findHelper.matchTokens(searchTokens, _modelLines, _filterTypes.modelLine); // find just modelLine
-        return res;
+    return function (searchTokens) {
+        return _findHelper.matchTokens(searchTokens, _modelLines, _filterTypes.modelLine);
     };
-
-    return filter;
 };

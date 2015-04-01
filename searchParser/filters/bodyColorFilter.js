@@ -4,9 +4,7 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper')();
     var _bodyColor  = require('../services/bodyColorService')();
 
-    var filter = function (searchTokens) {
+    return function (searchTokens) {
         return _findHelper.matchTokens(searchTokens, _bodyColor, _filterTypes.bodyColor);
     };
-
-    return filter;
 };

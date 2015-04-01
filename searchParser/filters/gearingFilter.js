@@ -4,9 +4,7 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper')();
     var _gearing = require('../services/gearingService')();
 
-    var filter = function (searchTokens) {
+    return function (searchTokens) {
         return _findHelper.matchTokens(searchTokens, _gearing, _filterTypes.gearing);
     };
-
-    return filter;
 };

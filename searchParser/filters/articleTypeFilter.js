@@ -4,9 +4,7 @@ module.exports = function () {
     var _findHelper = require('../statics/findHelper')();
     var _articleType = require('../services/articleTypeService')();
 
-    var filter = function (searchTokens) {
+    return function (searchTokens) {
         return _findHelper.matchTokens(searchTokens, _articleType, _filterTypes.articleType);
     };
-
-    return filter;
 };

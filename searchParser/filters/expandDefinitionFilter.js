@@ -7,7 +7,8 @@ module.exports = function () {
     var _utilHelper = require('../statics/utilHelper')();
 
 
-    var filter = function (searchTokens) {
+    return function (searchTokens) {
+        var searchTokens;
         searchTokens = _findHelper.matchTokens(searchTokens, _definitions.sportCar, _filterTypes.sportCarDefinition);
         //        searchTokens = _findHelper.matchTokens(searchTokens, _definitions.familyCar, _filterTypes.familyCarDefinition);
 
@@ -25,7 +26,7 @@ module.exports = function () {
         defs.forEach(function (definition) {
             maxIndex += 1;
             var tokens = _utilHelper.tokenize(definition.filter.value);
-            tokens.forEach(function(token) {
+            tokens.forEach(function (token) {
                 var searchToken = _utilHelper.createDefaultSearchToken(token, maxIndex);
                 searchTokens.push(searchToken);
             });
@@ -33,6 +34,4 @@ module.exports = function () {
 
         return searchTokens;
     };
-
-    return filter;
 };

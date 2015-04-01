@@ -4,7 +4,8 @@ module.exports = function () {
     var _markers = require('../services/markerService')();
     var _findHelper = require('../statics/findHelper')();
 
-    var filter = function (searchTokens) {
+    return function (searchTokens) {
+        var searchTokens;
         searchTokens = _findHelper.matchTokens(searchTokens, _markers.price, _filterTypes.priceMarker);
         searchTokens = _findHelper.matchTokens(searchTokens, _markers.power, _filterTypes.powerMarker);
         searchTokens = _findHelper.matchTokens(searchTokens, _markers.range, _filterTypes.rangeMarker);
@@ -17,6 +18,4 @@ module.exports = function () {
 
         return searchTokens;
     };
-
-    return filter;
 };

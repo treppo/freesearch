@@ -3,11 +3,10 @@ module.exports = function () {
     var config = require('../config/indexConfig');
     var _suggester = require('suggester')(config).suggester;
 
-    var filter = function (searchTokens) {
-
+    return function (searchTokens) {
         var line = '';
 
-        searchTokens.forEach(function(searchTocken) {
+        searchTokens.forEach(function (searchTocken) {
             line += searchTocken.term + ' ';
         });
 
@@ -23,6 +22,4 @@ module.exports = function () {
 
         return searchTokens;
     };
-
-    return filter;
 };
