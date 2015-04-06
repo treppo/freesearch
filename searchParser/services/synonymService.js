@@ -45,7 +45,7 @@ var initSynonyms = function () {
     s.Coupe = transformArrToObject(['coupe', 'cupe', 'kupe', 'koupe']);
     s.SUV = transformArrToObject(['suv', 'geländewagen']);
     s.Sedan = transformArrToObject(['sedan', 'limousine']);
-    s.Van = transformArrToObject(['van']);
+    s.Van = transformArrToObject(['van', 'kleinbus']);
     s.Transporter = transformArrToObject(['transporter']);
 
     // Gearing Type

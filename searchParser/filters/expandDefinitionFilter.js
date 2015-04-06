@@ -4,34 +4,30 @@ module.exports = function () {
     var _isDefinitionFilter = require('../statics/filterTypes').isDefinitionFilter;
     var _definitions = require('../services/definitionService')();
     var _findHelper = require('../statics/findHelper')();
-    var _utilHelper = require('../statics/utilHelper')();
-
 
     return function (searchTokens) {
-        var searchTokens;
         searchTokens = _findHelper.matchTokens(searchTokens, _definitions.sportCar, _filterTypes.sportCarDefinition);
-        //        searchTokens = _findHelper.matchTokens(searchTokens, _definitions.familyCar, _filterTypes.familyCarDefinition);
+        searchTokens = _findHelper.matchTokens(searchTokens, _definitions.familyCar, _filterTypes.familyCarDefinition);
 
-        var defs = searchTokens.filter(_isDefinitionFilter);
-        if (defs.length == 0) {
+        var definitions = searchTokens.filter(_isDefinitionFilter);
+        if (definitions.length == 0) {
             return searchTokens;
         }
+        var filters = require('../registerFilters')({preExpand: 1});
+        var parser = require('../parser')(filters);
 
-        var maxIndex = 0;
-        searchTokens.forEach(function (searchTocken) {
-            if (searchTocken.index > maxIndex)
-                maxIndex = searchTocken.index;
-        });
+        var expandedSearchLine = definitions.map(function (definition) {
+            return definition.filter.value
+        }).join(' ');
 
-        defs.forEach(function (definition) {
-            maxIndex += 1;
-            var tokens = _utilHelper.tokenize(definition.filter.value);
-            tokens.forEach(function (token) {
-                var searchToken = _utilHelper.createDefaultSearchToken(token, maxIndex);
-                searchTokens.push(searchToken);
+        var expandedSearchTokens = parser.parse(expandedSearchLine);
+
+        return searchTokens.filter(function (searchToken) {
+            return !_isDefinitionFilter(searchToken);
+        }).concat(expandedSearchTokens)
+            .map(function (searchToken, index) {
+                searchToken.index = index; // reindex is not good here
+                return searchToken;
             });
-        });
-
-        return searchTokens;
     };
 };

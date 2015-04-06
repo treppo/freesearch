@@ -10,8 +10,8 @@ module.exports = function () {
 
     // term is a reference to synonym object property, which contains all possible values
     t = {
-        sportCar: utilHelper.createServiceTerms([{term: 'SportCar', value: 'bis 2 sitze'}]),
-        familyCar: utilHelper.createServiceTerms([{term: 'FamilyCar', value: 'ab 5 sitze'}])
+        sportCar: utilHelper.createServiceTerms([{term: 'SportCar', value: 'von 2 bis 2 sitze ab 250 ps'}]),
+        familyCar: utilHelper.createServiceTerms([{term: 'FamilyCar', value: 'ab 5 sitze van'}])
     };
 
     return t;

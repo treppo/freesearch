@@ -62,14 +62,17 @@ module.exports = function (context) {
         modelFilter
     ];
 
-    var pre = [
+    var preExpand = [
         createTokensFilter,
         createSearchTokensFilter,
-        createSynonymFilter,
+        createSynonymFilter
+    ];
+
+    var pre = preExpand.concat([
         extendDefinitionFilter,
         createSynonymFilter, // 2 times create syns. its ok
         createMarkerFilter
-    ];
+    ]);
 
     var post = [
         assignRangeFilter, // work out range markers (from to)
@@ -82,6 +85,10 @@ module.exports = function (context) {
         //saveSuggestionFilter
         saveSearchLineFilter
     ];
+
+    if (context && context.preExpand) {
+        return preExpand;
+    }
 
     if (context && context.pre) {
         return pre;
