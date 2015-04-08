@@ -17,7 +17,7 @@ var initSynonyms = function () {
 
     // Marker
     s.From = transformArrToObject(['von', 'vom', 'ab', 'seit']);
-    s.To = transformArrToObject(['bis', '-']);
+    s.To = transformArrToObject(['bis', '-', 'unter']);
     s.Kw = transformArrToObject(['kw']);
     s.Ps = transformArrToObject(['ps']);
     s.Euro = transformArrToObject(['€', 'euro', 'eur']);
