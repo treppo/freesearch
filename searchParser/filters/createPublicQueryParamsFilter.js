@@ -16,8 +16,8 @@ module.exports = function (context) {
 
         var query = '';
 
-        var model = createCommaSeparatedQueryParam(searchTokens, _filterTypes.model, 'model', { fncGetValue: function(searchToken) { return searchToken.filter.value.modelId; } });
-        var modelLine = createCommaSeparatedQueryParam(searchTokens, _filterTypes.modelLine, 'model', { fncGetValue: function(searchToken) { return 0 - parseInt(searchToken.filter.value.modelLineId); } });
+        var model = createQueryParam(searchTokens, _filterTypes.model, 'model', { fncGetValue: function(searchToken) { return searchToken.filter.value.modelId; } });
+        var modelLine = createQueryParam(searchTokens, _filterTypes.modelLine, 'model', { fncGetValue: function(searchToken) { return 0 - parseInt(searchToken.filter.value.modelLineId); } });
         if (modelLine && model) {
             model.split('=');
             modelLine += ',' + model[1];
@@ -28,27 +28,31 @@ module.exports = function (context) {
             query += model;
         }
 
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.make, 'make', { defValue: missingMakes });
+        query += createQueryParam(searchTokens, _filterTypes.make, 'make', {defValue: missingMakes});
         query += createRangeQueryParams(searchTokens, _filterTypes.price, 'pricefrom', 'priceto');
         query += createRangeQueryParams(searchTokens, _filterTypes.mileage, 'kmfrom', 'kmto');
         query += createRangeQueryParams(searchTokens, _filterTypes.firstRegistration, 'fregfrom', 'fregto');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.fuel, 'fuel');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyType, 'body');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.equipment, 'eq');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.gearing, 'gear');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.customerType, 'custtype');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.bodyColor, 'bcol');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.colorEffect, 'ptype');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleOfferType, 'offer');
+        query += createQueryParam(searchTokens, _filterTypes.fuel, 'fuel');
+        query += createQueryParam(searchTokens, _filterTypes.bodyType, 'body');
+        query += createQueryParam(searchTokens, _filterTypes.equipment, 'eq');
+        query += createQueryParam(searchTokens, _filterTypes.gearing, 'gear');
+        query += createQueryParam(searchTokens, _filterTypes.customerType, 'custtype');
+        query += createQueryParam(searchTokens, _filterTypes.bodyColor, 'bcol');
+        query += createQueryParam(searchTokens, _filterTypes.colorEffect, 'ptype');
+        query += createQueryParam(searchTokens, _filterTypes.articleOfferType, 'offer');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.onlineSince, 'adage');
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
         query += createRangeQueryParams(searchTokens, _filterTypes.door, 'doorfrom', 'doorto');
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.usageState, 'ustate');
+        query += createQueryParam(searchTokens, _filterTypes.usageState, 'ustate');
         query += processPictureAndVideo(searchTokens);
         query += processZip(searchTokens);
         query += processCity(searchTokens);
-        query += createCommaSeparatedQueryParam(searchTokens, _filterTypes.articleType, 'atype');
+        query += createQueryParam(searchTokens, _filterTypes.articleType, 'atype');
+        query += createQueryParam(searchTokens, _filterTypes.unknown, 'version', {
+            separator: ' ',
+            fncGetValue: function(searchToken) { return searchToken.term; }
+        });
 
         query += processDefaultParameters(searchTokens);
 
@@ -213,7 +217,11 @@ module.exports = function (context) {
         return +(Math.round(value + 'e+' + places)  + 'e-' + places);
     };
 
-    var createCommaSeparatedQueryParam = function (searchTokens, filterType, qp, ctx) {
+    var createQueryParam = function (searchTokens, filterType, qp, ctx) {
+        var separator = ',';
+        if (ctx && ctx.separator)
+            separator = ctx.separator;
+
         var query = '' ;
         if (ctx && ctx.defValue)
             query = ctx.defValue;
@@ -221,14 +229,14 @@ module.exports = function (context) {
         _getFiltersByType(searchTokens, filterType)
             .forEach(function (searchToken) {
                 if (ctx && ctx.fncGetValue) {
-                    query += ctx.fncGetValue(searchToken) + ',';
+                    query += ctx.fncGetValue(searchToken) + separator;
                 }
                 else {
-                    query += searchToken.filter.value + ',';
+                    query += searchToken.filter.value + separator;
                 }
             });
 
-        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
+        return (query) ? removeLastSeparator('&' + qp+ '=' + query) : query;
     };
 
     var createRangeQueryParams = function (searchTokens, filterType, qpFrom, qpTo) {
@@ -243,7 +251,7 @@ module.exports = function (context) {
                 }
             });
 
-        return (query) ? removeLastComma(query) : query;
+        return (query) ? removeLastSeparator(query) : query;
     };
 
     var createCommaSeparatedFromRangeQueryParam = function (searchTokens, filterType, qp) {
@@ -258,10 +266,10 @@ module.exports = function (context) {
                 }
             });
 
-        return (query) ? removeLastComma('&' + qp+ '=' + query) : query;
+        return (query) ? removeLastSeparator('&' + qp+ '=' + query) : query;
     };
 
-    var removeLastComma = function(str) {
+    var removeLastSeparator = function(str) {
         var t = str.length - 1;
         if (str.charAt(t) == ',') {
             return str.substring(0, t);

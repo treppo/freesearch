@@ -802,3 +802,13 @@ describe('Test for article type query params', function () {
         });
     });
 });
+
+describe('Test for version query params', function () {
+    describe('all unknown params should be space separated in the version', function () {
+        it('it should generate article type param', function () {
+            var rr = _parser.parse('blub bluba bike');
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'version=blub bluba')).toBeTruthy();
+        });
+    });
+});
