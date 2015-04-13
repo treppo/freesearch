@@ -33,7 +33,6 @@ app.get('/api/suggest', function *() {
             timeout: 5000,
             encoding: null
         };
-        //this.body = [{ label: 'bar' }, { label: 'bbb' }];
 
         let result = yield request(requestOptions);
         if (result.statusCode == 200) {
