@@ -72,6 +72,5 @@ module.exports = function (file) {
     }
     catch (e) {
         console.log(e);
-        throw e;
     }
 };
