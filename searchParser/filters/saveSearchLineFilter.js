@@ -24,7 +24,7 @@ module.exports = function (pathToFile) {
         if (line) {
             fs.appendFile(pathToFile, formatLine(searchTokens, line), function (err) {
                 if (err)
-                    throw err;
+                    console.log(err);
             });
         }
 
