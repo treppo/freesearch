@@ -9,12 +9,14 @@ let querystring = require('querystring');
 let path  = require('path');
 let request = require('co-request');
 var iconv = require('iconv-lite');
+let cors = require('kcors');
 
 let app = koa();
 
 app.use(serve(path.join(__dirname, 'public')));
 app.use(router(app));
 app.use(json());
+app.use(cors());
 
 app.get('/', function *() {
     this.body = marko.load('./views/index.marko').stream();
