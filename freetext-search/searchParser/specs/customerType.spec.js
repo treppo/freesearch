@@ -1,0 +1,35 @@
+var filters = require('../registerFilters')();
+var _parser = require('../parser')(filters);
+var _filterTypes = require('../statics/filterTypes').filterTypes;
+
+describe('Customer type tests', function () {
+    describe('when parse search line with customer type', function () {
+        it('it should parse to expected customer type', function () {
+            var res = _parser.parse('Audi blub händler');
+
+            expect(res.length).toBe(3);
+            expect(res[2].term).toBe('händler');
+            expect(res[2].filter.term).toBe('Dealer');
+            expect(res[2].filter.type).toBe(_filterTypes.customerType);
+            expect(res[2].filter.value).toBe('D');
+        });
+    });
+
+    describe('when parse search line with multiple customer types', function () {
+        it('it should parse to expected customer types', function () {
+            var res = _parser.parse('Audi blub privat oder händler');
+
+            expect(res.length).toBe(5);
+
+            expect(res[2].term).toBe('privat');
+            expect(res[2].filter.term).toBe('Private');
+            expect(res[2].filter.type).toBe(_filterTypes.customerType);
+            expect(res[2].filter.value).toBe('P');
+
+            expect(res[4].term).toBe('händler');
+            expect(res[4].filter.term).toBe('Dealer');
+            expect(res[4].filter.type).toBe(_filterTypes.customerType);
+            expect(res[4].filter.value).toBe('D');
+        });
+    });
+});

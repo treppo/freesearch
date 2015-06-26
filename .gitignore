@@ -48,3 +48,5 @@ crashlytics-build.properties
 node_modules
 *.log
 freesearchUi/views/*.js
+
+dist/
