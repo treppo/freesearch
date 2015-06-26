@@ -49,10 +49,10 @@ module.exports = function (context) {
         query += processZip(searchTokens);
         query += processCity(searchTokens);
         query += createQueryParam(searchTokens, _filterTypes.articleType, 'atype');
-        query += createQueryParam(searchTokens, _filterTypes.unknown, 'version', {
-            separator: ' ',
-            fncGetValue: function(searchToken) { return searchToken.term; }
-        });
+        //query += createQueryParam(searchTokens, _filterTypes.unknown, 'version', {
+        //    separator: ' ',
+        //    fncGetValue: function(searchToken) { return searchToken.term; }
+        //});
 
         query += processDefaultParameters(searchTokens);
 
