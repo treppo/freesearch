@@ -114,7 +114,7 @@ app.get('/api/parse', function *(next) {
     }
 );
 
-app.get('/api/healthcheck', function *(next) {
+app.get('/healthcheck', function *(next) {
     this.body = 'ok';
     this.status = 200;
 
