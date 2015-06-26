@@ -625,6 +625,48 @@ describe('Test query params for doors', function () {
     });
 });
 
+describe('Test query params for power', function () {
+    describe('when no power is available', function () {
+        it('it should not generate query param', function () {
+            _parser.parse('blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('powerfrom');
+            expect(_ctx.publicQueryParams).not.toContain('powerto');
+        });
+    });
+
+    describe('when power fromValue is available', function () {
+        it('it should generate power query param', function () {
+            _parser.parse('audi ab 70 kw blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'powerfrom=70')).toBeTruthy();
+            expect(_ctx.publicQueryParams).not.toContain('powerto');
+        });
+    });
+
+    describe('when power toValue is available', function () {
+        it('it should generate power query param', function () {
+            _parser.parse('audi bis 50 KW blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(_ctx.publicQueryParams).not.toContain('powerfrom');
+            expect(containOnce(_ctx.publicQueryParams, 'powerto=50')).toBeTruthy();
+        });
+    });
+
+    describe('when power fromValue and toValue are available', function () {
+        it('it should generate power query param', function () {
+            _parser.parse('audi 20 50 kw blub');
+
+            expect(_ctx.publicQueryParams).toBeDefined();
+            expect(containOnce(_ctx.publicQueryParams, 'powerfrom=20')).toBeTruthy();
+            expect(containOnce(_ctx.publicQueryParams, 'powerto=50')).toBeTruthy();
+        });
+    });
+});
+
 describe('Test query params for usage state', function () {
     describe('when single usage state is available', function () {
         it('it should generate usage state query param', function () {
@@ -769,7 +811,7 @@ describe('Test adding default query params', function () {
         });
     });
 
-    describe('when no price is available', function () {
+    xdescribe('when no price is available', function () {
         it('it should generate default price param', function () {
             _parser.parse('blub');
             expect(_ctx.publicQueryParams).toBeDefined();

@@ -44,6 +44,7 @@ module.exports = function (context) {
         query += createCommaSeparatedFromRangeQueryParam(searchTokens, _filterTypes.prevOwner, 'prevownersid');
         query += createRangeQueryParams(searchTokens, _filterTypes.seat, 'seatsfrom', 'seatsto');
         query += createRangeQueryParams(searchTokens, _filterTypes.door, 'doorfrom', 'doorto');
+        query += createRangeQueryParams(searchTokens, _filterTypes.power, 'powerfrom', 'powerto');
         query += createQueryParam(searchTokens, _filterTypes.usageState, 'ustate');
         query += processPictureAndVideo(searchTokens);
         query += processZip(searchTokens);
@@ -175,16 +176,16 @@ module.exports = function (context) {
             query += '&atype=C';
         }
 
-        if (! searchTokens.some(function(searchToken) {
-                return (searchToken.filter.type === _filterTypes.price);
-            })) {
-            if (isBike(searchTokens)) {
-                query += '&pricefrom=500';
-            }
-            else {
-                query += '&pricefrom=1000';
-            }
-        }
+        //if (! searchTokens.some(function(searchToken) {
+        //        return (searchToken.filter.type === _filterTypes.price);
+        //    })) {
+        //    if (isBike(searchTokens)) {
+        //        query += '&pricefrom=500';
+        //    }
+        //    else {
+        //        query += '&pricefrom=1000';
+        //    }
+        //}
 
         if (! searchTokens.some(function(searchToken) {
                 return (searchToken.filter.type === _filterTypes.usageState);
