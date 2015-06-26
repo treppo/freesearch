@@ -114,7 +114,15 @@ app.get('/api/parse', function *(next) {
     }
 );
 
-app.listen(3000);
+app.get('/api/healthcheck', function *(next) {
+    this.body = 'ok';
+    this.status = 200;
+
+    yield next;
+}
+);
+
+app.listen(9000);
 
 let getParserResults = function(searchLine, ctx) {
     let isPayloadFilter =  require('../searchParser/statics/filterTypes').isPayloadFilter;
