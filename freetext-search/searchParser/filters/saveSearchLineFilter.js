@@ -1,4 +1,7 @@
 'use strict';
+
+var AWS = require('aws-sdk');
+
 module.exports = function (pathToFile) {
     var fs = require('fs');
     var isUnknownFilter = require('../statics/filterTypes').isUnknownFilter;
@@ -22,10 +25,12 @@ module.exports = function (pathToFile) {
         line = line.trim();
 
         if (line) {
-            fs.appendFile(pathToFile, formatLine(searchTokens, line), function (err) {
-                if (err)
-                    console.log(err);
-            });
+            var timestamp = new Date() / 1;
+            var params = {params: { Bucket: 'as24-freetext-search', Key: 'search-' + timestamp }};
+            var s3obj = new AWS.S3(params);
+            s3obj.upload({ Body: formatLine(searchTokens, line) }).
+                on('httpUploadProgress', function(evt) { console.log(evt); }).
+                send(function(err, data) { console.log(err, data) });
         }
 
         return searchTokens;

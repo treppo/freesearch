@@ -10,5 +10,8 @@
     "test": "./node_modules/.bin/jasmine-node specs"
   },
   "author": "Juri Smarschevski",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1.36"
+  }
 }
