@@ -126,9 +126,11 @@ let getParserResults = function(searchLine, ctx) {
     searchTokens = searchTokens.filter(isPayloadFilter);
 
     let listQuery = 'http://fahrzeuge.autoscout24.de/?' + ctx.publicQueryParams;
+    let mobileListQuery = 'http://m.autoscout24.de/ergebnisse/?' + ctx.publicQueryParams;
 
     return {
         searchTokens: searchTokens,
-        listQuery: listQuery
+        listQuery: listQuery,
+        mobileListQuery: mobileListQuery
     };
 };
